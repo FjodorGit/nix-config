@@ -5,6 +5,28 @@
   ...
 }:
 
+let
+  neovimLanguageServers = with pkgs; [
+    clang-tools
+    basedpyright
+    typescript-language-server
+    tailwindcss-language-server
+    vscode-langservers-extracted
+    lua-language-server
+    sqls
+    yaml-language-server
+    zls
+    texlab
+  ];
+  neovimExtraPackages = with pkgs; [
+    zig
+    nodejs_22
+    python3
+    xsel
+    stylua
+    nixfmt-rfc-style
+  ];
+in
 {
   imports = [
     inputs.xremap-flake.homeManagerModules.default
@@ -62,6 +84,10 @@
       recursive = true;
     };
     ".config/zsh/.zshrc".source = ./zsh/.zshrc;
+    ".local/state/share/syncthing" = {
+      source = ./syncthing;
+      recursive = true;
+    };
     # # Building this configuration will create a copy of 'dotfiles/screenrc' in
     # # the Nix store. Activating the configuration will then make '~/.screenrc' a
     # # symlink to the Nix store copy.
@@ -112,14 +138,7 @@
     defaultEditor = true;
     withNodeJs = true;
     withPython3 = true;
-    extraPackages = [
-      pkgs.zig
-      pkgs.nodejs_22
-      pkgs.python3
-      pkgs.xsel
-      pkgs.stylua
-      pkgs.nixfmt-rfc-style
-    ];
+    extraPackages = neovimExtraPackages ++ neovimLanguageServers;
   };
 
   # most of the options are set in the .zshrc file.
@@ -166,6 +185,14 @@
   };
   services.syncthing = {
     enable = true;
+  };
+  systemd.user.services.syncthing-service = {
+    Unit = {
+      Description = "Syncthing Service";
+    };
+    Service = {
+      ExecStart = "syncthing";
+    };
   };
 
   services.xremap = {

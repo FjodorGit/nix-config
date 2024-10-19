@@ -143,7 +143,16 @@
   # List services that you want to enable:
 
   # Enable the OpenSSH daemon.
-  # services.openssh.enable = true;
+  services.openssh.enable = true;
+  # services.syncthing = {
+  #   enable = true;
+  #   systemService = true;
+  #   openDefaultPorts = true;
+  #   user = "fjk";
+  #   group = "users";
+  #   guiAddress = "0.0.0.0:8384";
+  # };
+  # systemd.services.syncthing.environment.STNODEFAULTFOLDER = "true"; # Don't create default ~/Sync folder
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
