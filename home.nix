@@ -133,6 +133,7 @@ in
     userEmail = "f.kholodkov@gmail.com";
     extraConfig.init.defaultBranch = "main";
     extraConfig.core.editor = "nvim";
+    extraConfig.pull.rebase = true;
   };
 
   programs.neovim = {
