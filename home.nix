@@ -83,6 +83,10 @@ in
       source = ./kitty;
       recursive = true;
     };
+    ".config/nvim" = {
+      source = ./nvim;
+      recursive = true;
+    };
     ".config/zsh/.zshrc".source = ./zsh/.zshrc;
     ".local/state/share/syncthing" = {
       source = ./syncthing;
