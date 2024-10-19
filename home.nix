@@ -181,6 +181,8 @@ in
     enableZshIntegration = true;
   };
   programs.gpg.enable = true;
+  programs.ssh.enable = true;
+  programs.ssh.addKeysToAgent = "yes";
 
   services.gpg-agent = {
     enable = true;
@@ -197,6 +199,17 @@ in
     };
     Service = {
       ExecStart = "syncthing";
+    };
+  };
+
+  systemd.user.services.ssh-agent = {
+    Unit = {
+      Description = "SSH Agent";
+    };
+    Service = {
+      Type = "forking";
+      ExecStartPre = "${pkgs.coreutils}/bin/rm -f /tmp/ssh-agent";
+      ExecStart = "${pkgs.openssh}/bin/ssh-agent -a /tmp/ssh-agent";
     };
   };
 
