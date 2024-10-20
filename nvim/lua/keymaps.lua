@@ -59,10 +59,15 @@ vim.keymap.set('n', '<leader>gc', function()
   require('neogit').open { 'commit' }
 end, { desc = '[G]it [C]ommit' })
 
--- Obsidian
-vim.keymap.set('n', '<leader>on', '<cmd>ObsidianNew<CR>', { desc = '[O]bsidian [N]ew File' })
-vim.keymap.set('n', '<leader>ob', '<cmd>ObsidianBacklinks<CR>', { desc = '[O]bsidian [B]acklinks' })
-vim.keymap.set('n', 'gd', '<cmd>ObsidianFollowLink<CR>', { desc = '[G]oto [O]bsidian Note' })
+-- Load Obsidian keymaps in notes/Obsidian folder
+vim.api.nvim_create_autocmd({ 'BufReadPre', 'BufNewFile', 'BufEnter' }, {
+  pattern = '/home/fjk/Documents/notes/**.md',
+  callback = function(_)
+    vim.keymap.set('n', '<leader>on', '<cmd>ObsidianNew<CR>', { desc = '[O]bsidian [N]ew File' })
+    vim.keymap.set('n', '<leader>ob', '<cmd>ObsidianBacklinks<CR>', { desc = '[O]bsidian [B]acklinks' })
+    vim.keymap.set('n', 'gd', '<cmd>ObsidianFollowLink<CR>', { desc = '[G]oto [O]bsidian Note' })
+  end,
+})
 
 -- Molten
 vim.keymap.set('n', 'go', ':noautocmd MoltenEnterOutput<CR>', { desc = '[G]oto [O]utput window', silent = true })
