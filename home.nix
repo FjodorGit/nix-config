@@ -88,7 +88,7 @@ in
       recursive = true;
     };
     ".config/zsh/.zshrc".source = ./zsh/.zshrc;
-    ".local/state/share/syncthing" = {
+    ".local/state/syncthing" = {
       source = ./syncthing;
       recursive = true;
     };
@@ -194,17 +194,7 @@ in
     enableSshSupport = true;
     pinentryPackage = pkgs.pinentry-gtk2;
   };
-  services.syncthing = {
-    enable = true;
-  };
-  systemd.user.services.syncthing-service = {
-    Unit = {
-      Description = "Syncthing Service";
-    };
-    Service = {
-      ExecStart = "syncthing";
-    };
-  };
+  services.syncthing.enable = true;
 
   systemd.user.services.ssh-agent = {
     Unit = {
