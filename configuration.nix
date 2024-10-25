@@ -61,7 +61,7 @@
 
   # Configure keymap in X11
   services.xserver.xkb = {
-    layout = "us";
+    layout = "us, de";
     variant = "";
   };
 
@@ -121,6 +121,8 @@
     #  wget
   ];
 
+  programs.hyprland.enable = true;
+  programs.hyprland.package = inputs.hyprland.packages."${pkgs.system}".hyprland;
   programs.zsh.enable = true;
   users.defaultUserShell = pkgs.zsh;
 

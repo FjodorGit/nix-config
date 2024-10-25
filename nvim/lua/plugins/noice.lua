@@ -1,24 +1,38 @@
 return {
-  'folke/noice.nvim',
-  event = 'VeryLazy',
-  opts = {
-    messages = {
-      enabled = true,
-    },
-    lsp = {
-      override = {
-        ['vim.lsp.util.convert_input_to_markdown_lines'] = true,
-        ['vim.lsp.util.stylize_markdown'] = true,
-        ['cmp.entry.get_documentation'] = true, -- requires hrsh7th/nvim-cmp
-      },
-    },
-  },
-  dependencies = {
-    -- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
-    'MunifTanjim/nui.nvim',
-    -- OPTIONAL:
-    --   `nvim-notify` is only needed, if you want to use the notification view.
-    --   If not available, we use `mini` as the fallback
-    'rcarriga/nvim-notify',
-  },
+  -- 'folke/noice.nvim',
+  -- event = 'VeryLazy',
+  -- opts = {
+  --   messages = {
+  --     enabled = true,
+  --     view = 'mini',
+  --     view_warn = 'mini',
+  --     view_error = 'split',
+  --   },
+  --   notify = {
+  --     view = 'mini',
+  --   },
+  --   lsp = {
+  --     override = {
+  --       ['vim.lsp.util.convert_input_to_markdown_lines'] = true,
+  --       ['vim.lsp.util.stylize_markdown'] = true,
+  --       ['cmp.entry.get_documentation'] = true, -- requires hrsh7th/nvim-cmp
+  --     },
+  --     messages = {
+  --       enabled = true,
+  --       view = 'split',
+  --     },
+  --   },
+  --   routes = {
+  --     filter = { error = true, find = 'Formatter failed. See :ConformInfo for details' },
+  --     view = 'mini',
+  --   },
+  -- },
+  -- dependencies = {
+  --   -- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
+  --   'MunifTanjim/nui.nvim',
+  --   -- OPTIONAL:
+  --   --   `nvim-notify` is only needed, if you want to use the notification view.
+  --   --   If not available, we use `mini` as the fallback
+  --   'rcarriga/nvim-notify',
+  -- },
 }

@@ -27,15 +27,12 @@ return {
         {
           name = 'personal',
           path = '~/Documents/notes/',
-          overrides = {
-            notes_subdir = 'Notes',
-          },
         },
       },
       disable_frontmatter = false,
       daily_notes = {},
     },
-    new_notes_location = 'notes_subdir',
+    new_notes_location = 'Notes',
   },
   -- {
   --   'oflisback/obsidian-bridge.nvim',

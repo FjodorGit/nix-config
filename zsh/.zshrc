@@ -116,7 +116,7 @@ export PATH="/home/fjk/Postman/:$PATH"
 export PATH="/home/fjk/.local/kitty.app/bin/:$PATH"
 
 export QT_QPA_PLATFORM=wayland
-export SUDO_EDITOR="/home/fjk/neovim/bin/nvim"
+export SUDO_EDITOR="nvim"
 
 export GUROBI_HOME="/opt/gurobi952/linux64"
 
@@ -130,8 +130,8 @@ export APCA_API_KEY_ID=PKUUBLH246T0PAIW9103
 export OBSIDIAN_REST_API_KEY=3499d691621822ea827bae5de651ae78ae7cc2af4b905a007527a59311bd3168
 
 #for editing with neovim
-export VISUAL="/home/fjk/neovim/bin/nvim"
-export EDITOR="/home/fjk/neovim/bin/nvim"
+export VISUAL="nvim"
+export EDITOR="nvim"
 
 # for linker to find libraries
 export LD_LIBRARY_PATH="/home/fjk/.scip/lib:$LIBRARY_PATH"
@@ -139,6 +139,7 @@ export LD_LIBRARY_PATH="/opt/gurobi1100/linux64/lib:$LD_LIBRARY_PATH"
 export LD_LIBRARY_PATH="/opt/gurobi952/linux64/lib:$LD_LIBRARY_PATH"
 export LD_LIBRARY_PATH="/usr/lib/gcc/x86_64-linux-gnu/11:$LD_LIBRARY_PATH"
 
+export FZF_DEFAULT_COMMAND="fd --type f"
 # zoxide
 export _ZO_ECHO=1
 
@@ -165,13 +166,12 @@ alias refresh="home-manager switch --flake ~/.dotfiles && source ~/.config/zsh/.
 alias rebuild="sudo nixos-rebuild switch --flake ~/.dotfiles"
 alias zshconfig="nvim ~/.dotfiles/zsh/.zshrc"
 alias kittyconfig="nvim ~/.dotfiles/kitty/kitty.conf"
-alias homeconfig="nvim ~/.dotfiles/home.nix"
+alias homeconfig="cd ~/.dotfiles && nvim ~/.dotfiles/home.nix && -"
 alias cat="bat"
 alias ohmyzsh="nvim ~/.oh-my-zsh"
 alias qn="cd ~/Documents/notes && nvim Dump.md && -"
 alias notes="cd ~/Documents/notes && nvim Dump.md"
 alias nvimconfig="cd ~/.dotfiles/nvim && nvim init.lua"
-alias fd="fdfind"
 alias ls="eza -1 -l --icons -a"
 alias sups='wakeonlan -p 51821 -i 77.24.121.5 3C:EC:EF:90:A4:42'
 alias tordownloads='cd /home/fjk/.local/share/torbrowser/tbb/x86_64/tor-browser_en-US/Browser/Downloads/'
@@ -209,6 +209,37 @@ function f() {
 	fi
 	rm -f -- "$tmp"
 }
+
+fancy-ctrl-z () {
+  if [[ $#BUFFER -eq 0 ]]; then
+    BUFFER="fg"
+    zle accept-line
+  else
+    zle push-input
+    zle clear-screen
+  fi
+}
+zle -N fancy-ctrl-z
+bindkey '^Y' fancy-ctrl-z
+
+# Function to select, edit, and execute a command from history using fc
+edit_and_execute_with_fc() {
+  # Step 1: Use `fzf` to select a command from history
+  local selected_command_num=$(history | fzf --height 40% --reverse | awk '{print $1}')
+
+  # Step 2: If a command number was selected, pass it to `fc` for editing
+  if [[ -n "$selected_command_num" ]]; then
+    # Open the selected command in the default editor (nvim, in this case) and execute it
+    (
+      fc -e nvim "$selected_command_num"
+    )
+    zle reset-prompt
+  fi
+}
+
+# Bind the function to a Zsh widget for easy access (e.g., Ctrl-E)
+zle -N edit_and_execute_with_fc
+bindkey '^E' edit_and_execute_with_fc
 
 # acivates starship
 eval "$(starship init zsh)"

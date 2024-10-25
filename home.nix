@@ -74,7 +74,15 @@ in
 
     floorp
     telegram-desktop
+    rclone
   ];
+
+  xdg.mimeApps = {
+    enable = true;
+    defaultApplications = {
+      "application/pdf" = [ "sioyek.desktop" ];
+    };
+  };
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
   # plain files is through 'home.file'.
@@ -94,6 +102,10 @@ in
     };
     ".ssh" = {
       source = ./ssh;
+      recursive = true;
+    };
+    ".local/share/icons" = {
+      source = ./theme/XCursor-Pro-Dark-Hyprcursor;
       recursive = true;
     };
     # # Building this configuration will create a copy of 'dotfiles/screenrc' in
@@ -126,6 +138,40 @@ in
   #
   home.sessionVariables = {
 
+  };
+
+  wayland.windowManager.hyprland = {
+    enable = true;
+    settings = {
+      "$terminal" = "kitty";
+      "$browser" = "floorp";
+      "$mainMod" = "ALT";
+      exec-once = [
+        "$terminal"
+        "$browser"
+      ];
+      env = [
+        "HYPRCURSOR_THEME, XCursor-Pro-Dark-Hyprcursor"
+      ];
+      monitor = [
+        "HDMI-A-1,1920x1080,0x0,1"
+        "eDP-1,1920x1080,0x1080,1"
+      ];
+      windowrulev2 = [
+        "monitor 0, class:kitty"
+        "monitor 1, class:floorp"
+      ];
+      bind = [
+        "$mainMod, T, exec, $terminal"
+        "$mainMod, B, exec, $browser"
+        "$mainMod, H, movefocus, l"
+        "$mainMod, J, movefocus, d"
+        "$mainMod, K, movefocus, u"
+        "$mainMod, L, movefocus, r"
+        "$mainMod, TAB, focuscurrentorlast, "
+        "$mainMod, C, killactive, "
+      ];
+    };
   };
 
   # Let Home Manager install and manage itself.
@@ -166,19 +212,41 @@ in
     enable = true;
   };
 
-  programs = {
-    direnv = {
-      enable = true;
-      enableZshIntegration = true; # see note on other shells below
-      nix-direnv.enable = true;
-    };
+  programs.direnv = {
+    enable = true;
+    enableZshIntegration = true; # see note on other shells below
+    nix-direnv.enable = true;
   };
 
   programs.zoxide.enable = true;
   programs.starship.enable = true;
   programs.eza.enable = true;
-  programs.yazi.enable = true;
+  programs.fd.enable = true;
+  programs.sioyek.enable = true;
+  programs.yazi = {
+    enable = true;
+    enableZshIntegration = true;
+    settings = {
+      opener.edit = [
+        {
+          run = "nvim \"$@\"";
+          block = true;
+          for = "unix";
+        }
+      ];
+      manager = {
+        show_hidden = false;
+        sort_by = "alphabetical";
+        sort_dir_first = true;
+      };
+    };
+
+  };
   programs.bat.enable = true;
+  programs.btop = {
+    enable = true;
+    settings.vim_keys = true;
+  };
   programs.ripgrep.enable = true;
   programs.fzf = {
     enable = true;
