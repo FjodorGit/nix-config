@@ -30,6 +30,7 @@ in
 {
   imports = [
     inputs.xremap-flake.homeManagerModules.default
+    ./hyprland.nix
   ];
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
@@ -104,7 +105,7 @@ in
       source = ./ssh;
       recursive = true;
     };
-    ".local/share/icons" = {
+    ".local/share/icons/XCursor-Pro-Dark-Hyprcursor" = {
       source = ./theme/XCursor-Pro-Dark-Hyprcursor;
       recursive = true;
     };
@@ -138,40 +139,6 @@ in
   #
   home.sessionVariables = {
 
-  };
-
-  wayland.windowManager.hyprland = {
-    enable = true;
-    settings = {
-      "$terminal" = "kitty";
-      "$browser" = "floorp";
-      "$mainMod" = "ALT";
-      exec-once = [
-        "$terminal"
-        "$browser"
-      ];
-      env = [
-        "HYPRCURSOR_THEME, XCursor-Pro-Dark-Hyprcursor"
-      ];
-      monitor = [
-        "HDMI-A-1,1920x1080,0x0,1"
-        "eDP-1,1920x1080,0x1080,1"
-      ];
-      windowrulev2 = [
-        "monitor 0, class:kitty"
-        "monitor 1, class:floorp"
-      ];
-      bind = [
-        "$mainMod, T, exec, $terminal"
-        "$mainMod, B, exec, $browser"
-        "$mainMod, H, movefocus, l"
-        "$mainMod, J, movefocus, d"
-        "$mainMod, K, movefocus, u"
-        "$mainMod, L, movefocus, r"
-        "$mainMod, TAB, focuscurrentorlast, "
-        "$mainMod, C, killactive, "
-      ];
-    };
   };
 
   # Let Home Manager install and manage itself.
