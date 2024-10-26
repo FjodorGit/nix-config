@@ -53,8 +53,7 @@
       background = [
         {
           path = "~/.dotfiles/theme/lockscreen-paper.png";
-          blur_passes = 1;
-          blur_size = 8;
+          blur_passes = 0;
         }
       ];
 
@@ -68,8 +67,8 @@
           dots_center = true;
           fade_on_empty = false;
           font_color = "rgb(205, 214, 244)";
-          inner_color = "rgb(30, 30, 46)";
-          outer_color = "rgb(52, 95, 80)";
+          inner_color = "rgb(20, 20, 20)";
+          outer_color = "rgb(205, 214, 244)";
           outline_thickness = 2;
           placeholder_text = "<i><span foreground=\"##cdd6f4\">Password</span></i>";
           shadow_passes = 2;
@@ -80,8 +79,10 @@
 
   services.hyprpaper = {
     enable = true;
-    preload = [ "~/.dotfiles/theme/wallpaper.png" ];
-    wallpaper = [ ",~/.dotfiles/theme/wallpaper.png" ];
+    settings = {
+      preload = [ "~/.dotfiles/theme/wallpaper.png" ];
+      wallpaper = [ ",~/.dotfiles/theme/wallpaper.png" ];
+    };
   };
 
   services.hypridle = {
