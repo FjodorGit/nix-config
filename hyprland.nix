@@ -36,7 +36,6 @@
         "$mainMod, TAB, focuscurrentorlast, "
         "$mainMod, C, killactive, "
       ];
-      # bindl = ["switch:on:Lid Switch, "];
     };
   };
 
@@ -53,7 +52,7 @@
 
       background = [
         {
-          path = "~/.dotfiles/theme/lehman-brothers.png";
+          path = "~/.dotfiles/theme/lockscreen-paper.png";
           blur_passes = 1;
           blur_size = 8;
         }
@@ -62,16 +61,52 @@
       input-field = [
         {
           size = "200, 50";
-          position = "0, 100";
+          position = "0, -150";
+          halign = "center";
+          valign = "center";
           monitor = "";
           dots_center = true;
           fade_on_empty = false;
-          font_color = "rgb(202, 211, 245)";
-          inner_color = "rgb(91, 96, 120)";
-          outer_color = "rgb(24, 25, 38)";
-          outline_thickness = 5;
-          placeholder_text = "\"<span foreground=\"##cad3f5\">Password...</span>\"";
+          font_color = "rgb(205, 214, 244)";
+          inner_color = "rgb(30, 30, 46)";
+          outer_color = "rgb(52, 95, 80)";
+          outline_thickness = 2;
+          placeholder_text = "<i><span foreground=\"##cdd6f4\">Password</span></i>";
           shadow_passes = 2;
+        }
+      ];
+    };
+  };
+
+  services.hyprpaper = {
+    enable = true;
+    preload = [ "~/.dotfiles/theme/wallpaper.png" ];
+    wallpaper = [ ",~/.dotfiles/theme/wallpaper.png" ];
+  };
+
+  services.hypridle = {
+    enable = true;
+    settings = {
+      general = {
+        after_sleep_cmd = "hyprctl dispatch dpms on";
+        ignore_dbus_inhibit = false;
+        before_sleep_cmd = "loginctl lock-session";
+        lock_cmd = "pidof hyprlock || hyprlock";
+      };
+
+      listener = [
+        {
+          timeout = 300;
+          on-timeout = "pidof hyprlock || hyprlock"; # command to run when timeout has passed.
+        }
+        {
+          timeout = 600;
+          on-timeout = "hyprctl dispatch dpms off";
+          on-resume = "hyprctl dispatch dpms on";
+        }
+        {
+          timeout = 1000;
+          on-timeout = "systemctl hybrid-sleep";
         }
       ];
     };
