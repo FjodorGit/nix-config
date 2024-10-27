@@ -4,6 +4,7 @@
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     hyprland.url = "github:hyprwm/Hyprland";
+    catppuccin.url = "github:catppuccin/nix";
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -16,6 +17,8 @@
     {
       self,
       nixpkgs,
+      hyprland,
+      catppuccin,
       home-manager,
       ...
     }@inputs:
@@ -31,6 +34,7 @@
         modules = [
           ./configuration.nix
           inputs.home-manager.nixosModules.default
+          catppuccin.nixosModules.catppuccin
         ];
       };
 
@@ -39,7 +43,10 @@
         extraSpecialArgs = {
           inherit inputs;
         };
-        modules = [ ./home.nix ];
+        modules = [
+          ./home.nix
+          catppuccin.homeManagerModules.catppuccin
+        ];
       };
     };
 }

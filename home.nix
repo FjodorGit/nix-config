@@ -77,6 +77,8 @@ in
     floorp
     telegram-desktop
     rclone
+    bluetuith
+    impala
   ];
 
   xdg.mimeApps = {
@@ -110,6 +112,8 @@ in
       source = ./theme/XCursor-Pro-Dark-Hyprcursor;
       recursive = true;
     };
+    ".config/waybar/style.css".source = ./theme/waybar_style.css;
+    ".config/bluetuith/bluetuith.conf".source = ./bluetuith/bluetuith.conf;
     # # Building this configuration will create a copy of 'dotfiles/screenrc' in
     # # the Nix store. Activating the configuration will then make '~/.screenrc' a
     # # symlink to the Nix store copy.

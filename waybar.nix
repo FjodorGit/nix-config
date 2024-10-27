@@ -11,260 +11,130 @@
     in
     {
       enable = true;
+      catppuccin = {
+        enable = true;
+        mode = "createLink";
+      };
 
       settings = {
         mainBar = {
-          layer = "top";
-          position = "top";
-          # height = 15;
-          # spacing = 7;
-          fixed-center = true;
-          exclusive = true;
-
-          modules-left = [
-            "custom/launcher"
+          "margin-top" = 5;
+          "margin-left" = 10;
+          "margin-right" = 10;
+          "height" = 30;
+          "modules-left" =
+            [
+            ];
+          "modules-center" = [
             "hyprland/workspaces"
-            "wlr/taskbar"
-            "hyprland/window"
-            "hyprland/submap"
           ];
-
-          modules-center = [
-            "privacy"
-            "custom/recorder"
-            "clock"
-            "mpd"
-            "mpris"
-          ];
-
-          modules-right = [
-            "tray"
+          "modules-right" = [
+            "pulseaudio"
             "network"
-            "backlight"
+            "bluetooth"
+            "temperature"
+            "hyprland/language"
             "battery"
-            "memory"
-            "wireplumber"
-            "custom/power"
+            "clock"
           ];
-
-          "hyprland/workspaces" = {
-            format = "{icon}";
-            disable-scroll = false;
-            all-outputs = true;
-            active-only = false;
-            show-special = true;
-            on-click = "activate";
-            format-icons = {
-              "1" = "1";
-              "2" = "2";
-              "3" = "3";
-              "4" = "4";
-              "5" = "5";
-              "6" = "6";
-            };
-          };
-
           "hyprland/window" = {
             "format" = "{}";
-            "separate-outputs" = true;
             "max-length" = 35;
             "rewrite" = {
-              "(.*) - Mozilla Firefox" = "🦊 $1";
-              "(.*) - LibreWolf" = "🐺 $1";
-              "(.*) - Brave" = "🦁 $1";
-              "(.*) - GNU Emacs (.*)" = " $1";
-              "(.*).epub(.*)" = "󰂽 $1";
-              "(.*)foot" = " Terminal $1";
+              "" = "Hyprland";
             };
+            "separate-outputs" = true;
           };
-
-          "hyprland/submap" = {
-            "format" = " {}";
-            "max-length" = 14;
-            "tooltip" = false;
+          "hyprland/language" = {
+            "format" = "{}";
+            "format-en" = "Lang: EN";
+            "format-de" = "Lang: DE";
           };
-
-          "wlr/taskbar" = {
+          "hyprland/workspaces" = {
             "format" = "{icon}";
-            "icon-size" = iconSize;
-            "spacing" = 0;
-            "tooltip-format" = "{title}";
             "on-click" = "activate";
-            "on-click-middle" = "close";
-          };
-
-          "custom/launcher" = {
-            "format" = " ";
-            "tooltip" = false;
-            "on-click" = "fuzzel";
-            "interval" = 86400;
-          };
-
-          "battery" = {
-            "bat" = "BAT1";
-            "interval" = 60;
-            "states" = {
-              "good" = 95;
-              "warning" = 40;
-              "critical" = 20;
+            "format-icons" = {
+              "active" = " ";
             };
-            "max-length" = 25;
-            "format" = "{icon} {capacity}%";
-            "format-charging" = " {capacity}%";
-            "format-plugged" = " {capacity}%";
+            "sort-by-number" = true;
+            "persistent-workspaces" = {
+              "*" = 4; # 5 workspaces by default on every monitor
+              "HDMI-A-1" = 3; # but only three on HDMI-A-1
+            };
+          };
+          "clock" = {
+            "tooltip-format" = "<big>{=%Y %B}</big>\n<tt><small>{calendar}</small></tt>";
+            "format-alt" = "{:%Y-%m-%d}";
+          };
+          "cpu" = {
+            "format" = "  {usage}%";
+            "tooltip" = false;
+          };
+          "memory" = {
+            "format" = "{}%  ";
+          };
+          "temperature" = {
+            "critical-threshold" = 80;
+            "format" = "{icon} {temperatureC}°C";
+            "format-icons" = [
+              ""
+              ""
+              ""
+            ];
+          };
+          "battery" = {
+            "states" = {
+              "warning" = 30;
+              "critical" = 15;
+            };
+            "format" = "{icon}  {capacity}%";
+            "format-full" = "{icon}  {capacity}%";
+            "format-charging" = "  {capacity}%";
+            "format-plugged" = "  {capacity}%";
             "format-alt" = "{time} {icon}";
             "format-icons" = [
-              "󰂎"
-              "󰁺"
-              "󰁻"
-              "󰁼"
-              "󰁽"
-              "󰁾"
-              "󰁿"
-              "󰂀"
-              "󰂁"
-              "󰂂"
-              "󰁹"
+              ""
+              ""
+              ""
+              ""
+              ""
             ];
-
           };
-
-          "mpd" = {
-            "format" = "{stateIcon} {title}  ";
-            "format-disconnected" = "  ";
-            "format-stopped" = "  ";
-            "title-len" = 20;
-            "interval" = 10;
-            "on-click" = "mpc toggle";
-            "state-icons" = {
-              "paused" = "";
-              "playing" = "";
-            };
-            "tooltip-format" = "Mpd Connected";
-            "tooltip-format-disconnected" = "";
-          };
-
-          "mpris" = {
-            "format" = " {player_icon} {dynamic}";
-            "format-paused" = "{status_icon} <i>{dynamic}</i>";
-            "player-icons" = {
-              "default" = "▶";
-              "mpv" = "🎵";
-            };
-            "status-icons" = {
-              "paused" = "󰏤";
-            };
-            "max-length" = 20;
-          };
-
-          "custom/power" = {
-            "format" = "⏻";
-            "on-click" = "d-power";
-            "tooltip" = false;
-            "interval" = 86400;
-          };
-
-          "clock" = {
-            "format-alt" = " {:%a %d %b  %I:%M %p}";
-            "format" = " {:%H:%M}";
-            ##"timezones" = [ "Kolkata" ];
-            ##"max-length" = 200;
-            "interval" = 1;
-            "calendar" = {
-              "format" = {
-                "months" = "<span color='#ffead3'><b>{}</b></span>";
-                "today" = "<span color='#ff6699'><b>{}</b></span>";
-              };
-            };
-            "tooltip-format" = "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>";
-          };
-
-          "tray" = {
-            "icon-size" = iconSize;
-            "spacing" = 10;
-          };
-
-          "cpu" = {
-            "format" = " {usage: >3}%";
-            "on-click" = "footclient -e btop";
-          };
-
-          "memory" = {
-            "on-click" = "foot -e btop";
-            "interval" = 30;
-            "format" = " {percentage}%";
-            "format-alt" = " {used}GB";
-            "max-length" = 10;
-          };
-
           "network" = {
-            # "interface" = "wlp2s0";
-            "format" = "⚠ Disabled";
-            "format-wifi" = " {bandwidthDownBytes}  {bandwidthUpBytes}";
-            "format-ethernet" = " {bandwidthDownBytes}  {bandwidthUpBytes}";
-            "format-disconnected" = "⚠ Disconnected";
-            "on-click" = "d-wifi";
-            "interval" = 2;
+            "format-wifi" = "  {signalStrength}%";
+            "format-ethernet" = "{cidr} ";
+            "tooltip-format" = "{ifname} via {gwaddr} ";
+            "format-linked" = "{ifname} (No IP) ";
+            "format-disconnected" = " ⚠ ";
+            "format-alt" = "{ifname}: {ipaddr}/{cidr}";
           };
-
-          "wireplumber" = {
-            "scroll-step" = 2;
-            "format" = "{icon} {volume: >3}%";
-            "format-bluetooth" = "{icon} {volume: >3}%";
-            "format-muted" = " ";
-            "on-click" = "d-volume toggle";
-            "on-click-middle" = "pavucontrol";
+          "pulseaudio" = {
+            "format" = "{icon}  {volume}%";
+            "format-bluetooth" = "{volume}% {icon} {format_source}";
+            "format-bluetooth-muted" = " {icon} {format_source}";
+            "format-muted" = " {format_source}";
             "format-icons" = {
-              "headphones" = "";
-              "handsfree" = "";
-              "headset" = "";
+              "headphone" = "";
+              "hands-free" = "";
+              "headset" = "";
               "phone" = "";
               "portable" = "";
               "car" = "";
               "default" = [
+                ""
                 ""
                 ""
               ];
             };
+            "on-click" = "pavucontrol";
           };
-
-          "backlight" = {
-            "tooltip" = false;
-            "format" = " {}%";
-            "interval" = 1;
-            "on-scroll-up" = "brigthnessctl set +5%";
-            "on-scroll-down" = "brigthnessctl set 5%-";
+          "bluetooth" = {
+            "format" = " {status}";
+            "format-off" = "󰂲 off";
+            "format-connected" = " con";
+            "on-click" = "kitty -e bluetuith";
           };
-
-          "custom/recorder" = {
-            "format" = "{}";
-            "interval" = "once";
-            "exec" = "echo ' '";
-            "tooltip" = "false";
-            "exec-if" = "pgrep wl-screenrec";
-            "on-click" = "pkill -INT wl-screenrec";
-            "signal" = 8;
-          };
-
-          "privacy" = {
-            "icon-spacing" = 4;
-            "icon-size" = iconSize;
-            "transition-duration" = 250;
-          };
-
-          "custom/wallpaper" = {
-            "format" = " ";
-            "on-click" = "d-walls";
-          };
-
         };
       };
-
-      style = ''
-        <<waybar-stylix>>
-      '';
-
     };
-  # home.file.".config/waybar/style.css".source = config.lib.file.mkOutOfStoreSymlink "/home/${vars.username}/d-git/d-nix/gdk/configs/style.css";
-
 }

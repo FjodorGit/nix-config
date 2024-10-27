@@ -32,7 +32,16 @@
   # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
 
   # Enable networking
-  networking.networkmanager.enable = true;
+  services.resolved.enable = true;
+  networking.wireless.iwd = {
+    enable = true;
+    settings = {
+      General = {
+        EnableNetworkConfiguration = true;
+        NameResolvingService = true;
+      };
+    };
+  };
 
   # Set your time zone.
   time.timeZone = "Europe/Berlin";
@@ -54,12 +63,19 @@
 
   # Enable the X11 windowing system.
   services.xserver.enable = true;
+  # Enable the GNOME Desktop Environment.
+  services.xserver.displayManager.gdm.enable = true;
+  services.xserver.desktopManager.gnome.enable = true;
+  services.power-profiles-daemon.enable = false;
+
+  # Enable CUPS to print documents.
+  services.printing.enable = true;
+
   services.logind = {
     powerKey = "hybrid-sleep";
     lidSwitch = "suspend";
     lidSwitchDocked = "suspend";
   };
-  services.power-profiles-daemon.enable = false;
   services.tlp = {
     enable = true;
     settings = {
@@ -81,25 +97,24 @@
     };
   };
 
-  # Enable the GNOME Desktop Environment.
-  services.xserver.displayManager.gdm.enable = true;
-  services.xserver.desktopManager.gnome.enable = true;
-  security.pam.services.hyprlock = { };
-
   # Configure keymap in X11
   services.xserver.xkb = {
     layout = "us, de";
     variant = "";
+    options = "grp:alt_space_toggle";
   };
 
-  # Enable CUPS to print documents.
-  services.printing.enable = true;
-
+  security.pam.services.hyprlock = { };
   # Enable sound with pipewire.
   hardware.pulseaudio.enable = false;
+  hardware.bluetooth = {
+    enable = true;
+    powerOnBoot = true;
+  };
   security.rtkit.enable = true;
   services.pipewire = {
     enable = true;
+    audio.enable = true;
     alsa.enable = true;
     alsa.support32Bit = true;
     pulse.enable = true;
@@ -120,6 +135,7 @@
     description = "fjk";
     extraGroups = [
       "networkmanager"
+      "network"
       "wheel"
     ];
     packages = with pkgs; [
@@ -132,8 +148,11 @@
     extraSpecialArgs = {
       inherit inputs;
     };
-    users = {
-      "fjk" = import ./home.nix;
+    users."fjk" = {
+      imports = [
+        ./home.nix
+        inputs.catppuccin.homeManagerModules.catppuccin
+      ];
     };
   };
 

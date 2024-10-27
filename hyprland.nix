@@ -37,6 +37,21 @@
         "$mainMod, C, killactive, "
       ];
     };
+
+    extraConfig = ''
+      bind = $mainMod ,W ,exec, waybar
+      bind = $mainMod ,W ,submap, waybar
+      submap = waybar
+      bind = ,B , exec, kitty -e bluetuith
+      bind = ,B , exec, pkill waybar
+      bind = ,B , submap, reset
+      bind = ,N , exec, kitty -e impala
+      bind = ,N , exec, pkill waybar
+      bind = ,N , submap, reset
+      bind = $mainMod ,W ,exec, pkill waybar
+      bind = $mainMod ,W ,submap, reset
+      submap = reset
+    '';
   };
 
   programs.hyprlock = {
