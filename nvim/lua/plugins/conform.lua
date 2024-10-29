@@ -17,6 +17,7 @@ return {
       rust = { 'rustfmt' },
       julia = { 'JuliaFormatter' },
       sql = { 'pg_format' },
+      latex = { 'latexindent' },
     },
   },
 }
