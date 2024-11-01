@@ -1,11 +1,11 @@
 return {
-  "DreamMaoMao/yazi.nvim",
-  dependencies = {
-    "nvim-telescope/telescope.nvim",
-    "nvim-lua/plenary.nvim",
-  },
-
-  keys = {
-    { "<leader>e", "<cmd>Yazi<CR>", desc = "Toggle Yazi" },
+  'rolv-apneseth/tfm.nvim',
+  lazy = false,
+  opts = {
+    file_manager = 'yazi',
+    replace_netrw = true,
+    keys = {
+      { '<leader>e', '<cmd>Tfm<CR>', desc = 'Toggle Yazi' },
+    },
   },
 }
