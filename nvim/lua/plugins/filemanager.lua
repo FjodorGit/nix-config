@@ -4,8 +4,9 @@ return {
   opts = {
     file_manager = 'yazi',
     replace_netrw = true,
-    keys = {
-      { '<leader>e', '<cmd>Tfm<CR>', desc = 'Toggle Yazi' },
-    },
+    enable_cmds = true,
+  },
+  keys = {
+    { '<leader>e', '<cmd>Tfm<CR>', desc = 'Toggle Yazi' },
   },
 }
