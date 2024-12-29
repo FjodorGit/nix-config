@@ -49,6 +49,7 @@
             "format" = "{}";
             "format-en" = "Lang: EN";
             "format-de" = "Lang: DE";
+            "keyboard-name" = "xremap";
           };
           "hyprland/workspaces" = {
             "format" = "{icon}";

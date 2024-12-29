@@ -18,10 +18,15 @@
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
+  boot.kernelModules = [ "i2c-dev" ];
 
   nix.settings.experimental-features = [
     "nix-command"
     "flakes"
+  ];
+  nix.settings.trusted-users = [
+    "root"
+    "fjk"
   ];
 
   networking.hostName = "nixos"; # Define your hostname.
@@ -30,18 +35,6 @@
   # Configure network proxy if necessary
   # networking.proxy.default = "http://user:password@proxy:port/";
   # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
-
-  # Enable networking
-  services.resolved.enable = true;
-  networking.wireless.iwd = {
-    enable = true;
-    settings = {
-      General = {
-        EnableNetworkConfiguration = true;
-        NameResolvingService = true;
-      };
-    };
-  };
 
   # Set your time zone.
   time.timeZone = "Europe/Berlin";
@@ -126,17 +119,23 @@
     #media-session.enable = true;
   };
 
+  services.udev = {
+    enable = true;
+    extraRules = ''KERNEL=="i2c-[0-9]*", GROUP="i2c", MODE="0660"'';
+  };
+
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
+  users.groups.i2c = { };
   users.users.fjk = {
     isNormalUser = true;
     description = "fjk";
     extraGroups = [
       "networkmanager"
-      "network"
       "wheel"
+      "i2c"
     ];
     packages = with pkgs; [
       #  thunderbird
@@ -168,6 +167,7 @@
   ];
 
   programs.hyprland.enable = true;
+  programs.mosh.enable = true;
   programs.hyprland.package = inputs.hyprland.packages."${pkgs.system}".hyprland;
   programs.zsh.enable = true;
   users.defaultUserShell = pkgs.zsh;
@@ -186,10 +186,18 @@
   # };
 
   # Open ports in the firewall.
-  # networking.firewall.allowedTCPPorts = [ ... ];
-  # networking.firewall.allowedUDPPorts = [ ... ];
+  networking.firewall.allowedTCPPorts = [
+    # localsend
+    53317
+    34371
+  ];
+  networking.firewall.allowedUDPPorts = [
+    # localsend
+    53317
+    34371
+  ];
   # Or disable the firewall altogether.
-  # networking.firewall.enable = false;
+  networking.firewall.enable = false;
 
   # for remaping keys
   hardware.uinput.enable = true;

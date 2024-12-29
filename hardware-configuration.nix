@@ -24,10 +24,23 @@
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ "kvm-intel" ];
   boot.extraModulePackages = [ ];
+  boot.supportedFilesystems = [ "ntfs" ];
 
   fileSystems."/" = {
     device = "/dev/disk/by-uuid/abb02fc7-34e8-4008-9d61-07f2c35809c7";
     fsType = "ext4";
+  };
+
+  fileSystems."/media/ssd" = {
+    device = "/dev/sdb1";
+    fsType = "ntfs-3g";
+    options = [
+      "rw"
+      "uid=1000"
+      "noauto"
+      "nofail"
+      "users"
+    ];
   };
 
   fileSystems."/boot" = {

@@ -114,6 +114,7 @@ export PATH="/home/fjk/.chromedriver:$PATH"
 export PATH="/home/fjk/.syncthing:$PATH"
 export PATH="/home/fjk/Postman/:$PATH"
 export PATH="/home/fjk/.local/kitty.app/bin/:$PATH"
+export MANPAGER="nvim +Man!"
 
 export QT_QPA_PLATFORM=wayland
 export SUDO_EDITOR="nvim"
@@ -132,12 +133,6 @@ export OBSIDIAN_REST_API_KEY=3499d691621822ea827bae5de651ae78ae7cc2af4b905a00752
 #for editing with neovim
 export VISUAL="nvim"
 export EDITOR="nvim"
-
-# for linker to find libraries
-export LD_LIBRARY_PATH="/home/fjk/.scip/lib:$LIBRARY_PATH"
-export LD_LIBRARY_PATH="/opt/gurobi1100/linux64/lib:$LD_LIBRARY_PATH"
-export LD_LIBRARY_PATH="/opt/gurobi952/linux64/lib:$LD_LIBRARY_PATH"
-export LD_LIBRARY_PATH="/usr/lib/gcc/x86_64-linux-gnu/11:$LD_LIBRARY_PATH"
 
 export FZF_DEFAULT_COMMAND="fd --type f"
 # zoxide
@@ -161,6 +156,8 @@ export _ZO_ECHO=1
 # users are encouraged to define aliases within the ZSH_CUSTOM folder.
 # For a full list of active aliases, run `alias`.
 #
+HISTORY_IGNORE="(f)"
+
 # aliases
 alias refresh="home-manager switch --flake ~/.dotfiles && source ~/.config/zsh/.zshrc"
 alias rebuild="sudo nixos-rebuild switch --flake ~/.dotfiles"
@@ -267,4 +264,3 @@ export WASMER_DIR="/home/fjk/.wasmer"
 
 # Store autocompletion data in .cache directory
 compinit -d "$XDG_CACHE_HOME"/zsh/zcompdump-"$ZSH_VERSION"
-fastfetch

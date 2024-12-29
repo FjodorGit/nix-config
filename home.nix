@@ -22,10 +22,24 @@ let
     zig
     nodejs_22
     python3
-    xsel
     stylua
     nixfmt-rfc-style
   ];
+  texSetup = (
+    pkgs.texliveSmall.withPackages (
+      ps: with ps; [
+        latexmk
+        moresize
+        enumitem
+        raleway
+        fontawesome
+        lipsum
+        adjustbox
+        collection-fontsextra
+        latexindent
+      ]
+    )
+  );
 in
 {
   imports = [
@@ -46,6 +60,9 @@ in
   # want to update the value, then make sure to first check the Home Manager
   # release notes.
   home.stateVersion = "24.05"; # Please read the comment before changing.
+
+  # Allow unfree packages
+  nixpkgs.config.allowUnfree = true;
 
   # The home.packages option allows you to install Nix packages into your
   # environment.
@@ -69,22 +86,46 @@ in
 
     # adding this package to have a home-manager executable in the shell and
     # garbage-collection collects old home-manager generations
-    fastfetch
+
+    # clis
     unzip
     xdg-ninja
     git-crypt
-
-    floorp
-    telegram-desktop
+    tlrc
+    devenv
+    wl-clipboard
     rclone
+
+    # programms
+    telegram-desktop
+    obsidian
     bluetuith
-    impala
+    texSetup
+
+    # sound control
+    pavucontrol
+    pamixer
+
+    # browsers
+    tor-browser
+    floorp
+
+    # brightness control
+    ddcutil
+    brightnessctl
   ];
 
   xdg.mimeApps = {
     enable = true;
     defaultApplications = {
       "application/pdf" = [ "sioyek.desktop" ];
+      "inode/directory" = [ "yazi.desktop" ];
+    };
+    associations.removed = {
+      "inode/directory" = [
+        "kitty-open.desktop"
+        "org.gnome.baobab.desktop"
+      ];
     };
   };
 
@@ -104,10 +145,8 @@ in
       source = ./syncthing;
       recursive = true;
     };
-    ".ssh" = {
-      source = ./ssh;
-      recursive = true;
-    };
+    ".ssh/id_ed25519".source = ./ssh/id_ed25519;
+    ".ssh/id_ed25519.pub".source = ./ssh/id_ed25519.pub;
     ".local/share/icons/XCursor-Pro-Dark-Hyprcursor" = {
       source = ./theme/XCursor-Pro-Dark-Hyprcursor;
       recursive = true;
@@ -155,7 +194,8 @@ in
     userEmail = "f.kholodkov@gmail.com";
     extraConfig.init.defaultBranch = "main";
     extraConfig.core.editor = "nvim";
-    extraConfig.pull.rebase = true;
+    extraConfig.pull.rebase = false;
+    extraConfig.pull.merge = true;
   };
 
   programs.neovim = {
@@ -166,6 +206,12 @@ in
     withNodeJs = true;
     withPython3 = true;
     extraPackages = neovimExtraPackages ++ neovimLanguageServers;
+    extraPython3Packages =
+      ps: with ps; [
+        pynvim
+        jupyter-client
+        pyperclip
+      ];
   };
 
   # most of the options are set in the .zshrc file.
@@ -194,7 +240,12 @@ in
   programs.starship.enable = true;
   programs.eza.enable = true;
   programs.fd.enable = true;
-  programs.sioyek.enable = true;
+  programs.sioyek = {
+    enable = true;
+    config = {
+      "should_launch_new_window" = "1";
+    };
+  };
   programs.yazi = {
     enable = true;
     enableZshIntegration = true;
@@ -212,7 +263,10 @@ in
         sort_dir_first = true;
       };
     };
-
+    keymap = { };
+  };
+  programs.pandoc = {
+    enable = true;
   };
   programs.bat.enable = true;
   programs.btop = {
@@ -225,7 +279,9 @@ in
     enableZshIntegration = true;
   };
   programs.gpg.enable = true;
-  programs.ssh.enable = true;
+  programs.ssh = {
+    enable = true;
+  };
   programs.ssh.addKeysToAgent = "yes";
 
   services.gpg-agent = {
@@ -235,6 +291,8 @@ in
     pinentryPackage = pkgs.pinentry-gtk2;
   };
   services.syncthing.enable = true;
+  services.kdeconnect.enable = true;
+  services.kdeconnect.indicator = true;
 
   systemd.user.services.ssh-agent = {
     Unit = {
@@ -248,7 +306,7 @@ in
   };
 
   services.xremap = {
-    withGnome = true;
+    withWlroots = true;
     config.modmap = [
       {
         name = "Global";

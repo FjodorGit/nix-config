@@ -18,13 +18,27 @@
       env = [
         "HYPRCURSOR_THEME, XCursor-Pro-Dark-Hyprcursor"
       ];
+      general = {
+        gaps_out = 10;
+        gaps_in = 5;
+      };
+      input = {
+        kb_layout = "us,de";
+        kb_options = "grp:alt_space_toggle";
+      };
       monitor = [
         "HDMI-A-1,1920x1080,0x0,1"
+        "DP-4,1920x1080,0x0,1"
+        "DP-1,1920x1080,0x0,1"
         "eDP-1,1920x1080,0x1080,1"
       ];
       windowrulev2 = [
         "monitor 0, class:$terminal"
         "monitor 1, class:$browser"
+        "monitor 1, title:^(.*)(\.pdf)$"
+        "workspace 1, class:$terminal"
+        "workspace 2, class:$browser"
+        "workspace 3, title:^(.*)(\.pdf)$"
       ];
       bind = [
         "$mainMod, T, exec, $terminal"
@@ -35,6 +49,21 @@
         "$mainMod, L, movefocus, r"
         "$mainMod, TAB, focuscurrentorlast, "
         "$mainMod, C, killactive, "
+        "$mainMod, 1, workspace, 1"
+        "$mainMod, 2, workspace, 2"
+        "$mainMod, 3, workspace, 3"
+        "$mainMod, 4, workspace, 4"
+        "$mainMod, F, fullscreen, 1"
+      ];
+      binde = [
+        ",code:122 , exec, pamixer -d 5"
+        ",code:123 , exec, pamixer -i 5"
+        ",code:232 , exec, ddcutil setvcp 10 - 10 && brightnessctl set 10%-"
+        ",code:233 , exec, ddcutil setvcp 10 + 10 && brightnessctl set +10%"
+      ];
+      animation = [
+        "workspaces, 0"
+        "global, 0"
       ];
     };
 
@@ -45,7 +74,7 @@
       bind = ,B , exec, kitty -e bluetuith
       bind = ,B , exec, pkill waybar
       bind = ,B , submap, reset
-      bind = ,N , exec, kitty -e impala
+      bind = ,N , exec, kitty -e sudo nmtui
       bind = ,N , exec, pkill waybar
       bind = ,N , submap, reset
       bind = $mainMod ,W ,exec, pkill waybar
@@ -114,11 +143,6 @@
         {
           timeout = 300;
           on-timeout = "pidof hyprlock || hyprlock"; # command to run when timeout has passed.
-        }
-        {
-          timeout = 600;
-          on-timeout = "hyprctl dispatch dpms off";
-          on-resume = "hyprctl dispatch dpms on";
         }
         {
           timeout = 1000;
