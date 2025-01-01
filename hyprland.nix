@@ -34,11 +34,13 @@
       ];
       windowrulev2 = [
         "monitor 0, class:$terminal"
+        "monitor 0, class:obsidian$"
         "monitor 1, class:$browser"
         "monitor 1, title:^(.*)(\.pdf)$"
         "workspace 1, class:$terminal"
         "workspace 2, class:$browser"
         "workspace 3, title:^(.*)(\.pdf)$"
+        "workspace 4, class:obsidian"
       ];
       bind = [
         "$mainMod, T, exec, $terminal"
@@ -54,6 +56,7 @@
         "$mainMod, 3, workspace, 3"
         "$mainMod, 4, workspace, 4"
         "$mainMod, F, fullscreen, 1"
+        "$mainMod, O, exec, obsidian"
       ];
       binde = [
         ",code:122 , exec, pamixer -d 5"

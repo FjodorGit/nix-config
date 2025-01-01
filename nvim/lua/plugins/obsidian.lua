@@ -34,19 +34,22 @@ return {
     },
     new_notes_location = 'Notes',
   },
-  -- {
-  --   'oflisback/obsidian-bridge.nvim',
-  --   dependencies = { 'nvim-telescope/telescope.nvim' },
-  --   config = function()
-  --     require('obsidian-bridge').setup()
-  --   end,
-  --   event = {
-  --     -- If you want to use the home shortcut '~' here you need to call 'vim.fn.expand'.
-  --     -- E.g. "BufReadPre " .. vim.fn.expand "~" .. "/my-vault/**.md"
-  --     'BufReadPre /home/fjk/Documents/Obsidian Vault/**.md',
-  --     'BufNewFile /home/fjk/Documents/Obsidian Vault/**.md',
-  --     'BufEnter /home/fjk/Documents/Obsidian Vault/**.md',
-  --   },
-  --   lazy = true,
-  -- },
+  {
+    'oflisback/obsidian-bridge.nvim',
+    dependencies = { 'nvim-telescope/telescope.nvim' },
+    opts = {
+      obsidian_server_address = 'http://localhost:27123',
+      scroll_sync = false, -- See "Sync of buffer scrolling" section below
+      cert_path = nil, -- See "SSL configuration" section below
+      warnings = true, -- Show misconfiguration warnings. Recommended to keep this on unless you know what you're doing!
+    },
+    event = {
+      -- If you want to use the home shortcut '~' here you need to call 'vim.fn.expand'.
+      -- E.g. "BufReadPre " .. vim.fn.expand "~" .. "/my-vault/**.md"
+      'BufReadPre /home/fjk/Documents/notes/**.md',
+      'BufNewFile /home/fjk/Documents/notes/**.md',
+      'BufEnter /home/fjk/Documents/notes/**.md',
+    },
+    lazy = true,
+  },
 }
