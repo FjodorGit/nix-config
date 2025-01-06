@@ -29,6 +29,7 @@
       monitor = [
         "HDMI-A-1,1920x1080,0x0,1"
         "DP-4,1920x1080,0x0,1"
+        "DP-3,1920x1080,0x0,1"
         "DP-1,1920x1080,0x0,1"
         "eDP-1,1920x1080,0x1080,1"
       ];
@@ -57,6 +58,7 @@
         "$mainMod, 4, workspace, 4"
         "$mainMod, F, fullscreen, 1"
         "$mainMod, O, exec, obsidian"
+        "$mainMod, R, exec, rofi -show drun"
       ];
       binde = [
         ",code:122 , exec, pamixer -d 5"

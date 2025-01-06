@@ -101,6 +101,7 @@ in
     obsidian
     bluetuith
     texSetup
+    zoom-us
 
     # sound control
     pavucontrol
@@ -153,6 +154,7 @@ in
     };
     ".config/waybar/style.css".source = ./theme/waybar_style.css;
     ".config/bluetuith/bluetuith.conf".source = ./bluetuith/bluetuith.conf;
+    ".config/rofi/catppuccin-macchiato.rasi".source = ./theme/catppuccin-macchiato.rasi;
     # # Building this configuration will create a copy of 'dotfiles/screenrc' in
     # # the Nix store. Activating the configuration will then make '~/.screenrc' a
     # # symlink to the Nix store copy.
@@ -268,6 +270,13 @@ in
   programs.pandoc = {
     enable = true;
   };
+
+  programs.rofi = {
+    enable = true;
+    terminal = "kitty";
+    theme = "catppuccin-macchiato.rasi";
+  };
+
   programs.bat.enable = true;
   programs.btop = {
     enable = true;
