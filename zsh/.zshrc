@@ -173,6 +173,8 @@ alias nvimconfig="cd ~/.dotfiles/nvim && nvim init.lua"
 alias ls="eza -1 -l --icons -a"
 alias sups='wakeonlan -p 51821 -i 77.24.121.5 3C:EC:EF:90:A4:42'
 alias tordownloads='cd /home/fjk/.local/share/torbrowser/tbb/x86_64/tor-browser_en-US/Browser/Downloads/'
+alias calc="julia -i -e 'using Symbolics'"
+alias n="nvim ."
 
 ################## 
 # start ssh-agent automatically

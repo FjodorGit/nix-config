@@ -24,6 +24,7 @@ let
     python3
     stylua
     nixfmt-rfc-style
+    vscode-extensions.vadimcn.vscode-lldb
   ];
   texSetup = (
     pkgs.texliveSmall.withPackages (
@@ -87,6 +88,9 @@ in
     # adding this package to have a home-manager executable in the shell and
     # garbage-collection collects old home-manager generations
 
+    #
+    qt6.qtwayland
+
     # clis
     unzip
     xdg-ninja
@@ -98,6 +102,7 @@ in
 
     # programms
     telegram-desktop
+    whatsapp-for-linux
     obsidian
     bluetuith
     texSetup
@@ -109,6 +114,7 @@ in
 
     # browsers
     tor-browser
+    firefox-devedition-bin
     floorp
 
     # brightness control
@@ -121,6 +127,7 @@ in
     defaultApplications = {
       "application/pdf" = [ "sioyek.desktop" ];
       "inode/directory" = [ "yazi.desktop" ];
+      "text/markdown" = [ "nvim" ];
     };
     associations.removed = {
       "inode/directory" = [

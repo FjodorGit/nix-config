@@ -124,6 +124,10 @@
     extraRules = ''KERNEL=="i2c-[0-9]*", GROUP="i2c", MODE="0660"'';
   };
 
+  services.devmon.enable = true;
+  services.gvfs.enable = true;
+  services.udisks2.enable = true;
+
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
 
@@ -181,20 +185,6 @@
   #   enable = true;
   #   enableSSHSupport = true;
   # };
-
-  # Open ports in the firewall.
-  networking.firewall.allowedTCPPorts = [
-    # localsend
-    53317
-    34371
-  ];
-  networking.firewall.allowedUDPPorts = [
-    # localsend
-    53317
-    34371
-  ];
-  # Or disable the firewall altogether.
-  networking.firewall.enable = false;
 
   # for remaping keys
   hardware.uinput.enable = true;

@@ -1,12 +1,20 @@
 return {
-  'rolv-apneseth/tfm.nvim',
-  lazy = false,
+  'stevearc/oil.nvim',
+  ---@module 'oil'
+  ---@type oil.SetupOpts
   opts = {
-    file_manager = 'yazi',
-    replace_netrw = true,
-    enable_cmds = true,
+    default_file_explorer = true,
+    columns = {
+      'icon',
+      -- "permissions",
+      'size',
+      -- "mtime",
+    },
   },
+  -- Optional dependencies
+  dependencies = { { 'echasnovski/mini.icons', opts = {} } },
+  -- dependencies = { "nvim-tree/nvim-web-devicons" }, -- use if prefer nvim-web-devicons
   keys = {
-    { '<leader>e', '<cmd>Tfm<CR>', desc = 'Toggle Yazi' },
+    { '<leader>e', '<cmd>Oil --float<CR>', desc = 'Toggle oil' },
   },
 }

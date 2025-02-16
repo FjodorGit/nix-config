@@ -31,18 +31,6 @@
     fsType = "ext4";
   };
 
-  fileSystems."/media/ssd" = {
-    device = "/dev/sdb1";
-    fsType = "ntfs-3g";
-    options = [
-      "rw"
-      "uid=1000"
-      "noauto"
-      "nofail"
-      "users"
-    ];
-  };
-
   fileSystems."/boot" = {
     device = "/dev/disk/by-uuid/6A02-9CE1";
     fsType = "vfat";

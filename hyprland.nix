@@ -63,13 +63,16 @@
       binde = [
         ",code:122 , exec, pamixer -d 5"
         ",code:123 , exec, pamixer -i 5"
-        ",code:232 , exec, ddcutil setvcp 10 - 10 && brightnessctl set 10%-"
-        ",code:233 , exec, ddcutil setvcp 10 + 10 && brightnessctl set +10%"
+        ",code:232 , exec, brightnessctl set 10%- && ddcutil setvcp 10 - 10"
+        ",code:233 , exec, brightnessctl set +10% && ddcutil setvcp 10 + 10"
       ];
       animation = [
         "workspaces, 0"
         "global, 0"
       ];
+      decoration = {
+        rounding = 5;
+      };
     };
 
     extraConfig = ''
@@ -84,6 +87,16 @@
       bind = ,N , submap, reset
       bind = $mainMod ,W ,exec, pkill waybar
       bind = $mainMod ,W ,submap, reset
+      submap = reset
+      bind = $mainMod ,M ,submap, movewindow
+      submap = movewindow
+      bind = ,1, movetoworkspace, 1
+      bind = ,2, movetoworkspace, 2
+      bind = ,3, movetoworkspace, 3
+      bind = ,4, movetoworkspace, 4
+      bind = $mainMod, 1, movecurrentworkspacetomonitor, 1
+      bind = $mainMod, 2, movecurrentworkspacetomonitor, 2 
+      bind = $mainMod ,M ,submap, reset
       submap = reset
     '';
   };
