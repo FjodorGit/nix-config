@@ -16,13 +16,6 @@ local on_attach = function(_, bufnr)
   end
 
   nmap('<leader>lh', vim.diagnostic.open_float, '[L]sp [H]over')
-  nmap('<leader>lt', function()
-    require('trouble').toggle 'workspace_diagnostics'
-  end, '[L]sp [T]rouble')
-  nmap('<leader>ln', function()
-    require('trouble').open 'workspace_diagnostics'
-    require('trouble').next { skip_groups = true, jump = true }
-  end, '[L]sp [N]ext error')
   nmap('<leader>lr', vim.lsp.buf.rename, '[L]sp [R]ename')
   nmap('<leader>la', vim.lsp.buf.code_action, '[L]sp [A]ction')
   nmap('gd', require('telescope.builtin').lsp_definitions, '[G]oto [D]efinition')
@@ -31,6 +24,12 @@ local on_attach = function(_, bufnr)
   nmap('<leader>ld', require('telescope.builtin').lsp_type_definitions, '[L]sp [D]efinition')
   nmap('<leader>ls', require('telescope.builtin').lsp_document_symbols, '[L]sp document [S]ymbols')
   nmap('<leader>lS', require('telescope.builtin').lsp_dynamic_workspace_symbols, '[L]sp workspace [S]ymbols')
+  nmap('<leader>ln', function()
+    vim.diagnostic.goto_next { severity = vim.diagnostic.severity.ERROR }
+  end, '[L]sp [N]ext Error')
+  nmap('<leader>lp', function()
+    vim.diagnostic.goto_prev { severity = vim.diagnostic.severity.ERROR }
+  end, '[L]sp [P]revious Error')
 
   -- See `:help K` for why this keymap
   nmap('K', vim.lsp.buf.hover, 'Hover Documentation')
@@ -69,6 +68,7 @@ local servers = {
   -- gopls = {},
   basedpyright = {},
   ts_ls = {},
+  rust_analyzer = {},
   cssls = { filetypes = { 'css' } },
   tailwindcss = { filetypes = { 'html' } },
   html = { filetypes = { 'html', 'twig', 'hbs' } },

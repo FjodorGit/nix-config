@@ -16,6 +16,7 @@ return {
       julia = { 'JuliaFormatter' },
       sql = { 'pg_format' },
       latex = { 'latexindent' },
+      json = { 'jq' },
     },
   },
 }

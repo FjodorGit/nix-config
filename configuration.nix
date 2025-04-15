@@ -98,6 +98,7 @@
   };
 
   security.pam.services.hyprlock = { };
+  security.pki.certificateFiles = [ ./ca-certificates/mitmproxy-ca-cert.pem ];
   # Enable sound with pipewire.
   hardware.pulseaudio.enable = false;
   hardware.bluetooth = {
@@ -140,6 +141,7 @@
       "networkmanager"
       "wheel"
       "i2c"
+      "wireshark"
     ];
     packages = with pkgs; [
       #  thunderbird
@@ -168,14 +170,17 @@
   ];
 
   programs.hyprland.enable = true;
+  programs.wireshark = {
+    enable = true;
+    package = pkgs.wireshark;
+  };
   programs.mosh.enable = true;
   programs.hyprland.package = inputs.hyprland.packages."${pkgs.system}".hyprland;
   programs.zsh.enable = true;
   users.defaultUserShell = pkgs.zsh;
 
   fonts.packages = with pkgs; [
-    (nerdfonts.override { fonts = [ "JetBrainsMono" ]; })
-    jetbrains-mono
+    nerd-fonts.jetbrains-mono
   ];
 
   # Some programs need SUID wrappers, can be configured further or are

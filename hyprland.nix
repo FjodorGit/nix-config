@@ -9,7 +9,7 @@
     enable = true;
     settings = {
       "$terminal" = "kitty";
-      "$browser" = "floorp";
+      "$browser" = "vivaldi";
       "$mainMod" = "ALT";
       exec-once = [
         "$terminal"

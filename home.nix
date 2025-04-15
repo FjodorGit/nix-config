@@ -24,7 +24,7 @@ let
     python3
     stylua
     nixfmt-rfc-style
-    vscode-extensions.vadimcn.vscode-lldb
+    jq
   ];
   texSetup = (
     pkgs.texliveSmall.withPackages (
@@ -114,8 +114,14 @@ in
 
     # browsers
     tor-browser
-    firefox-devedition-bin
     floorp
+    inputs.zen-browser.packages.x86_64-linux.default
+    chromium
+    google-chrome
+    firefox
+    vivaldi
+    mitmproxy
+    eduvpn-client
 
     # brightness control
     ddcutil
@@ -128,6 +134,14 @@ in
       "application/pdf" = [ "sioyek.desktop" ];
       "inode/directory" = [ "yazi.desktop" ];
       "text/markdown" = [ "nvim" ];
+      "application/xhtml+xml" = [ "vivaldi.desktop" ];
+      "text/html" = [ "vivaldi.desktop" ];
+      "text/xml" = [ "vivaldi.desktop" ];
+      "x-scheme-handler/ftp" = [ "vivaldi.desktop" ];
+      "x-scheme-handler/http" = [ "vivaldi.desktop" ];
+      "x-scheme-handler/https" = [ "vivaldi.desktop" ];
+      "x-scheme-handler/tg" = [ "org.telegram.desktop.desktop" ];
+      "x-scheme-handler/tonsite" = [ "org.telegram.desktop.desktop" ];
     };
     associations.removed = {
       "inode/directory" = [
@@ -228,7 +242,7 @@ in
   programs.zsh = {
     enable = true;
     dotDir = ".config/zsh";
-    # sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended --keep-zshrc 
+    # sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended --keep-zshrc
     # to install the oh-my-zsh script
     oh-my-zsh = {
       enable = true;

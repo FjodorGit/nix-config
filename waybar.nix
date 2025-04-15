@@ -5,16 +5,14 @@
   ...
 }:
 {
+  catppuccin.waybar.enable = true;
+  catppuccin.waybar.mode = "createLink";
   programs.waybar =
     let
       iconSize = 28;
     in
     {
       enable = true;
-      catppuccin = {
-        enable = true;
-        mode = "createLink";
-      };
 
       settings = {
         mainBar = {
@@ -22,9 +20,8 @@
           "margin-left" = 10;
           "margin-right" = 10;
           "height" = 30;
-          "modules-left" =
-            [
-            ];
+          "modules-left" = [
+          ];
           "modules-center" = [
             "hyprland/workspaces"
           ];
