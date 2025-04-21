@@ -1,2 +1,4 @@
 syncthing/* filter=git-crypt diff=git-crypt
 ssh/* filter=git-crypt diff=git-crypt
+mutt/* filter=git-crypt diff=git-crypt
+

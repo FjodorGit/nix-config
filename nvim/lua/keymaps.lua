@@ -1,6 +1,5 @@
 -- writing and quitting
-vim.keymap.set('n', '<leader>q', '<cmd>wq<CR>', { desc = 'Write and Quit' })
-vim.keymap.set('n', '<leader>Q', '<cmd>q!<CR>', { desc = 'Force Quit' })
+vim.keymap.set('n', '[[', '<cmd>:b#<CR>', { desc = 'Previous Buffer' })
 
 -- Delete whole buffer
 vim.keymap.set('n', 'dB', 'ggVGd', { desc = 'Clear whole buffer' })
@@ -16,10 +15,6 @@ vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
 -- Remap for dealing with word wrap
 vim.keymap.set('n', 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
 vim.keymap.set('n', 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
-
--- Diagnostic keymaps
-vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, { desc = 'Go to previous diagnostic message' })
-vim.keymap.set('n', ']d', vim.diagnostic.goto_next, { desc = 'Go to next diagnostic message' })
 
 -- See `:help telescope.builtin`
 vim.keymap.set('n', '<leader>/', require('telescope.builtin').oldfiles, { desc = '[/] Find recently opened files' })
@@ -79,6 +74,9 @@ vim.keymap.set('n', '<localleader>ra', runner.run_above, { desc = 'run cell and 
 vim.keymap.set('n', '<localleader>rA', runner.run_all, { desc = 'run all cells', silent = true })
 vim.keymap.set('n', '<localleader>rl', runner.run_line, { desc = 'run line', silent = true })
 vim.keymap.set('v', '<localleader>r', runner.run_range, { desc = 'run visual range', silent = true })
+
+-- User Commands
+vim.keymap.set('n', '<leader>cp', '<cmd>InsertPrintStatement<CR>', { desc = '[C]ode [P]rint variable' })
 
 -- document existing key chains
 require('which-key').add {

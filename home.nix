@@ -134,12 +134,12 @@ in
       "application/pdf" = [ "sioyek.desktop" ];
       "inode/directory" = [ "yazi.desktop" ];
       "text/markdown" = [ "nvim" ];
-      "application/xhtml+xml" = [ "vivaldi.desktop" ];
-      "text/html" = [ "vivaldi.desktop" ];
-      "text/xml" = [ "vivaldi.desktop" ];
-      "x-scheme-handler/ftp" = [ "vivaldi.desktop" ];
-      "x-scheme-handler/http" = [ "vivaldi.desktop" ];
-      "x-scheme-handler/https" = [ "vivaldi.desktop" ];
+      "application/xhtml+xml" = [ "vivaldi-stable.desktop" ];
+      "text/html" = [ "vivaldi-stable.desktop" ];
+      "text/xml" = [ "vivaldi-stable.desktop" ];
+      "x-scheme-handler/ftp" = [ "vivaldi-stable.desktop" ];
+      "x-scheme-handler/http" = [ "vivaldi-stable.desktop" ];
+      "x-scheme-handler/https" = [ "vivaldi-stable.desktop" ];
       "x-scheme-handler/tg" = [ "org.telegram.desktop.desktop" ];
       "x-scheme-handler/tonsite" = [ "org.telegram.desktop.desktop" ];
     };
@@ -288,6 +288,12 @@ in
     };
     keymap = { };
   };
+
+  programs.neomutt = {
+    enable = true;
+    vimKeys = true;
+  };
+
   programs.pandoc = {
     enable = true;
   };

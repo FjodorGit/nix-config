@@ -45,3 +45,24 @@ local list_snips = function()
 end
 
 vim.api.nvim_create_user_command('SnipList', list_snips, {})
+
+function InsertPrintStatement()
+  local cursor_row, _ = unpack(vim.api.nvim_win_get_cursor(0))
+  local current_line = vim.api.nvim_get_current_line()
+  local indent = current_line:match '^(%s*)' -- Capture leading whitespace
+
+  local word = vim.fn.expand '<cword>'
+  local filetype = vim.bo.filetype
+  local print_statement
+  if filetype == 'rust' then
+    print_statement = string.format('println!("%s: {:#?}", %s);', word, word)
+  elseif filetype == 'python' then
+    print_statement = string.format('print("%s: ", %s)', word, word)
+  else
+    return
+  end
+
+  vim.api.nvim_buf_set_lines(0, cursor_row, cursor_row, false, { indent .. print_statement })
+end
+
+vim.api.nvim_create_user_command('InsertPrintStatement', InsertPrintStatement, {})
