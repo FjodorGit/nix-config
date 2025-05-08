@@ -100,7 +100,7 @@
   security.pam.services.hyprlock = { };
   security.pki.certificateFiles = [ ./ca-certificates/mitmproxy-ca-cert.pem ];
   # Enable sound with pipewire.
-  hardware.pulseaudio.enable = false;
+  services.pulseaudio.enable = false;
   hardware.bluetooth = {
     enable = true;
     powerOnBoot = true;

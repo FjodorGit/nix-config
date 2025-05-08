@@ -45,6 +45,15 @@ vim.keymap.set('n', '<leader>sd', require('telescope.builtin').diagnostics, { de
 vim.keymap.set('n', '<leader>sp', require('telescope.builtin').resume, { desc = '[S]earch [P]revious' })
 vim.keymap.set('n', '<leader>sr', require('telescope.builtin').registers, { desc = '[S]earch [R]egisters' })
 
+vim.keymap.set('n', 'ma', 'mA', { desc = 'set global mark A' })
+vim.keymap.set('n', "'a", "'A", { desc = 'goto global mark A' })
+vim.keymap.set('n', 'ms', 'mS', { desc = 'set global mark S' })
+vim.keymap.set('n', "'s", "'S", { desc = 'goto global mark S' })
+vim.keymap.set('n', 'md', 'mD', { desc = 'set global mark D' })
+vim.keymap.set('n', "'d", "'D", { desc = 'goto global mark D' })
+vim.keymap.set('n', 'mf', 'mF', { desc = 'set global mark F' })
+vim.keymap.set('n', "'f", "'F", { desc = 'goto global mark F' })
+
 -- Git
 vim.keymap.set('n', '<leader>gg', function()
   require('neogit').open()

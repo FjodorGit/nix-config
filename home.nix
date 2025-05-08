@@ -107,6 +107,7 @@ in
     bluetuith
     texSetup
     zoom-us
+    teams-for-linux
 
     # sound control
     pavucontrol
@@ -175,7 +176,13 @@ in
     };
     ".config/waybar/style.css".source = ./theme/waybar_style.css;
     ".config/bluetuith/bluetuith.conf".source = ./bluetuith/bluetuith.conf;
-    ".config/rofi/catppuccin-macchiato.rasi".source = ./theme/catppuccin-macchiato.rasi;
+    ".config/rofi" = {
+      source = ./theme/rofi;
+      recursive = true;
+    };
+
+    ".config/mutt/muttrc".source = ./mutt/muttrc;
+
     # # Building this configuration will create a copy of 'dotfiles/screenrc' in
     # # the Nix store. Activating the configuration will then make '~/.screenrc' a
     # # symlink to the Nix store copy.
@@ -289,11 +296,6 @@ in
     keymap = { };
   };
 
-  programs.neomutt = {
-    enable = true;
-    vimKeys = true;
-  };
-
   programs.pandoc = {
     enable = true;
   };
@@ -301,7 +303,13 @@ in
   programs.rofi = {
     enable = true;
     terminal = "kitty";
-    theme = "catppuccin-macchiato.rasi";
+    theme = "style.rasi";
+    extraConfig = {
+      run-shell-command = "kitty --hold {cmd}";
+    };
+    plugins = [
+      pkgs.rofi-calc
+    ];
   };
 
   programs.bat.enable = true;

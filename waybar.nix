@@ -16,6 +16,7 @@
 
       settings = {
         mainBar = {
+          "layer" = "overlay";
           "margin-top" = 5;
           "margin-left" = 10;
           "margin-right" = 10;

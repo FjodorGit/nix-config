@@ -13,7 +13,9 @@
       "$mainMod" = "ALT";
       exec-once = [
         "$terminal"
-        "$browser"
+        "[workspace 2 silent] $browser"
+        "waybar"
+        "sleep 2 && pkill -SIGUSR1 waybar"
       ];
       env = [
         "HYPRCURSOR_THEME, XCursor-Pro-Dark-Hyprcursor"
@@ -34,14 +36,16 @@
         "eDP-1,1920x1080,0x1080,1"
       ];
       windowrulev2 = [
-        "monitor 0, class:$terminal"
-        "monitor 0, class:obsidian$"
-        "monitor 1, class:$browser"
-        "monitor 1, title:^(.*)(\.pdf)$"
         "workspace 1, class:$terminal"
         "workspace 2, class:$browser"
         "workspace 3, title:^(.*)(\.pdf)$"
         "workspace 4, class:obsidian"
+      ];
+      workspace = [
+        "1, monitor:eDP-1"
+        "2, monitor:HDMI-A-1"
+        "3, monitor:HDMI-A-1"
+        "4, monitor:eDP-1"
       ];
       bind = [
         "$mainMod, T, exec, $terminal"
@@ -57,8 +61,8 @@
         "$mainMod, 3, workspace, 3"
         "$mainMod, 4, workspace, 4"
         "$mainMod, F, fullscreen, 1"
-        "$mainMod, O, exec, obsidian"
-        "$mainMod, R, exec, rofi -show drun"
+        "$mainMod, R, exec, rofi -show run"
+        "$mainMod, O, exec, rofi -show drun"
       ];
       binde = [
         ",code:122 , exec, pamixer -d 5"
@@ -76,16 +80,19 @@
     };
 
     extraConfig = ''
-      bind = $mainMod ,W ,exec, waybar
+      bind = $mainMod ,W ,exec, pkill -SIGUSR1 waybar
       bind = $mainMod ,W ,submap, waybar
       submap = waybar
       bind = ,B , exec, kitty -e bluetuith
-      bind = ,B , exec, pkill waybar
+      bind = ,B , exec, pkill -SIGUSR1 waybar
       bind = ,B , submap, reset
       bind = ,N , exec, kitty -e sudo nmtui
-      bind = ,N , exec, pkill waybar
+      bind = ,N , exec, pkill -SIGUSR1 waybar
       bind = ,N , submap, reset
-      bind = $mainMod ,W ,exec, pkill waybar
+      bind = ,C , exec, rofi -show calc -modi calc -no-show-match -no-sort
+      bind = ,C , exec, pkill -SIGUSR1 waybar
+      bind = ,C , submap, reset
+      bind = $mainMod ,W ,exec, pkill -SIGUSR1 waybar
       bind = $mainMod ,W ,submap, reset
       submap = reset
       bind = $mainMod ,M ,submap, movewindow
