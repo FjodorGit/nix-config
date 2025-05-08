@@ -24,7 +24,10 @@ let
     python3
     stylua
     nixfmt-rfc-style
+    # Formatters
+    rustfmt
     jq
+    prettierd
   ];
   texSetup = (
     pkgs.texliveSmall.withPackages (
