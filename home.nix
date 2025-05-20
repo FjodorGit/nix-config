@@ -278,6 +278,16 @@ in
     config = {
       "should_launch_new_window" = "1";
     };
+    bindings = {
+      "goto_bookmark" = "B";
+      "next_state" = "<c-i>";
+      "prev_state" = "<c-o>";
+      "goto_mark" = "'";
+      "goto_toc" = "e";
+      "next_chapter" = "<c-d>";
+      "prev_chapter" = "<c-u>";
+      "goto_definition" = "gd";
+    };
   };
   programs.yazi = {
     enable = true;
