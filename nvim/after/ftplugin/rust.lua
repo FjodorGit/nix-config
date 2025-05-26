@@ -1,1 +1,0 @@
-vim.keymap.del('n', '[[')
