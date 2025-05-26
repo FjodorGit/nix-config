@@ -134,7 +134,6 @@ vim.defer_fn(function()
         set_jumps = true, -- whether to set jumps in the jumplist
         goto_next_start = {
           [']m'] = '@function.outer',
-          [']]'] = '@class.outer',
         },
         goto_next_end = {
           [']M'] = '@function.outer',
@@ -142,7 +141,6 @@ vim.defer_fn(function()
         },
         goto_previous_start = {
           ['[m'] = '@function.outer',
-          ['[['] = '@class.outer',
         },
         goto_previous_end = {
           ['[M'] = '@function.outer',
@@ -180,7 +178,6 @@ npairs.add_rule(Rule('$', '$', { 'tex', 'markdown' }):with_move(cond.done()))
 require 'lsp'
 require 'options'
 require 'usercmds'
-require 'keymaps'
 require 'autocmds'
 require('oil').setup()
 require('overseer').setup()

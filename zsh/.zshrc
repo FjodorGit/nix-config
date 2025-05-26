@@ -247,15 +247,15 @@ function kitty_scrollback_edit_command_line() {
   zle edit-command-line
   zle kill-whole-line
 }
-zle -N kitty_scrollback_edit_command_line
-bindkey '^I' kitty_scrollback_edit_command_line # somehow binds to Ctrl+[
+# zle -N kitty_scrollback_edit_command_line
+# bindkey '^I' kitty_scrollback_edit_command_line # somehow binds to Ctrl+[
 # [optional] pass arguments to kitty-scrollback.nvim in command-line editing mode
 # by using the environment variable KITTY_SCROLLBACK_NVIM_EDIT_ARGS
 # export KITTY_SCROLLBACK_NVIM_EDIT_ARGS=''
 
 # Bind the function to a Zsh widget for easy access (e.g., Ctrl-E)
-zle -N edit_and_execute_with_fc
-bindkey '^E' edit_and_execute_with_fc
+# zle -N edit_and_execute_with_fc
+# bindkey '^E' edit_and_execute_with_fc
 
 # acivates starship
 eval "$(starship init zsh)"

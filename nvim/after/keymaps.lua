@@ -1,5 +1,5 @@
 -- writing and quitting
-vim.keymap.set('n', '[[', '<cmd>:b#<CR>', { desc = 'Previous Buffer' })
+vim.keymap.set('n', '[[', '<cmd>b#<CR>', { desc = 'Previous Buffer' })
 
 -- Delete whole buffer
 vim.keymap.set('n', 'dB', 'ggVGd', { desc = 'Clear whole buffer' })
@@ -53,6 +53,8 @@ vim.keymap.set('n', 'md', 'mD', { desc = 'set global mark D' })
 vim.keymap.set('n', "'d", "'D", { desc = 'goto global mark D' })
 vim.keymap.set('n', 'mf', 'mF', { desc = 'set global mark F' })
 vim.keymap.set('n', "'f", "'F", { desc = 'goto global mark F' })
+vim.keymap.set('n', 'mc', 'mC', { desc = 'set global mark C' })
+vim.keymap.set('n', "'c", "'C", { desc = 'goto global mark C' })
 
 -- Git
 vim.keymap.set('n', '<leader>gg', function()
