@@ -17,6 +17,8 @@ let
     yaml-language-server
     zls
     texlab
+    rust-analyzer
+    tinymist
   ];
   neovimExtraPackages = with pkgs; [
     zig
@@ -41,6 +43,8 @@ let
         adjustbox
         collection-fontsextra
         latexindent
+        xcharter
+        xstring
       ]
     )
   );
@@ -130,6 +134,7 @@ in
     # brightness control
     ddcutil
     brightnessctl
+    wakeonlan
   ];
 
   xdg.mimeApps = {

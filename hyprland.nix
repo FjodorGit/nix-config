@@ -12,6 +12,7 @@
       "$browser" = "vivaldi";
       "$mainMod" = "ALT";
       exec-once = [
+        "hyprpaper"
         "$terminal"
         "[workspace 2 silent] $browser"
         "waybar"
@@ -44,7 +45,9 @@
       workspace = [
         "1, monitor:eDP-1"
         "2, monitor:HDMI-A-1"
+        "2, monitor:DP-1"
         "3, monitor:HDMI-A-1"
+        "3, monitor:DP-1"
         "4, monitor:eDP-1"
       ];
       bind = [
