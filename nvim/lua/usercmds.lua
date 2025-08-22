@@ -46,17 +46,17 @@ end
 
 vim.api.nvim_create_user_command('SnipList', list_snips, {})
 
-function InsertPrintStatement()
+function InsertPrintStatement(word)
+  word = word:gsub('[\n\r]', ' ')
   local cursor_row, _ = unpack(vim.api.nvim_win_get_cursor(0))
   local current_line = vim.api.nvim_get_current_line()
   local indent = current_line:match '^(%s*)' -- Capture leading whitespace
 
-  local word = vim.fn.expand '<cword>'
   local filetype = vim.bo.filetype
   local print_statement
   if filetype == 'rust' then
     print_statement = string.format('println!("%s: {:#?}", %s);', word, word)
-  elseif filetype == 'python' then
+  elseif filetype == 'python' or filetype == 'lua' then
     print_statement = string.format('print("%s: ", %s)', word, word)
   else
     return
@@ -65,4 +65,13 @@ function InsertPrintStatement()
   vim.api.nvim_buf_set_lines(0, cursor_row, cursor_row, false, { indent .. print_statement })
 end
 
-vim.api.nvim_create_user_command('InsertPrintStatement', InsertPrintStatement, {})
+vim.api.nvim_create_user_command('InsertPrintStatementNormal', function()
+  InsertPrintStatement(vim.fn.expand '<cword>')
+end, {})
+
+local function print_current_file_path()
+  local filepath = vim.api.nvim_buf_get_name(0)
+  print(filepath)
+end
+
+vim.api.nvim_create_user_command('FilePath', print_current_file_path, {})

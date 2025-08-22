@@ -10,27 +10,15 @@ return {
   --   end,
   -- },
   {
-    "nvim-neotest/neotest",
-    ft = "py",
-    event = "User AstroFile",
+    'nvim-neotest/neotest',
+    ft = 'py',
+    event = 'User AstroFile',
     dependencies = {
-      "nvim-lua/plenary.nvim",
-      "nvim-treesitter/nvim-treesitter",
-      "nvim-neotest/neotest-python",
-      "rouge8/neotest-rust",
-      "antoinemadec/FixCursorHold.nvim"
+      'nvim-lua/plenary.nvim',
+      'nvim-treesitter/nvim-treesitter',
+      'nvim-neotest/neotest-python',
+      'rouge8/neotest-rust',
+      'antoinemadec/FixCursorHold.nvim',
     },
-    config = function()
-      require("neotest").setup({
-        adapters = {
-          require("neotest-python")({
-            runners = "pytest"
-          }),
-          require("neotest-rust") {
-            args = { "--all-features" }
-          }
-        }
-      })
-    end
-  }
+  },
 }

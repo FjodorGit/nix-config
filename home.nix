@@ -183,7 +183,7 @@ in
       source = ./theme/rofi;
       recursive = true;
     };
-
+    ".config/bacon/prefs.toml".source = ./bacon/prefs.toml;
     ".config/mutt/muttrc".source = ./mutt/muttrc;
 
     # # Building this configuration will create a copy of 'dotfiles/screenrc' in
@@ -345,7 +345,7 @@ in
     enable = true;
     enableZshIntegration = true;
     enableSshSupport = true;
-    pinentryPackage = pkgs.pinentry-gtk2;
+    pinentry.package = pkgs.pinentry-gtk2;
   };
   services.syncthing.enable = true;
   services.kdeconnect.enable = true;

@@ -94,6 +94,7 @@ vim.defer_fn(function()
       'bash',
       'julia',
       'sql',
+      'java',
     },
 
     -- Autoinstall languages that are not installed. Defaults to false (but you can change for yourself!)
@@ -175,7 +176,25 @@ local cond = require 'nvim-autopairs.conds'
 
 npairs.add_rule(Rule('$', '$', { 'tex', 'markdown' }):with_move(cond.done()))
 
+vim.filetype.add {
+  extension = {
+    sage = 'python', -- sets sage file extension to python filetype
+  },
+}
+
+require('neotest').setup {
+  adapters = {
+    require 'neotest-python' {
+      runners = 'pytest',
+    },
+    require 'neotest-rust' {
+      args = { '--all-features' },
+    },
+  },
+}
+
 require 'lsp'
+require 'debug-adapters'
 require 'options'
 require 'usercmds'
 require 'autocmds'

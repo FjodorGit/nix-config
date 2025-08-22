@@ -1,5 +1,4 @@
--- writing and quitting
-vim.keymap.set('n', '[[', '<cmd>b#<CR>', { desc = 'Previous Buffer' })
+vim.keymap.set('n', '[f', '<cmd>b#<CR>', { desc = 'Previous Buffer' })
 
 -- Delete whole buffer
 vim.keymap.set('n', 'dB', 'ggVGd', { desc = 'Clear whole buffer' })
@@ -87,13 +86,33 @@ vim.keymap.set('n', '<localleader>rl', runner.run_line, { desc = 'run line', sil
 vim.keymap.set('v', '<localleader>r', runner.run_range, { desc = 'run visual range', silent = true })
 
 -- User Commands
-vim.keymap.set('n', '<leader>cp', '<cmd>InsertPrintStatement<CR>', { desc = '[C]ode [P]rint variable' })
+vim.keymap.set('n', '<leader>cp', '<cmd>InsertPrintStatementNormal<CR>', { desc = '[C]ode [P]rint variable' })
+
+local function get_visual_selection()
+  -- Save the current register content
+  local saved_reg = vim.fn.getreg 'v'
+  local saved_regtype = vim.fn.getregtype 'v'
+
+  -- Yank the visual selection into register 'v'
+  vim.cmd 'normal! "vy'
+
+  -- Get the yanked text
+  local selected_text = vim.fn.getreg 'v'
+
+  -- Restore the original register content
+  vim.fn.setreg('v', saved_reg, saved_regtype)
+
+  return selected_text
+end
+vim.keymap.set('v', '<leader>cp', function()
+  InsertPrintStatement(get_visual_selection())
+end, { desc = '[C]ode [P]rint variable' })
 
 -- document existing key chains
 require('which-key').add {
   { '<leader>c', group = '[C]ode' },
   { '<leader>c_', hidden = true },
-  { '<leader>d', group = '[D]ocument' },
+  { '<leader>d', group = '[D]ebug' },
   { '<leader>d_', hidden = true },
   { '<leader>f', group = '[F]iles' },
   { '<leader>f_', hidden = true },

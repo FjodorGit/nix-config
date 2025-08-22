@@ -67,9 +67,23 @@ local lsp_config = require 'lspconfig'
 local servers = {
   clangd = {},
   -- gopls = {},
-  basedpyright = {},
+  basedpyright = { filetypes = { 'python' } },
   ts_ls = {},
-  rust_analyzer = {},
+  rust_analyzer = {
+    cargo = {
+      targetDir = true,
+    },
+  },
+  -- jdtls = {
+  --   java = {
+  --     maven = {
+  --       downloadSources = true,
+  --     },
+  --     references = {
+  --       includeSource = true, -- Ensure source inclusion
+  --     },
+  --   },
+  -- },
   cssls = { filetypes = { 'css' } },
   tailwindcss = { filetypes = { 'html' } },
   html = { filetypes = { 'html', 'twig', 'hbs' } },
@@ -86,20 +100,13 @@ local servers = {
   zls = {},
   yamlls = {},
   texlab = { filetypes = { 'tex' } },
+  tinymist = {},
 }
 --
 -- -- nvim-cmp supports additional completion capabilities, so broadcast that to servers
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
---
--- -- Ensure the servers above are installed
--- local mason_lspconfig = require 'mason-lspconfig'
---
--- mason_lspconfig.setup {
---   ensure_installed = vim.tbl_keys(servers),
--- }
---
---
+
 for server_name, config in pairs(servers) do
   lsp_config[server_name].setup {
     capabilities = capabilities,
