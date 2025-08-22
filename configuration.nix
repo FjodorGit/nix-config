@@ -146,6 +146,29 @@
   services.gvfs.enable = true;
   services.udisks2.enable = true;
 
+  systemd.services.immorporation = {
+    enable = true;
+    description = "innernet client daemon for immorporation";
+    serviceConfig = {
+      ExecStart = "${pkgs.innernet}/bin/innernet up immorporation --daemon --interval 45";
+      Restart = "always";
+      RestartSec = 10;
+    };
+    path = [
+      pkgs.innernet
+      pkgs.iproute2
+    ];
+    after = [
+      "network-online.target"
+      "nss-lookup.target"
+    ];
+    wants = [
+      "network-online.target"
+      "nss-lookup.target"
+    ];
+    wantedBy = [ "multi-user.target" ];
+  };
+
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
 
@@ -159,11 +182,13 @@
       "wheel"
       "i2c"
       "wireshark"
+      "docker"
     ];
     packages = with pkgs; [
       #  thunderbird
     ];
   };
+  virtualisation.docker.enable = true;
 
   home-manager = {
     # also pass inputs to home-manager modules
@@ -182,6 +207,7 @@
   # $ nix search wget
   environment.systemPackages = with pkgs; [
     pkgs.home-manager
+    pkgs.innernet
     # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
     #  wget
   ];
