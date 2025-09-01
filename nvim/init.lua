@@ -194,6 +194,7 @@ require('neotest').setup {
 }
 
 require 'lsp'
+require 'lsp.python'
 require 'debug-adapters'
 require 'options'
 require 'usercmds'

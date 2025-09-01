@@ -30,11 +30,12 @@
         kb_options = "grp:alt_space_toggle";
       };
       monitor = [
-        "HDMI-A-1,1920x1080,0x0,1"
+        "desc:LG Electronics LG ULTRAWIDE 504NTCZA5667, 3440x1440, auto-center-up,1"
+        "desc:HP Inc. HP E243 CNK905038R,highres,0x0,1"
+        # "HDMI-A-1,1920x1080,0x0,1"
         "DP-4,1920x1080,0x0,1"
         "DP-3,1920x1080,0x0,1"
-        "DP-1,1920x1080,0x0,1"
-        "eDP-1,1920x1080,0x1080,1"
+        "eDP-1,1920x1080,auto-center-down,1"
       ];
       windowrulev2 = [
         "workspace 1, class:$terminal"

@@ -1,6 +1,6 @@
 -- [[ Configure LSP ]]
 --  This function gets run when an LSP connects to a particular buffer.
-local on_attach = function(_, bufnr)
+local function on_attach(_, bufnr)
   -- NOTE: Remember that lua is a real programming language, and as such it is possible
   -- to define small helper and utility functions so you don't have to repeat yourself
   -- many times.
@@ -19,8 +19,6 @@ local on_attach = function(_, bufnr)
   nmap('<leader>lr', vim.lsp.buf.rename, '[L]sp [R]ename')
   nmap('<leader>la', vim.lsp.buf.code_action, '[L]sp [A]ction')
   nmap('gd', require('telescope.builtin').lsp_definitions, '[G]oto [D]efinition')
-  nmap('gr', require('telescope.builtin').lsp_references, '[G]oto [R]eferences')
-  nmap('gI', require('telescope.builtin').lsp_implementations, '[G]oto [I]mplementation')
   nmap('<leader>ld', require('telescope.builtin').lsp_type_definitions, '[L]sp [D]efinition')
   nmap('<leader>ls', require('telescope.builtin').lsp_document_symbols, '[L]sp document [S]ymbols')
   nmap('<leader>lS', require('telescope.builtin').lsp_dynamic_workspace_symbols, '[L]sp workspace [S]ymbols')
@@ -50,6 +48,12 @@ local on_attach = function(_, bufnr)
   end, { desc = 'Format current buffer with LSP' })
 end
 
+vim.api.nvim_create_autocmd('LspAttach', {
+  callback = function(args)
+    on_attach(_, args.buf)
+  end,
+})
+
 -- -- mason-lspconfig requires that these setup functions are called in this order
 -- -- before setting up the servers.
 -- require('mason').setup()
@@ -67,7 +71,15 @@ local lsp_config = require 'lspconfig'
 local servers = {
   clangd = {},
   -- gopls = {},
-  basedpyright = { filetypes = { 'python' } },
+  -- basedpyright = {
+  --   filetypes = { 'python' },
+  --   basedpyright = {
+  --     disableOrganizeImports = true,
+  --     analysis = {
+  --       ignore = { '*' },
+  --     },
+  --   },
+  -- },
   ts_ls = {},
   rust_analyzer = {
     cargo = {
@@ -102,6 +114,7 @@ local servers = {
   texlab = { filetypes = { 'tex' } },
   tinymist = {},
 }
+
 --
 -- -- nvim-cmp supports additional completion capabilities, so broadcast that to servers
 local capabilities = vim.lsp.protocol.make_client_capabilities()

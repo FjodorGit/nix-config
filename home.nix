@@ -31,23 +31,34 @@ let
     jq
     prettierd
   ];
-  texSetup = (
-    pkgs.texliveSmall.withPackages (
-      ps: with ps; [
-        latexmk
-        moresize
-        enumitem
-        raleway
-        fontawesome
-        lipsum
-        adjustbox
-        collection-fontsextra
-        latexindent
-        xcharter
-        xstring
-      ]
-    )
-  );
+  # texSetup = (
+  #   pkgs.texliveFull.withPackages (
+  #     ps: with ps; [
+  #       latexmk
+  #       moresize
+  #       enumitem
+  #       raleway
+  #       fontawesome
+  #       lipsum
+  #       adjustbox
+  #       collection-fontsextra
+  #       latexindent
+  #       xcharter
+  #       xstring
+  #       # tum
+  #       pgfopts
+  #       silence
+  #       lastpage
+  #       tex-gyre
+  #       tex-gyre-math
+  #       esint
+  #       tcolorbox
+  #       tikzfill
+  #       pdfcol
+  #       lualatex-math
+  #     ]
+  #   )
+  # );
 in
 {
   imports = [
@@ -112,7 +123,7 @@ in
     whatsapp-for-linux
     obsidian
     bluetuith
-    texSetup
+    # texSetup
     zoom-us
     teams-for-linux
 
@@ -256,7 +267,7 @@ in
   # for history to work make sure that all folders of the path of the history file exist
   programs.zsh = {
     enable = true;
-    dotDir = ".config/zsh";
+    dotDir = config.xdg.configHome;
     # sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended --keep-zshrc
     # to install the oh-my-zsh script
     oh-my-zsh = {
@@ -328,6 +339,10 @@ in
     plugins = [
       pkgs.rofi-calc
     ];
+  };
+
+  programs.opencode = {
+    enable = true;
   };
 
   programs.bat.enable = true;

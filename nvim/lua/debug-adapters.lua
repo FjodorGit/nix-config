@@ -4,6 +4,11 @@ local debug_key_maps_set = false
 
 vim.keymap.set('n', '<leader>ds', dap.continue, { desc = '[D]ebug [S]tart' })
 vim.keymap.set('n', '<leader>dt', dap.terminate, { desc = '[D]ebug [T]erminate' })
+vim.keymap.set('n', '<leader>dr', function()
+  dap.clear_breakpoints()
+  dap.toggle_breakpoint()
+  dap.continue()
+end, { desc = '[D]ebug [R]un To Cursor' })
 vim.keymap.set('n', '<leader>dC', dap.clear_breakpoints, { desc = '[D]ebug [C]lear Breakpoints' })
 vim.keymap.set('n', '<C-b>', dap.toggle_breakpoint, { desc = 'Toggle Breakpoint' })
 
@@ -18,7 +23,7 @@ local function set_debug_keymaps()
   vim.keymap.set('n', 'i', dap.step_into, { desc = '[D]ebug Step [I]nto', silent = true })
   vim.keymap.set('n', 'r', dap.run_to_cursor, { desc = '[D]ebug [R]un To Cursor', silent = true })
   vim.keymap.set('n', 'D', dap.terminate, { desc = '[D]ebug Terminate', silent = true })
-  vim.keymap.set('n', 'K', require('dap.ui.widgets').hover, { desc = 'Hover', silent = true })
+  vim.keymap.set('n', 'A', require('dap.ui.widgets').hover, { desc = 'Hover', silent = true })
 
   vim.keymap.set('n', 'R', function()
     require('dap-view').jump_to_view 'repl'
@@ -35,7 +40,7 @@ local function unset_debug_keymaps()
     return
   end
 
-  local keys = { '<C-r>', 'o', 'O', 'c', 'i', 'r', 'D', 'K', 'R', 'x', '<leader>v' }
+  local keys = { '<C-r>', 'o', 'O', 'c', 'i', 'r', 'D', 'A', 'R', 'x', '<leader>v' }
   for _, key in ipairs(keys) do
     vim.api.nvim_del_keymap('n', key)
   end
