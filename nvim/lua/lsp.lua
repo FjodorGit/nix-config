@@ -23,10 +23,10 @@ local function on_attach(_, bufnr)
   nmap('<leader>ls', require('telescope.builtin').lsp_document_symbols, '[L]sp document [S]ymbols')
   nmap('<leader>lS', require('telescope.builtin').lsp_dynamic_workspace_symbols, '[L]sp workspace [S]ymbols')
   nmap('<leader>ln', function()
-    vim.diagnostic.goto_next { severity = vim.diagnostic.severity.ERROR }
+    vim.diagnostic.jump { severity = vim.diagnostic.severity.ERROR, count = 1 }
   end, '[L]sp [N]ext Error')
   nmap('<leader>lp', function()
-    vim.diagnostic.goto_prev { severity = vim.diagnostic.severity.ERROR }
+    vim.diagnostic.jump { severity = vim.diagnostic.severity.ERROR, count = -1 }
   end, '[L]sp [P]revious Error')
 
   -- See `:help K` for why this keymap

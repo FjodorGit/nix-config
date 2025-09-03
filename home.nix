@@ -19,6 +19,7 @@ let
     texlab
     rust-analyzer
     tinymist
+    ruff
   ];
   neovimExtraPackages = with pkgs; [
     zig
@@ -182,7 +183,7 @@ in
       source = ./nvim;
       recursive = true;
     };
-    ".config/zsh/.zshrc".source = ./zsh/.zshrc;
+    ".config/zsh/custom.zsh".source = ./zsh/.zshrc;
     ".local/state/syncthing" = {
       source = ./syncthing;
       recursive = true;
@@ -267,12 +268,46 @@ in
   # for history to work make sure that all folders of the path of the history file exist
   programs.zsh = {
     enable = true;
-    dotDir = config.xdg.configHome;
-    # sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended --keep-zshrc
-    # to install the oh-my-zsh script
+    dotDir = config.xdg.configHome + "/zsh";
+    enableCompletion = true;
+    setOptions = [
+      "INC_APPEND_HISTORY"
+      "HIST_IGNORE_DUPS"
+      "SHARE_HISTORY"
+      "HIST_FCNTL_LOCK"
+    ];
+    history = {
+      size = 500000;
+      save = 500000;
+      path = "${config.xdg.stateHome}/zsh/history";
+    };
+
+    sessionVariables = {
+      XDG_DATA_HOME = "$HOME/.local/share";
+      XDG_CONFIG_HOME = "$HOME/.config";
+      XDG_STATE_HOME = "$HOME/.local/state";
+      XDG_CACHE_HOME = "$HOME/.cache";
+    };
+
+    initContent = ''
+      # Source your custom file
+      [[ -f ~/.config/zsh/custom.zsh ]] && source ~/.config/zsh/custom.zsh
+    '';
     oh-my-zsh = {
       enable = true;
+      plugins = [
+        "git"
+        "direnv"
+      ];
+      theme = "robbyrussell";
     };
+    plugins = [
+      {
+        name = "vi-mode";
+        src = pkgs.zsh-vi-mode;
+        file = "share/zsh-vi-mode/zsh-vi-mode.plugin.zsh";
+      }
+    ];
   };
 
   programs.kitty = {
@@ -285,10 +320,19 @@ in
     nix-direnv.enable = true;
   };
 
-  programs.zoxide.enable = true;
-  programs.starship.enable = true;
+  programs.zoxide = {
+    enableZshIntegration = true;
+    enable = true;
+  };
+
+  programs.starship = {
+    enable = true;
+    enableZshIntegration = true;
+  };
+
   programs.eza.enable = true;
   programs.fd.enable = true;
+
   programs.sioyek = {
     enable = true;
     config = {

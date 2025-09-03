@@ -34,7 +34,7 @@ require('lazy').setup({
   'tpope/vim-rhubarb',
 
   -- Detect tabstop and shiftwidth automatically
-  'tpope/vim-sleuth',
+  -- 'tpope/vim-sleuth',
 
   -- NOTE: This is where your plugins related to LSP can be installed.
   --  The configuration is done below. Search for lspconfig to find it below.
@@ -199,8 +199,8 @@ require 'debug-adapters'
 require 'options'
 require 'usercmds'
 require 'autocmds'
-require('oil').setup()
-require('overseer').setup()
+-- require('oil').setup()
+-- require('overseer').setup()
 require 'keymaps'
 --
 -- The line beneath this is called `modeline`. See `:help modeline`

@@ -78,12 +78,12 @@ vim.api.nvim_create_autocmd({ 'BufReadPre', 'BufNewFile', 'BufEnter' }, {
 vim.keymap.set('n', 'go', ':noautocmd MoltenEnterOutput<CR>', { desc = '[G]oto [O]utput window', silent = true })
 
 -- Quarto
-local runner = require 'quarto.runner'
-vim.keymap.set('n', '<localleader>rc', runner.run_cell, { desc = 'run cell', silent = true })
-vim.keymap.set('n', '<localleader>ra', runner.run_above, { desc = 'run cell and above', silent = true })
-vim.keymap.set('n', '<localleader>rA', runner.run_all, { desc = 'run all cells', silent = true })
-vim.keymap.set('n', '<localleader>rl', runner.run_line, { desc = 'run line', silent = true })
-vim.keymap.set('v', '<localleader>r', runner.run_range, { desc = 'run visual range', silent = true })
+-- local runner = require 'quarto.runner'
+-- vim.keymap.set('n', '<localleader>rc', runner.run_cell, { desc = 'run cell', silent = true })
+-- vim.keymap.set('n', '<localleader>ra', runner.run_above, { desc = 'run cell and above', silent = true })
+-- vim.keymap.set('n', '<localleader>rA', runner.run_all, { desc = 'run all cells', silent = true })
+-- vim.keymap.set('n', '<localleader>rl', runner.run_line, { desc = 'run line', silent = true })
+-- vim.keymap.set('v', '<localleader>r', runner.run_range, { desc = 'run visual range', silent = true })
 
 -- User Commands
 vim.keymap.set('n', '<leader>cp', '<cmd>InsertPrintStatementNormal<CR>', { desc = '[C]ode [P]rint variable' })

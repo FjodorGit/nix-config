@@ -30,8 +30,8 @@
         kb_options = "grp:alt_space_toggle";
       };
       monitor = [
-        "desc:LG Electronics LG ULTRAWIDE 504NTCZA5667, 3440x1440, auto-center-up,1"
-        "desc:HP Inc. HP E243 CNK905038R,highres,0x0,1"
+        "desc:LG Electronics LG ULTRAWIDE 504NTCZA5667, 3440x1440, auto-center-up, 1"
+        "desc:HP Inc. HP E243 CNK905038R,highres,auto-center-up,1"
         # "HDMI-A-1,1920x1080,0x0,1"
         "DP-4,1920x1080,0x0,1"
         "DP-3,1920x1080,0x0,1"
@@ -44,9 +44,9 @@
         "workspace 4, class:obsidian"
       ];
       workspace = [
-        "1, monitor:eDP-1"
-        "2, monitor:HDMI-A-1"
-        "2, monitor:DP-1"
+        "1, monitor:eDP-1, default:true"
+        "2, monitor:HDMI-A-1, default:true"
+        "2, monitor:DP-1, default:true"
         "3, monitor:HDMI-A-1"
         "3, monitor:DP-1"
         "4, monitor:eDP-1"

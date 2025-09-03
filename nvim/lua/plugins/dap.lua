@@ -7,6 +7,7 @@ return {
       'nvim-neotest/nvim-nio',
       'stevearc/overseer.nvim', -- for preLaunchTasks
     },
+    lazy = true,
   },
   {
     'igorlfs/nvim-dap-view',
@@ -21,5 +22,6 @@ return {
         },
       },
     },
+    lazy = true,
   },
 }

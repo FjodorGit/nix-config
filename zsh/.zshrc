@@ -2,14 +2,14 @@
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-export ZSH="$HOME/.oh-my-zsh"
+# export ZSH="$HOME/.oh-my-zsh"
 export LC_ALL=en_US.UTF-8
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-ZSH_THEME="robbyrussell"
+# ZSH_THEME="robbyrussell"
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -71,24 +71,24 @@ ZSH_THEME="robbyrussell"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(sudo git direnv)
+# plugins=(sudo git direnv)
 
-source $ZSH/oh-my-zsh.sh
+# source $ZSH/oh-my-zsh.sh
 
 # Set XDG-varaibles
-export XDG_DATA_HOME="$HOME/.local/share"
-export XDG_CONFIG_HOME="$HOME/.config"
-export XDG_STATE_HOME="$HOME/.local/state/share"
-export XDG_CACHE_HOME="$HOME/.cache"
+# export XDG_DATA_HOME="$HOME/.local/share"
+# export XDG_CONFIG_HOME="$HOME/.config"
+# export XDG_STATE_HOME="$HOME/.local/state"
+# export XDG_CACHE_HOME="$HOME/.cache"
 
 # History settings
-export HISTFILE="$XDG_STATE_HOME/zsh/history"
+# export HISTFILE="$XDG_STATE_HOME/zsh/history"
 
-HISTSIZE=500000
-SAVEHIST=500000
-setopt appendhistory
-setopt INC_APPEND_HISTORY  
-setopt SHARE_HISTORY
+# HISTSIZE=500000
+# SAVEHIST=500000
+# setopt appendhistory
+# setopt INC_APPEND_HISTORY  
+# setopt SHARE_HISTORY
 
 # User configuration
 # export MANPATH="/usr/local/man:$MANPATH"
@@ -114,7 +114,10 @@ export PATH="/home/fjk/.chromedriver:$PATH"
 export PATH="/home/fjk/.syncthing:$PATH"
 export PATH="/home/fjk/Postman/:$PATH"
 export PATH="/home/fjk/.local/kitty.app/bin/:$PATH"
+
 export MANPAGER="nvim +Man!"
+# Reduce the delay
+export ZVM_KEYTIMEOUT=0.1
 
 export QT_QPA_PLATFORM=wayland
 export SUDO_EDITOR="nvim"
@@ -241,17 +244,17 @@ edit_and_execute_with_fc() {
 # IMPORTANT: kitty-scrollback.nvim only supports zsh 5.9 or greater for command-line editing,
 # please check your version by running: zsh --version
 # add the following environment variables to your zsh config (e.g., ~/.zshrc)
-autoload -Uz edit-command-line
-zle -N edit-command-line
-function kitty_scrollback_edit_command_line() { 
-  local VISUAL='/home/fjk/.local/share/nvim/lazy/kitty-scrollback.nvim/scripts/edit_command_line.sh'
-  zle edit-command-line
-  zle kill-whole-line
-}
+# autoload -Uz edit-command-line
+# zle -N edit-command-line
+# function kitty_scrollback_edit_command_line() { 
+#   local VISUAL='/home/fjk/.local/share/nvim/lazy/kitty-scrollback.nvim/scripts/edit_command_line.sh'
+#   zle edit-command-line
+#   zle kill-whole-line
+# }
 # zle -N kitty_scrollback_edit_command_line
 # bindkey '^I' kitty_scrollback_edit_command_line # somehow binds to Ctrl+[
-# [optional] pass arguments to kitty-scrollback.nvim in command-line editing mode
-# by using the environment variable KITTY_SCROLLBACK_NVIM_EDIT_ARGS
+# # [optional] pass arguments to kitty-scrollback.nvim in command-line editing mode
+# # by using the environment variable KITTY_SCROLLBACK_NVIM_EDIT_ARGS
 # export KITTY_SCROLLBACK_NVIM_EDIT_ARGS=''
 
 # Bind the function to a Zsh widget for easy access (e.g., Ctrl-E)
@@ -259,27 +262,23 @@ function kitty_scrollback_edit_command_line() {
 # bindkey '^E' edit_and_execute_with_fc
 
 # acivates starship
-eval "$(starship init zsh)"
+# eval "$(starship init zsh)"
 
 # activates zoxide
-eval "$(zoxide init zsh)"
+# eval "$(zoxide init zsh)"
 
 # activates fzf
-source <(fzf --zsh)
+# source <(fzf --zsh)
 
-#[ -f "/home/fjk/.ghcup/env" ] && source "/home/fjk/.ghcup/env" # ghcup-env
+# export NVM_DIR="$HOME/.nvm"
+# [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+# [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+#
+# # Wasmer
+# export WASMER_DIR="/home/fjk/.wasmer"
+# [ -s "$WASMER_DIR/wasmer.sh" ] && source "$WASMER_DIR/wasmer.sh"
 
-[ -f "/home/fjk/.ghcup/env" ] && source "/home/fjk/.ghcup/env" # ghcup-env
-
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-
-# Wasmer
-export WASMER_DIR="/home/fjk/.wasmer"
-[ -s "$WASMER_DIR/wasmer.sh" ] && source "$WASMER_DIR/wasmer.sh"
-
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+# [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 # Store autocompletion data in .cache directory
 compinit -d "$XDG_CACHE_HOME"/zsh/zcompdump-"$ZSH_VERSION"
