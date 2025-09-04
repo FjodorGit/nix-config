@@ -1,5 +1,4 @@
 local dap = require 'dap'
-local dapview = require 'dap-view'
 local debug_key_maps_set = false
 
 vim.keymap.set('n', '<leader>ds', dap.continue, { desc = '[D]ebug [S]tart' })

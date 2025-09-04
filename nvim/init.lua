@@ -182,16 +182,16 @@ vim.filetype.add {
   },
 }
 
-require('neotest').setup {
-  adapters = {
-    require 'neotest-python' {
-      runners = 'pytest',
-    },
-    require 'neotest-rust' {
-      args = { '--all-features' },
-    },
-  },
-}
+-- require('neotest').setup {
+--   adapters = {
+--     require 'neotest-python' {
+--       runners = 'pytest',
+--     },
+--     require 'neotest-rust' {
+--       args = { '--all-features' },
+--     },
+--   },
+-- }
 
 require 'lsp'
 require 'lsp.python'

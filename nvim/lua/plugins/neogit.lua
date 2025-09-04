@@ -21,8 +21,6 @@ return {
       },
     },
     event = 'VeryLazy',
-  },
-  {
-    'sindrets/diffview.nvim',
+    lazy = true,
   },
 }

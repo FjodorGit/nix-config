@@ -18,7 +18,7 @@ return {
       windows = {
         terminal = {
           -- Use the actual names for the adapters you want to hide
-          hide = { 'python' }, -- `delve` is known to not use the terminal.
+          hide = { 'python' },
         },
       },
     },
