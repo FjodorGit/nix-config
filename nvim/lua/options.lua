@@ -40,6 +40,9 @@ vim.o.completeopt = 'menuone,noselect'
 -- NOTE: You should make sure your terminal supports this
 vim.o.termguicolors = true
 
-vim.o.wrap = false
 vim.o.winborder = 'rounded'
 vim.o.swapfile = false
+
+-- for using cmdwin instead of cmdline
+vim.o.cmdheight = 0
+vim.o.cmdwinheight = 3

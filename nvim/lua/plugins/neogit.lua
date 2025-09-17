@@ -23,4 +23,9 @@ return {
     event = 'VeryLazy',
     lazy = true,
   },
+  {
+    'sindrets/diffview.nvim', -- optional
+    lazy = true,
+    cmd = { 'DiffviewOpen' },
+  },
 }

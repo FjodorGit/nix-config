@@ -32,6 +32,7 @@
       monitor = [
         "desc:LG Electronics LG ULTRAWIDE 504NTCZA5667, 3440x1440, auto-center-up, 1"
         "desc:HP Inc. HP E243 CNK905038R,highres,auto-center-up,1"
+        "desc:LG Electronics LG ULTRAGEAR 106NTJJ27596,2560x1440@59.95Hz,auto-center-up,1"
         # "HDMI-A-1,1920x1080,0x0,1"
         "DP-4,1920x1080,0x0,1"
         "DP-3,1920x1080,0x0,1"

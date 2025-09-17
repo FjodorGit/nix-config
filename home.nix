@@ -31,6 +31,7 @@ let
     rustfmt
     jq
     prettierd
+    go
   ];
   # texSetup = (
   #   pkgs.texliveFull.withPackages (
@@ -360,9 +361,9 @@ in
           for = "unix";
         }
       ];
-      manager = {
+      mgr = {
         show_hidden = false;
-        sort_by = "alphabetical";
+        sort_by = "natural";
         sort_dir_first = true;
       };
     };

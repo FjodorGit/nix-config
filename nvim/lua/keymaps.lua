@@ -1,5 +1,10 @@
 vim.keymap.set('n', '[f', '<cmd>b#<CR>', { desc = 'Previous Buffer' })
 
+-- always open cmdwindow - optimized
+vim.keymap.set('n', ':', function()
+  vim.cmd 'silent call feedkeys("q:i", "n")'
+end, { silent = true })
+
 -- Delete whole buffer
 vim.keymap.set('n', 'dB', 'ggVGd', { desc = 'Clear whole buffer' })
 

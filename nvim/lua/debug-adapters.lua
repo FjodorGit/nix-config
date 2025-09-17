@@ -1,8 +1,8 @@
-local dap = require 'dap'
+dap = require 'dap'
 local debug_key_maps_set = false
 
 vim.keymap.set('n', '<leader>ds', dap.continue, { desc = '[D]ebug [S]tart' })
-vim.keymap.set('n', '<leader>dt', dap.terminate, { desc = '[D]ebug [T]erminate' })
+vim.keymap.set('n', '<leader>dd', dap.terminate, { desc = '[D]ebug [D]one' })
 vim.keymap.set('n', '<leader>dr', function()
   dap.clear_breakpoints()
   dap.toggle_breakpoint()
@@ -71,7 +71,7 @@ dap.adapters.python = function(cb, config)
   else
     cb {
       type = 'executable',
-      command = 'python', -- should be made available by something like venv
+      command = '.venv/bin/python', -- should be made available by something like venv
       args = { '-m', 'debugpy.adapter' },
       options = {
         source_filetype = 'python',
