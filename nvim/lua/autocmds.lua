@@ -40,11 +40,14 @@ vim.api.nvim_create_autocmd('CmdwinEnter', {
 })
 
 local exclude_set = { w = true, q = true, wq = true, x = true }
+exclude_set['q!'] = true
+
 vim.api.nvim_create_autocmd('CmdlineLeave', {
-  pattern = ':',
+  pattern = { ':', '@' },
   callback = function(_)
     vim.o.laststatus = 2
     local cmdline = vim.fn.getcmdline()
+    -- local prev_command = vim.fn.histget(':', -1)
     if exclude_set[cmdline] then
       -- Without this, nothing would happen:
       vim.schedule(function()
@@ -55,30 +58,8 @@ vim.api.nvim_create_autocmd('CmdlineLeave', {
 })
 
 vim.api.nvim_create_autocmd('CmdwinEnter', {
-  pattern = ':',
+  pattern = { ':', '@' },
   callback = function(_)
     vim.o.laststatus = 0
-    local max_hist = vim.fn.histnr ':' + 1
-    local history_index = max_hist -- Start after the current (last) entry
-
-    vim.keymap.set('n', 'k', function()
-      history_index = math.max(1, history_index - 1)
-      local cmd = vim.fn.histget(':', history_index)
-      if cmd ~= '' then
-        vim.fn.setline('.', cmd)
-      end
-    end, { buffer = true, desc = 'Previous command from history' })
-
-    vim.keymap.set('n', 'j', function()
-      history_index = math.min(max_hist, history_index + 1)
-      if history_index >= max_hist then
-        vim.fn.setline('.', '')
-      else
-        local cmd = vim.fn.histget(':', history_index)
-        if cmd ~= '' then
-          vim.fn.setline('.', cmd)
-        end
-      end
-    end, { buffer = true, desc = 'Previous command from history' })
   end,
 })

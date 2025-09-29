@@ -109,9 +109,30 @@ local function get_visual_selection()
 
   return selected_text
 end
+
 vim.keymap.set('v', '<leader>cp', function()
   InsertPrintStatement(get_visual_selection())
 end, { desc = '[C]ode [P]rint variable' })
+
+-- Most elegant and minimal approach
+vim.keymap.set('t', '<C-[>', function()
+  local opts = { buffer = true, silent = true }
+  -- Set up temporary keymaps
+  vim.print 'pressed escape'
+  vim.keymap.set('t', 'j', function()
+    vim.api.nvim_input '<C-\\><C-N>j'
+    vim.keymap.del('t', 'j', { buffer = true })
+    vim.keymap.del('t', 'k', { buffer = true })
+  end, opts)
+
+  vim.keymap.set('t', 'k', function()
+    vim.api.nvim_input '<C-\\><C-N>k'
+    vim.keymap.del('t', 'j', { buffer = true })
+    vim.keymap.del('t', 'k', { buffer = true })
+  end, opts)
+end)
+
+-- vim.keymap.set('t', '<C-[>', '<C-\\><C-N>', { desc = 'Enter normal mode in terminal' })
 
 -- document existing key chains
 require('which-key').add {

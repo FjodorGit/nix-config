@@ -32,6 +32,7 @@ let
     jq
     prettierd
     go
+    lsof
   ];
   # texSetup = (
   #   pkgs.texliveFull.withPackages (
@@ -265,8 +266,6 @@ in
       ];
   };
 
-  # most of the options are set in the .zshrc file.
-  # for history to work make sure that all folders of the path of the history file exist
   programs.zsh = {
     enable = true;
     dotDir = config.xdg.configHome + "/zsh";
@@ -288,6 +287,33 @@ in
       XDG_CONFIG_HOME = "$HOME/.config";
       XDG_STATE_HOME = "$HOME/.local/state";
       XDG_CACHE_HOME = "$HOME/.cache";
+
+      ZVM_KEYTIMEOUT = 0.1;
+
+      MANPAGER = "nvim +Man!";
+      SUDO_EDITOR = "nvim";
+      VISUAL = "nvim";
+      EDITOR = "nvim";
+
+      HISTORY_IGNORE = "(f)";
+    };
+
+    shellAliases = {
+      refresh = "home-manager switch --flake ~/.dotfiles";
+      rebuild = "sudo nixos-rebuild switch --flake ~/.dotfiles";
+      zshconfig = "nvim ~/.dotfiles/zsh/.zshrc";
+      kittyconfig = "nvim ~/.dotfiles/kitty/kitty.conf";
+      homeconfig = "cd ~/.dotfiles && nvim ~/.dotfiles/home.nix && -";
+      hyprconfig = "cd ~/.dotfiles && nvim ~/.dotfiles/hyprland.nix && -";
+      cat = "bat";
+      ohmyzsh = "nvim ~/.oh-my-zsh";
+      qn = "cd ~/Documents/notes && nvim Dump.md && -";
+      notes = "cd ~/Documents/notes && nvim Dump.md";
+      nvimconfig = "cd ~/.dotfiles/nvim && nvim init.lua";
+      ls = "eza -1 -l --icons -a";
+      sups = "wakeonlan -p 51821 -i 77.24.121.5 3C:EC:EF:90:A4:42";
+      tordownloads = "cd /home/fjk/.local/share/torbrowser/tbb/x86_64/tor-browser_en-US/Browser/Downloads/";
+      f = "yy";
     };
 
     initContent = ''
@@ -374,6 +400,10 @@ in
     enable = true;
   };
 
+  programs.gh = {
+    enable = true;
+  };
+
   programs.rofi = {
     enable = true;
     terminal = "kitty";
@@ -390,6 +420,10 @@ in
     enable = true;
   };
 
+  programs.element-desktop = {
+    enable = true;
+  };
+
   programs.bat.enable = true;
   programs.btop = {
     enable = true;
@@ -403,8 +437,8 @@ in
   programs.gpg.enable = true;
   programs.ssh = {
     enable = true;
+    matchBlocks."*".addKeysToAgent = "yes";
   };
-  programs.ssh.addKeysToAgent = "yes";
 
   services.gpg-agent = {
     enable = true;
@@ -412,6 +446,7 @@ in
     enableSshSupport = true;
     pinentry.package = pkgs.pinentry-gtk2;
   };
+
   services.syncthing.enable = true;
   services.kdeconnect.enable = true;
   services.kdeconnect.indicator = true;

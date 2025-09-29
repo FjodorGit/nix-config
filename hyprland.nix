@@ -31,23 +31,24 @@
       };
       monitor = [
         "desc:LG Electronics LG ULTRAWIDE 504NTCZA5667, 3440x1440, auto-center-up, 1"
-        "desc:HP Inc. HP E243 CNK905038R,highres,auto-center-up,1"
+        "desc:LG Electronics LG ULTRAWIDE 502NTVS1C199, 3440x1440@100.00Hz, auto-center-up, 1"
         "desc:LG Electronics LG ULTRAGEAR 106NTJJ27596,2560x1440@59.95Hz,auto-center-up,1"
+        "desc:HP Inc. HP E243 CNK905038R,highres,auto-center-up,1"
         # "HDMI-A-1,1920x1080,0x0,1"
         "DP-4,1920x1080,0x0,1"
         "DP-3,1920x1080,0x0,1"
         "eDP-1,1920x1080,auto-center-down,1"
       ];
       windowrulev2 = [
-        "workspace 1, class:$terminal"
-        "workspace 2, class:$browser"
+        "workspace 1, class:$browser"
+        "workspace 2, class:$terminal"
         "workspace 3, title:^(.*)(\.pdf)$"
         "workspace 4, class:obsidian"
       ];
       workspace = [
-        "1, monitor:eDP-1, default:true"
-        "2, monitor:HDMI-A-1, default:true"
-        "2, monitor:DP-1, default:true"
+        "2, monitor:eDP-1, default:true"
+        "1, monitor:HDMI-A-1, default:true"
+        "1, monitor:DP-1, default:true"
         "3, monitor:HDMI-A-1"
         "3, monitor:DP-1"
         "4, monitor:eDP-1"
@@ -106,8 +107,8 @@
       bind = ,2, movetoworkspace, 2
       bind = ,3, movetoworkspace, 3
       bind = ,4, movetoworkspace, 4
-      bind = $mainMod, 1, movecurrentworkspacetomonitor, 1
-      bind = $mainMod, 2, movecurrentworkspacetomonitor, 2 
+      bind = $mainMod, D, movecurrentworkspacetomonitor, d
+      bind = $mainMod, U, movecurrentworkspacetomonitor, u 
       bind = $mainMod ,M ,submap, reset
       submap = reset
     '';
