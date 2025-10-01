@@ -296,6 +296,8 @@ in
       EDITOR = "nvim";
 
       HISTORY_IGNORE = "(f)";
+
+      ZVM_INIT_MODE = "sourcing";
     };
 
     shellAliases = {

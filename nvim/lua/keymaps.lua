@@ -114,25 +114,53 @@ vim.keymap.set('v', '<leader>cp', function()
   InsertPrintStatement(get_visual_selection())
 end, { desc = '[C]ode [P]rint variable' })
 
--- Most elegant and minimal approach
-vim.keymap.set('t', '<C-[>', function()
+-- Terminal
+local esc = vim.api.nvim_replace_termcodes('<Esc>', true, false, true)
+
+local terminal_exit_keys = { 'j', 'k', '<C-u>' }
+
+local function delete_terminal_keys(set_of_keys)
+  for _, key in ipairs(set_of_keys) do
+    vim.keymap.del('t', key, { buffer = true })
+  end
+end
+
+local function set_terminal_into_normal_mode_maps()
   local opts = { buffer = true, silent = true }
-  -- Set up temporary keymaps
-  vim.print 'pressed escape'
-  vim.keymap.set('t', 'j', function()
-    vim.api.nvim_input '<C-\\><C-N>j'
-    vim.keymap.del('t', 'j', { buffer = true })
-    vim.keymap.del('t', 'k', { buffer = true })
-  end, opts)
+  vim.api.nvim_feedkeys(esc, 'ni', false)
 
-  vim.keymap.set('t', 'k', function()
-    vim.api.nvim_input '<C-\\><C-N>k'
-    vim.keymap.del('t', 'j', { buffer = true })
-    vim.keymap.del('t', 'k', { buffer = true })
+  for _, key in ipairs(terminal_exit_keys) do
+    vim.keymap.set('t', key, function()
+      vim.api.nvim_input('<C-\\><C-N>' .. key)
+      delete_terminal_keys(terminal_exit_keys)
+    end, opts)
+  end
+  vim.keymap.set('t', '<leader>', function()
+    vim.api.nvim_input('<C-\\><C-N>' .. vim.g.mapleader)
+    delete_terminal_keys(terminal_exit_keys)
   end, opts)
-end)
+end
 
--- vim.keymap.set('t', '<C-[>', '<C-\\><C-N>', { desc = 'Enter normal mode in terminal' })
+vim.api.nvim_create_autocmd('TermOpen', {
+  pattern = '*',
+  callback = function()
+    local opts = { buffer = true }
+    -- These will work in normal mode within the terminal window
+    vim.keymap.set('n', 'o', 'aa', opts)
+    vim.keymap.set('n', 'I', 'a0', opts)
+    vim.keymap.set('n', 'a', function()
+      vim.cmd.normal { bang = true, args = { 'a' } }
+      set_terminal_into_normal_mode_maps()
+    end, opts)
+    vim.keymap.set('n', 'p', function()
+      vim.api.nvim_input 'a'
+      set_terminal_into_normal_mode_maps()
+      vim.api.nvim_put({ vim.fn.getreg '+' }, 'c', true, false)
+    end, opts)
+  end,
+})
+
+vim.keymap.set('t', '<C-[>', set_terminal_into_normal_mode_maps)
 
 -- document existing key chains
 require('which-key').add {
