@@ -34,6 +34,16 @@ let
     go
     lsof
   ];
+  opencode-latest = pkgs.opencode.overrideAttrs (finalAttrs: {
+    version = "1.0.68"; # Whatever newer version is out
+
+    src = pkgs.fetchFromGitHub {
+      owner = "sst";
+      repo = "opencode";
+      tag = "v${finalAttrs.version}";
+      hash = "sha256-dzhthgkAPjvPOxWBnf67OkTwbZ3Htdl68+UDlz45xwI=";
+    };
+  });
   # texSetup = (
   #   pkgs.texliveFull.withPackages (
   #     ps: with ps; [
@@ -134,6 +144,8 @@ in
     pavucontrol
     pamixer
 
+    hyprshot
+
     # browsers
     tor-browser
     floorp
@@ -182,7 +194,7 @@ in
       recursive = true;
     };
     ".config/nvim" = {
-      source = ./nvim;
+      source = config.lib.file.mkOutOfStoreSymlink ./nvim;
       recursive = true;
     };
     ".config/zsh/custom.zsh".source = ./zsh/.zshrc;
@@ -420,6 +432,7 @@ in
 
   programs.opencode = {
     enable = true;
+    package = opencode-latest;
   };
 
   programs.element-desktop = {

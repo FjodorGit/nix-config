@@ -1,0 +1,95 @@
+-- Terminal
+local vi_mode_normal = true
+local esc = vim.api.nvim_replace_termcodes('<Esc>', true, false, true)
+
+local terminal_exit_keys = { 'j', 'k', '<C-u>', 'g' }
+
+local function concat(...)
+  local result = {}
+  for _, list in ipairs { ... } do
+    vim.list_extend(result, list)
+  end
+  return result
+end
+
+local function delete_terminal_keys(set_of_keys)
+  for _, key in ipairs(set_of_keys) do
+    vim.keymap.del('t', key, { buffer = true })
+  end
+end
+
+local function set_terminal_into_normal_mode_maps()
+  local opts = { buffer = true, silent = true }
+  vim.api.nvim_feedkeys(esc, 'ni', false)
+
+  for _, key in ipairs(terminal_exit_keys) do
+    vim.keymap.set('t', key, function()
+      vim.api.nvim_input('<C-\\><C-N>' .. key)
+      delete_terminal_keys(terminal_exit_keys)
+    end, opts)
+  end
+
+  vim.keymap.set('t', 'i', function()
+    pcall(delete_terminal_keys, terminal_exit_keys)
+    vim.api.nvim_feedkeys('i', 'ni', false)
+  end, opts)
+
+  vim.keymap.set('t', 'a', function()
+    pcall(delete_terminal_keys, terminal_exit_keys)
+    vim.api.nvim_feedkeys('a', 'ni', false)
+  end, opts)
+end
+
+vim.api.nvim_create_autocmd('TermOpen', {
+  pattern = '*',
+  callback = function()
+    vim.bo.buflisted = false
+    local opts = { buffer = true }
+    -- These will work in normal mode within the terminal window
+    vim.keymap.set('n', 'o', 'aa', opts)
+    vim.keymap.set('n', 'I', 'a0', opts)
+    vim.keymap.set('n', 'a', function()
+      vim.cmd.normal { bang = true, args = { 'a' } }
+      set_terminal_into_normal_mode_maps()
+    end, opts)
+    vim.keymap.set('n', 'p', function()
+      vim.api.nvim_input 'a'
+      set_terminal_into_normal_mode_maps()
+      vim.api.nvim_put({ vim.fn.getreg '+' }, 'c', true, false)
+    end, opts)
+  end,
+})
+
+vim.keymap.set('t', '<C-[>', set_terminal_into_normal_mode_maps)
+
+local term_buf = nil
+
+vim.keymap.set({ 'n', 't', 'i' }, '<C-q>', function()
+  local current_buf = vim.api.nvim_get_current_buf()
+
+  -- If in terminal, switch to alternate buffer
+  if vim.bo[current_buf].buftype == 'terminal' then
+    vim.cmd 'keepalt keepjumps buffer #'
+    return
+  end
+
+  -- Create terminal if it doesn't exist
+  if not term_buf or not vim.api.nvim_buf_is_valid(term_buf) then
+    term_buf = vim.api.nvim_create_buf(false, true)
+    local current_win = vim.api.nvim_get_current_win()
+
+    -- Use keepalt and keepjumps when switching to terminal buffer
+    vim.cmd('call nvim_win_set_buf(' .. current_win .. ', ' .. term_buf .. ')')
+
+    vim.fn.termopen(vim.o.shell)
+    vim.bo[term_buf].buflisted = false
+  else
+    -- Switch to existing terminal with keepalt and keepjumps
+    vim.cmd('buffer ' .. term_buf)
+  end
+
+  vim.cmd.startinsert()
+end, {
+  silent = true,
+  desc = 'Toggle terminal',
+})

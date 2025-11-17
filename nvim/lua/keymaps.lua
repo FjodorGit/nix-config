@@ -1,5 +1,3 @@
-vim.keymap.set('n', '[f', '<cmd>b#<CR>', { desc = 'Previous Buffer' })
-
 -- always open cmdwindow - optimized
 vim.keymap.set('n', ':', function()
   vim.cmd 'silent call feedkeys("q:i", "n")'
@@ -113,54 +111,6 @@ end
 vim.keymap.set('v', '<leader>cp', function()
   InsertPrintStatement(get_visual_selection())
 end, { desc = '[C]ode [P]rint variable' })
-
--- Terminal
-local esc = vim.api.nvim_replace_termcodes('<Esc>', true, false, true)
-
-local terminal_exit_keys = { 'j', 'k', '<C-u>' }
-
-local function delete_terminal_keys(set_of_keys)
-  for _, key in ipairs(set_of_keys) do
-    vim.keymap.del('t', key, { buffer = true })
-  end
-end
-
-local function set_terminal_into_normal_mode_maps()
-  local opts = { buffer = true, silent = true }
-  vim.api.nvim_feedkeys(esc, 'ni', false)
-
-  for _, key in ipairs(terminal_exit_keys) do
-    vim.keymap.set('t', key, function()
-      vim.api.nvim_input('<C-\\><C-N>' .. key)
-      delete_terminal_keys(terminal_exit_keys)
-    end, opts)
-  end
-  vim.keymap.set('t', '<leader>', function()
-    vim.api.nvim_input('<C-\\><C-N>' .. vim.g.mapleader)
-    delete_terminal_keys(terminal_exit_keys)
-  end, opts)
-end
-
-vim.api.nvim_create_autocmd('TermOpen', {
-  pattern = '*',
-  callback = function()
-    local opts = { buffer = true }
-    -- These will work in normal mode within the terminal window
-    vim.keymap.set('n', 'o', 'aa', opts)
-    vim.keymap.set('n', 'I', 'a0', opts)
-    vim.keymap.set('n', 'a', function()
-      vim.cmd.normal { bang = true, args = { 'a' } }
-      set_terminal_into_normal_mode_maps()
-    end, opts)
-    vim.keymap.set('n', 'p', function()
-      vim.api.nvim_input 'a'
-      set_terminal_into_normal_mode_maps()
-      vim.api.nvim_put({ vim.fn.getreg '+' }, 'c', true, false)
-    end, opts)
-  end,
-})
-
-vim.keymap.set('t', '<C-[>', set_terminal_into_normal_mode_maps)
 
 -- document existing key chains
 require('which-key').add {
