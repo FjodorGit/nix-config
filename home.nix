@@ -125,7 +125,6 @@ in
     # clis
     unzip
     xdg-ninja
-    git-crypt
     tlrc
     devenv
     wl-clipboard
@@ -202,11 +201,8 @@ in
       source = ./syncthing;
       recursive = true;
     };
-    ".ssh/id_ed25519".source = ./ssh/id_ed25519;
-    ".ssh/id_ed25519.pub".source = ./ssh/id_ed25519.pub;
     ".config/bluetuith/bluetuith.conf".source = ./bluetuith/bluetuith.conf;
     ".config/bacon/prefs.toml".source = ./bacon/prefs.toml;
-    ".config/mutt/muttrc".source = ./mutt/muttrc;
 
     # # Building this configuration will create a copy of 'dotfiles/screenrc' in
     # # the Nix store. Activating the configuration will then make '~/.screenrc' a
@@ -315,7 +311,6 @@ in
       notes = "cd ~/Documents/notes && nvim Dump.md";
       nvimconfig = "cd ~/.dotfiles/nvim && nvim init.lua";
       ls = "eza -1 -l --icons -a";
-      sups = "wakeonlan -p 51821 -i 77.24.121.5 3C:EC:EF:90:A4:42";
       tordownloads = "cd ${config.home.homeDirectory}/.local/share/torbrowser/tbb/x86_64/tor-browser_en-US/Browser/Downloads/";
       f = "yy";
     };
