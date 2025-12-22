@@ -24,3 +24,42 @@ vim.api.nvim_create_autocmd('FileType', {
     vim.cmd 'wincmd L'
   end,
 })
+
+vim.api.nvim_create_autocmd('CmdlineLeave', {
+  pattern = '@',
+  callback = function(_)
+    vim.o.laststatus = 2
+  end,
+})
+
+vim.api.nvim_create_autocmd('CmdwinEnter', {
+  pattern = '@',
+  callback = function(_)
+    vim.o.laststatus = 0
+  end,
+})
+
+local exclude_set = { w = true, q = true, wq = true, x = true }
+exclude_set['q!'] = true
+
+vim.api.nvim_create_autocmd('CmdlineLeave', {
+  pattern = { ':', '@' },
+  callback = function(_)
+    vim.o.laststatus = 2
+    local cmdline = vim.fn.getcmdline()
+    -- local prev_command = vim.fn.histget(':', -1)
+    if exclude_set[cmdline] then
+      -- Without this, nothing would happen:
+      vim.schedule(function()
+        vim.fn.histdel(':', -1) -- must re-execute it yourself
+      end)
+    end
+  end,
+})
+
+vim.api.nvim_create_autocmd('CmdwinEnter', {
+  pattern = { ':', '@' },
+  callback = function(_)
+    vim.o.laststatus = 0
+  end,
+})

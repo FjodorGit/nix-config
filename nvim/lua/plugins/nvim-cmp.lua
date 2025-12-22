@@ -59,8 +59,14 @@ return {
         { name = 'nvim_lsp' },
         { name = 'luasnip' },
         { name = 'path' },
-        { name = 'otter' },
       },
+
+      cmp.setup.filetype({ 'sql' }, {
+        sources = {
+          { name = 'vim-dadbod-completion' },
+          { name = 'buffer' },
+        },
+      }),
     }
     cmp.event:on('confirm_done', cmp_autopairs.on_confirm_done())
   end,

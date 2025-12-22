@@ -1,9 +1,8 @@
-local dap = require 'dap'
-local dapview = require 'dap-view'
+dap = require 'dap'
 local debug_key_maps_set = false
 
 vim.keymap.set('n', '<leader>ds', dap.continue, { desc = '[D]ebug [S]tart' })
-vim.keymap.set('n', '<leader>dt', dap.terminate, { desc = '[D]ebug [T]erminate' })
+vim.keymap.set('n', '<leader>dd', dap.terminate, { desc = '[D]ebug [D]one' })
 vim.keymap.set('n', '<leader>dr', function()
   dap.clear_breakpoints()
   dap.toggle_breakpoint()
@@ -72,7 +71,7 @@ dap.adapters.python = function(cb, config)
   else
     cb {
       type = 'executable',
-      command = 'python', -- should be made available by something like venv
+      command = '.venv/bin/python', -- should be made available by something like venv
       args = { '-m', 'debugpy.adapter' },
       options = {
         source_filetype = 'python',
@@ -105,5 +104,23 @@ dap.configurations.python = {
         return '/usr/bin/python'
       end
     end,
+  },
+}
+
+dap.adapters.codelldb = {
+  type = 'executable',
+  command = os.getenv 'CODELLDB_PATH',
+}
+
+dap.configurations.cpp = {
+  {
+    name = 'Launch file',
+    type = 'codelldb',
+    request = 'launch',
+    program = function()
+      return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
+    end,
+    cwd = '${workspaceFolder}',
+    stopOnEntry = false,
   },
 }

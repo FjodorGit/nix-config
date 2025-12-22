@@ -12,6 +12,9 @@ vim.wo.relativenumber = true
 vim.o.shiftwidth = 4
 vim.o.tabstop = 4
 
+-- for using cmdwin instead of cmdline
+vim.o.cmdwinheight = 3
+
 -- Sync clipboard between OS and Neovim.
 --  Remove this option if you want your OS clipboard to remain independent.
 --  See `:help 'clipboard'`
@@ -40,6 +43,5 @@ vim.o.completeopt = 'menuone,noselect'
 -- NOTE: You should make sure your terminal supports this
 vim.o.termguicolors = true
 
-vim.o.wrap = false
 vim.o.winborder = 'rounded'
 vim.o.swapfile = false

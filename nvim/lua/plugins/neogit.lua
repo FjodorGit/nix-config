@@ -21,8 +21,11 @@ return {
       },
     },
     event = 'VeryLazy',
+    lazy = true,
   },
   {
-    'sindrets/diffview.nvim',
+    'sindrets/diffview.nvim', -- optional
+    lazy = true,
+    cmd = { 'DiffviewOpen' },
   },
 }
