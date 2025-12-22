@@ -190,7 +190,7 @@ in
       recursive = true;
     };
     ".config/nvim" = {
-      source = config.lib.file.mkOutOfStoreSymlink ./nvim;
+      source = config.lib.file.mkOutOfStoreSymlink "${config.home.homeDirectory}/.dotfiles/nvim";
       recursive = true;
     };
     ".config/zsh/custom.zsh".source = ./zsh/.zshrc;
