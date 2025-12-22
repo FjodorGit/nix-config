@@ -2,6 +2,10 @@
   config,
   pkgs,
   inputs,
+  username,
+  hostname,
+  gitUsername,
+  gitEmail,
   ...
 }:
 
@@ -77,8 +81,8 @@ in
   imports = [ ];
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
-  home.username = "fjk";
-  home.homeDirectory = "/home/fjk";
+  home.username = username;
+  home.homeDirectory = "/home/${username}";
 
   # This value determines the Home Manager release that your configuration is
   # compatible with. This helps avoid breakage when a new Home Manager release
@@ -241,8 +245,8 @@ in
 
   programs.git = {
     enable = true;
-    userName = "FjodorGit";
-    userEmail = "f.kholodkov@gmail.com";
+    userName = gitUsername;
+    userEmail = gitEmail;
     extraConfig.init.defaultBranch = "main";
     extraConfig.core.editor = "nvim";
     extraConfig.pull.rebase = false;
@@ -312,7 +316,7 @@ in
       nvimconfig = "cd ~/.dotfiles/nvim && nvim init.lua";
       ls = "eza -1 -l --icons -a";
       sups = "wakeonlan -p 51821 -i 77.24.121.5 3C:EC:EF:90:A4:42";
-      tordownloads = "cd /home/fjk/.local/share/torbrowser/tbb/x86_64/tor-browser_en-US/Browser/Downloads/";
+      tordownloads = "cd ${config.home.homeDirectory}/.local/share/torbrowser/tbb/x86_64/tor-browser_en-US/Browser/Downloads/";
       f = "yy";
     };
 

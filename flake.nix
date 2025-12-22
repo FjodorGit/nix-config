@@ -22,12 +22,16 @@
     }@inputs:
     let
       system = "x86_64-linux";
+      username = "fjk";
+      hostname = "nixos";
+      gitUsername = "FjodorGit";
+      gitEmail = "f.kholodkov@gmail.com";
     in
     {
-      nixosConfigurations.nixos = nixpkgs.lib.nixosSystem {
+      nixosConfigurations.${hostname} = nixpkgs.lib.nixosSystem {
         inherit system;
         specialArgs = {
-          inherit inputs;
+          inherit inputs username hostname gitUsername gitEmail;
         };
         modules = [
           ./configuration.nix
@@ -36,10 +40,10 @@
         ];
       };
 
-      homeConfigurations."fjk@nixos" = home-manager.lib.homeManagerConfiguration {
+      homeConfigurations."${username}@${hostname}" = home-manager.lib.homeManagerConfiguration {
         pkgs = nixpkgs.legacyPackages.x86_64-linux;
         extraSpecialArgs = {
-          inherit inputs;
+          inherit inputs username hostname gitUsername gitEmail;
         };
         modules = [
           ./home.nix

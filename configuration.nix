@@ -6,6 +6,10 @@
   config,
   pkgs,
   inputs,
+  username,
+  hostname,
+  gitUsername,
+  gitEmail,
   ...
 }:
 
@@ -26,10 +30,10 @@
   ];
   nix.settings.trusted-users = [
     "root"
-    "fjk"
+    username
   ];
 
-  networking.hostName = "nixos"; # Define your hostname.
+  networking.hostName = hostname; # Define your hostname.
   networking.networkmanager.plugins = with pkgs; [ networkmanager-openvpn ];
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
@@ -174,9 +178,9 @@
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.groups.i2c = { };
-  users.users.fjk = {
+  users.users.${username} = {
     isNormalUser = true;
-    description = "fjk";
+    description = username;
     extraGroups = [
       "networkmanager"
       "wheel"
@@ -193,9 +197,9 @@
   home-manager = {
     # also pass inputs to home-manager modules
     extraSpecialArgs = {
-      inherit inputs;
+      inherit inputs username hostname gitUsername gitEmail;
     };
-    users."fjk" = {
+    users.${username} = {
       imports = [
         ./home.nix
         inputs.catppuccin.homeModules.catppuccin
