@@ -3,14 +3,12 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    hyprland.url = "github:hyprwm/Hyprland";
     catppuccin.url = "github:catppuccin/nix";
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    xremap-flake.url = "github:xremap/nix-flake";
     zen-browser.url = "github:0xc000022070/zen-browser-flake";
   };
 
@@ -18,7 +16,6 @@
     {
       self,
       nixpkgs,
-      hyprland,
       catppuccin,
       home-manager,
       ...

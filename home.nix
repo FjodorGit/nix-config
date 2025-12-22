@@ -74,11 +74,7 @@ let
   # );
 in
 {
-  imports = [
-    inputs.xremap-flake.homeManagerModules.default
-    ./hyprland.nix
-    ./waybar.nix
-  ];
+  imports = [ ];
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
   home.username = "fjk";
@@ -144,8 +140,6 @@ in
     pavucontrol
     pamixer
 
-    hyprshot
-
     # browsers
     tor-browser
     inputs.zen-browser.packages.x86_64-linux.default
@@ -206,16 +200,7 @@ in
     };
     ".ssh/id_ed25519".source = ./ssh/id_ed25519;
     ".ssh/id_ed25519.pub".source = ./ssh/id_ed25519.pub;
-    ".local/share/icons/XCursor-Pro-Dark-Hyprcursor" = {
-      source = ./theme/XCursor-Pro-Dark-Hyprcursor;
-      recursive = true;
-    };
-    ".config/waybar/style.css".source = ./theme/waybar_style.css;
     ".config/bluetuith/bluetuith.conf".source = ./bluetuith/bluetuith.conf;
-    ".config/rofi" = {
-      source = ./theme/rofi;
-      recursive = true;
-    };
     ".config/bacon/prefs.toml".source = ./bacon/prefs.toml;
     ".config/mutt/muttrc".source = ./mutt/muttrc;
 
@@ -320,7 +305,6 @@ in
       zshconfig = "nvim ~/.dotfiles/zsh/.zshrc";
       kittyconfig = "nvim ~/.dotfiles/kitty/kitty.conf";
       homeconfig = "cd ~/.dotfiles && nvim ~/.dotfiles/home.nix && -";
-      hyprconfig = "cd ~/.dotfiles && nvim ~/.dotfiles/hyprland.nix && -";
       cat = "bat";
       ohmyzsh = "nvim ~/.oh-my-zsh";
       qn = "cd ~/Documents/notes && nvim Dump.md && -";
@@ -420,18 +404,6 @@ in
     enable = true;
   };
 
-  programs.rofi = {
-    enable = true;
-    terminal = "kitty";
-    theme = "style.rasi";
-    extraConfig = {
-      run-shell-command = "kitty --hold {cmd}";
-    };
-    plugins = [
-      pkgs.rofi-calc
-    ];
-  };
-
   programs.opencode = {
     enable = true;
     package = opencode-latest;
@@ -477,18 +449,5 @@ in
       ExecStartPre = "${pkgs.coreutils}/bin/rm -f /tmp/ssh-agent";
       ExecStart = "${pkgs.openssh}/bin/ssh-agent -a /tmp/ssh-agent";
     };
-  };
-
-  services.xremap = {
-    withWlroots = true;
-    config.modmap = [
-      {
-        name = "Global";
-        remap = {
-          "CapsLock" = "Ctrl_L";
-          "Ctrl_L" = "CapsLock";
-        };
-      }
-    ];
   };
 }

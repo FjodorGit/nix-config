@@ -115,7 +115,6 @@
     options = "grp:alt_space_toggle";
   };
 
-  security.pam.services.hyprlock = { };
   security.pki.certificateFiles = [ ./ca-certificates/mitmproxy-ca-cert.pem ];
   # Enable sound with pipewire.
   services.pulseaudio.enable = false;
@@ -213,13 +212,11 @@
     #  wget
   ];
 
-  programs.hyprland.enable = true;
   programs.wireshark = {
     enable = true;
     package = pkgs.wireshark;
   };
   programs.mosh.enable = true;
-  programs.hyprland.package = inputs.hyprland.packages."${pkgs.system}".hyprland;
   programs.zsh.enable = true;
   users.defaultUserShell = pkgs.zsh;
 
@@ -234,11 +231,6 @@
   #   enable = true;
   #   enableSSHSupport = true;
   # };
-
-  # for remaping keys
-  hardware.uinput.enable = true;
-  users.groups.uinput.members = [ "fjk" ];
-  users.groups.input.members = [ "fjk" ];
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
