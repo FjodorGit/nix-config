@@ -22,7 +22,6 @@
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
-  boot.kernelModules = [ "i2c-dev" ];
 
   nix.settings.experimental-features = [
     "nix-command"
@@ -104,11 +103,6 @@
       CPU_MAX_PERF_ON_AC = 100;
       CPU_MIN_PERF_ON_BAT = 0;
       CPU_MAX_PERF_ON_BAT = 40;
-
-      #Optional helps save long term battery health
-      START_CHARGE_THRESH_BAT0 = 40; # 40 and bellow it starts to charge
-      STOP_CHARGE_THRESH_BAT0 = 80; # 80 and above it stops charging
-
     };
   };
 
@@ -140,11 +134,6 @@
     #media-session.enable = true;
   };
 
-  services.udev = {
-    enable = true;
-    extraRules = ''KERNEL=="i2c-[0-9]*", GROUP="i2c", MODE="0660"'';
-  };
-
   services.devmon.enable = true;
   services.gvfs.enable = true;
   services.udisks2.enable = true;
@@ -160,7 +149,6 @@
     extraGroups = [
       "networkmanager"
       "wheel"
-      "i2c"
       "wireshark"
       "docker"
     ];
@@ -173,7 +161,13 @@
   home-manager = {
     # also pass inputs to home-manager modules
     extraSpecialArgs = {
-      inherit inputs username hostname gitUsername gitEmail;
+      inherit
+        inputs
+        username
+        hostname
+        gitUsername
+        gitEmail
+        ;
     };
     users.${username} = {
       imports = [

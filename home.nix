@@ -124,20 +124,13 @@ in
 
     # clis
     unzip
-    xdg-ninja
     tlrc
-    devenv
     wl-clipboard
     rclone
 
     # programms
-    telegram-desktop
-    whatsapp-for-linux
-    obsidian
     bluetuith
     # texSetup
-    zoom-us
-    teams-for-linux
 
     # sound control
     pavucontrol
@@ -145,21 +138,15 @@ in
 
     # browsers
     tor-browser
-    inputs.zen-browser.packages.x86_64-linux.default
     chromium
     google-chrome
     firefox
     vivaldi
-    mitmproxy
-    eduvpn-client
 
-    beeper
     croc
 
     # brightness control
-    ddcutil
     brightnessctl
-    wakeonlan
   ];
 
   xdg.mimeApps = {
@@ -307,8 +294,6 @@ in
       homeconfig = "cd ~/.dotfiles && nvim ~/.dotfiles/home.nix && -";
       cat = "bat";
       ohmyzsh = "nvim ~/.oh-my-zsh";
-      qn = "cd ~/Documents/notes && nvim Dump.md && -";
-      notes = "cd ~/Documents/notes && nvim Dump.md";
       nvimconfig = "cd ~/.dotfiles/nvim && nvim init.lua";
       ls = "eza -1 -l --icons -a";
       tordownloads = "cd ${config.home.homeDirectory}/.local/share/torbrowser/tbb/x86_64/tor-browser_en-US/Browser/Downloads/";
@@ -359,22 +344,6 @@ in
   programs.eza.enable = true;
   programs.fd.enable = true;
 
-  programs.sioyek = {
-    enable = true;
-    config = {
-      "should_launch_new_window" = "1";
-    };
-    bindings = {
-      "goto_bookmark" = "B";
-      "next_state" = "<c-i>";
-      "prev_state" = "<c-o>";
-      "goto_mark" = "'";
-      "goto_toc" = "e";
-      "next_chapter" = "<c-d>";
-      "prev_chapter" = "<c-u>";
-      "goto_definition" = "gd";
-    };
-  };
   programs.yazi = {
     enable = true;
     enableZshIntegration = true;
@@ -395,10 +364,6 @@ in
     keymap = { };
   };
 
-  programs.pandoc = {
-    enable = true;
-  };
-
   programs.gh = {
     enable = true;
   };
@@ -406,10 +371,6 @@ in
   programs.opencode = {
     enable = true;
     package = opencode-latest;
-  };
-
-  programs.element-desktop = {
-    enable = true;
   };
 
   programs.bat.enable = true;
@@ -434,10 +395,6 @@ in
     enableSshSupport = true;
     pinentry.package = pkgs.pinentry-gtk2;
   };
-
-  services.syncthing.enable = true;
-  services.kdeconnect.enable = true;
-  services.kdeconnect.indicator = true;
 
   systemd.user.services.ssh-agent = {
     Unit = {
