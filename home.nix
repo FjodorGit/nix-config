@@ -150,16 +150,13 @@ in
     google-chrome
     firefox
     vivaldi
-    mitmproxy
     eduvpn-client
 
     beeper
     croc
 
     # brightness control
-    ddcutil
     brightnessctl
-    wakeonlan
   ];
 
   xdg.mimeApps = {
@@ -307,8 +304,6 @@ in
       homeconfig = "cd ~/.dotfiles && nvim ~/.dotfiles/home.nix && -";
       cat = "bat";
       ohmyzsh = "nvim ~/.oh-my-zsh";
-      qn = "cd ~/Documents/notes && nvim Dump.md && -";
-      notes = "cd ~/Documents/notes && nvim Dump.md";
       nvimconfig = "cd ~/.dotfiles/nvim && nvim init.lua";
       ls = "eza -1 -l --icons -a";
       tordownloads = "cd ${config.home.homeDirectory}/.local/share/torbrowser/tbb/x86_64/tor-browser_en-US/Browser/Downloads/";
