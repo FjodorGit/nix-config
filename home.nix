@@ -148,7 +148,6 @@ in
 
     # browsers
     tor-browser
-    floorp
     inputs.zen-browser.packages.x86_64-linux.default
     chromium
     google-chrome
@@ -156,6 +155,9 @@ in
     vivaldi
     mitmproxy
     eduvpn-client
+
+    beeper
+    croc
 
     # brightness control
     ddcutil

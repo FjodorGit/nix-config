@@ -56,8 +56,12 @@ function InsertPrintStatement(word)
   local print_statement
   if filetype == 'rust' then
     print_statement = string.format('println!("%s: {:#?}", %s);', word, word)
+  elseif filetype == 'cpp' then
+    print_statement = string.format('std::cout << "%s:" << %s << std::endl;', word, word)
   elseif filetype == 'python' or filetype == 'lua' then
     print_statement = string.format('print("%s: ", %s)', word, word)
+  elseif filetype == 'typescriptreact' or filetype == 'typescript' then
+    print_statement = string.format('console.log("%s: ", %s)', word, word)
   else
     return
   end
