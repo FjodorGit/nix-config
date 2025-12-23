@@ -36,10 +36,16 @@
   # Configure network proxy if necessary
   # networking.proxy.default = "http://user:password@proxy:port/";
   # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
+  networking.wg-quick.interfaces = {
+    osm-net = {
+      configFile = "/home/fjk/.wireguard/wg_config.conf";
+    };
+  };
 
   # Kde connect
   networking.firewall = {
     enable = true;
+    allowedUDPPorts = [ 51820 ]; # wireguard
     allowedTCPPortRanges = [
       {
         from = 1714;
