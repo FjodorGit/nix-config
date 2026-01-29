@@ -39,7 +39,7 @@
         # "HDMI-A-1,1920x1080,0x0,1"
         "DP-4,1920x1080,0x0,1"
         "DP-3,1920x1080,0x0,1"
-        "eDP-1,1920x1080,auto-center-down,1"
+        "eDP-1,preferred,auto-center-down,1"
       ];
       windowrulev2 = [
         "workspace 1, class:$browser"
