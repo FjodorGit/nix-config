@@ -31,17 +31,17 @@ require('lazy').setup({
 
   -- NOTE: This is where your plugins related to LSP can be installed.
   --  The configuration is done below. Search for lspconfig to find it below.
+  -- Useful status updates for LSP
+  { 'j-hui/fidget.nvim', opts = {} },
+
+  -- Faster LuaLS setup for Neovim config/plugin development
   {
-    -- LSP Configuration & Plugins
-    'neovim/nvim-lspconfig',
-    dependencies = {
-
-      -- Useful status updates for LSP
-      -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
-      { 'j-hui/fidget.nvim', opts = {} },
-
-      -- Additional lua configuration, makes nvim stuff amazing!
-      { 'folke/neodev.nvim', opts = {} },
+    'folke/lazydev.nvim',
+    ft = 'lua',
+    opts = {
+      library = {
+        { path = '${3rd}/luv/library', words = { 'vim%.uv' } },
+      },
     },
   },
 
@@ -187,7 +187,6 @@ vim.filetype.add {
 -- }
 
 require 'lsp'
-require 'lsp.python'
 require 'debug-adapters'
 require 'options'
 require 'usercmds'

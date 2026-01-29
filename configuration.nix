@@ -38,6 +38,7 @@
   # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
   networking.wg-quick.interfaces = {
     osm-net = {
+      autostart = false;
       configFile = "/home/fjk/.wireguard/wg_config.conf";
     };
   };
@@ -45,7 +46,22 @@
   # Kde connect
   networking.firewall = {
     enable = true;
-    allowedUDPPorts = [ 51820 ]; # wireguard
+    allowedTCPPorts = [
+      111
+      2049
+      4000
+      4001
+      4002
+      20048
+    ];
+    allowedUDPPorts = [
+      111
+      2049
+      4000
+      4001
+      4002
+      20048
+    ];
     allowedTCPPortRanges = [
       {
         from = 1714;
@@ -87,6 +103,27 @@
 
   # Enable CUPS to print documents.
   services.printing.enable = true;
+
+  fileSystems."/export/kaggle-christmas" = {
+    device = "/home/fjk/Coding/kaggle-santa-challange-25/";
+    options = [ "bind" ];
+  };
+
+  # Configure NFS server
+  services.nfs.server = {
+    enable = true;
+    # Fixed ports for firewall
+    lockdPort = 4001;
+    mountdPort = 4002;
+    statdPort = 4000;
+
+    exports = ''
+      # Export root with fsid=0 (NFSv4 pseudoroot)
+      /export         192.168.178.0/24(rw,fsid=0,no_subtree_check)
+      # Export subdirectories with nohide
+      /export/kaggle-christmas 192.168.178.0/24(rw,nohide,insecure,no_subtree_check)
+    '';
+  };
 
   services.logind = {
     powerKey = "hybrid-sleep";

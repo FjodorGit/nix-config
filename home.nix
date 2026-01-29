@@ -17,6 +17,7 @@ let
     yaml-language-server
     zls
     texlab
+    cargo
     rust-analyzer
     tinymist
     ruff
@@ -26,7 +27,7 @@ let
     nodejs_22
     python3
     stylua
-    nixfmt-rfc-style
+    nixfmt
     # Formatters
     rustfmt
     jq
@@ -34,16 +35,6 @@ let
     go
     lsof
   ];
-  opencode-latest = pkgs.opencode.overrideAttrs (finalAttrs: {
-    version = "1.0.68"; # Whatever newer version is out
-
-    src = pkgs.fetchFromGitHub {
-      owner = "sst";
-      repo = "opencode";
-      tag = "v${finalAttrs.version}";
-      hash = "sha256-dzhthgkAPjvPOxWBnf67OkTwbZ3Htdl68+UDlz45xwI=";
-    };
-  });
   # texSetup = (
   #   pkgs.texliveFull.withPackages (
   #     ps: with ps; [
@@ -133,7 +124,7 @@ in
 
     # programms
     telegram-desktop
-    whatsapp-for-linux
+    wasistlos
     obsidian
     bluetuith
     # texSetup
@@ -148,7 +139,7 @@ in
 
     # browsers
     tor-browser
-    inputs.zen-browser.packages.x86_64-linux.default
+    pdfpc
     chromium
     google-chrome
     firefox
@@ -156,7 +147,7 @@ in
     mitmproxy
     eduvpn-client
 
-    beeper
+    slack
     croc
 
     # brightness control
@@ -432,9 +423,41 @@ in
     ];
   };
 
+  programs.mpv = {
+    enable = true;
+
+    config = {
+      # Keep mpv open after playback finishes
+      keep-open = true;
+
+      # High quality profile
+      profile = "gpu-hq";
+
+    };
+
+    # Optional: Custom keybindings
+    bindings = {
+      # Example: Press 'r' to restart video from beginning
+      "r" = "seek 0 absolute";
+    };
+
+    scripts = with pkgs.mpvScripts; [
+      reload
+    ];
+  };
+
   programs.opencode = {
     enable = true;
-    package = opencode-latest;
+    package = inputs.opencode-flake.packages.${pkgs.system}.default;
+    settings = {
+      plugin = [
+        "opencode-anthropic-auth@0.0.13"
+      ];
+    };
+  };
+
+  programs.claude-code = {
+    enable = true;
   };
 
   programs.element-desktop = {
@@ -480,6 +503,7 @@ in
   };
 
   services.xremap = {
+    enable = true;
     withWlroots = true;
     config.modmap = [
       {

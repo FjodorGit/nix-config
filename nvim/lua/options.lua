@@ -15,9 +15,6 @@ vim.o.tabstop = 4
 -- for using cmdwin instead of cmdline
 vim.o.cmdwinheight = 3
 
--- Sync clipboard between OS and Neovim.
---  Remove this option if you want your OS clipboard to remain independent.
---  See `:help 'clipboard'`
 vim.o.clipboard = 'unnamedplus'
 --
 -- Add this to make it work over SSH:
