@@ -191,12 +191,6 @@ in
       recursive = true;
     };
     ".config/zsh/custom.zsh".source = ./zsh/.zshrc;
-    ".local/state/syncthing" = {
-      source = ./syncthing;
-      recursive = true;
-    };
-    ".ssh/id_ed25519".source = ./ssh/id_ed25519;
-    ".ssh/id_ed25519.pub".source = ./ssh/id_ed25519.pub;
     ".local/share/icons/XCursor-Pro-Dark-Hyprcursor" = {
       source = ./theme/XCursor-Pro-Dark-Hyprcursor;
       recursive = true;
@@ -208,7 +202,6 @@ in
       recursive = true;
     };
     ".config/bacon/prefs.toml".source = ./bacon/prefs.toml;
-    ".config/mutt/muttrc".source = ./mutt/muttrc;
 
     # # Building this configuration will create a copy of 'dotfiles/screenrc' in
     # # the Nix store. Activating the configuration will then make '~/.screenrc' a
