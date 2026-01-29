@@ -29,22 +29,22 @@ Copy your system's hardware configuration:
 cp /etc/nixos/hardware-configuration.nix ~/.dotfiles/hardware-configuration.nix
 ```
 
-### 3. Unlock Secrets
+### 3. Generate SSH Key
 
-This repository uses `git-crypt` to protect sensitive files (SSH keys, Syncthing config, Mutt config). You need to unlock the repository using your secret key.
+Generate a new SSH key for this machine:
 
 ```bash
-# Assuming you have your git-crypt key available
-git-crypt unlock /path/to/your/secret-key
+./generate-key.sh
 ```
 
-**Note:** Ensure you have your GPG keys or the symmetric key available on the new system (e.g., via USB drive).
+This creates a new ed25519 key at `~/.ssh/id_ed25519` and copies the public key to clipboard. Add it to GitHub/GitLab as needed.
 
 ### 4. External Secrets
 
 Some configuration files are not stored in the repository and must be placed manually:
 
 - **WireGuard**: Place your WireGuard config at `/home/fjk/.wireguard/wg_config.conf`.
+- **Mutt**: Place your mutt config at `~/.config/mutt/muttrc`.
 
 ### 5. Apply Configuration
 
