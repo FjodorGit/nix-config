@@ -13,7 +13,7 @@
       "$mainMod" = "ALT";
       exec-once = [
         "hyprpaper"
-        "$terminal"
+        "[workspace 1] $terminal"
         "[workspace 2 silent] $browser"
         "waybar"
         "sleep 2 && pkill -SIGUSR1 waybar"
@@ -45,11 +45,11 @@
         "DP-3,1920x1080,0x0,1"
         "eDP-1,preferred,auto-center-down,1"
       ];
-      windowrulev2 = [
-        "workspace 1, class:$browser"
-        "workspace 2, class:$terminal"
-        "workspace 3, title:^(.*)(\.pdf)$"
-        "workspace 4, class:obsidian"
+      windowrule = [
+        "match:class $browser, workspace 2"
+        "match:class $terminal, workspace 1"
+        "match:title ^(.*)(\\.pdf)$, workspace 3"
+        "match:class obsidian, workspace 4"
       ];
       workspace = [
         "2, monitor:eDP-1, default:true"
@@ -124,11 +124,8 @@
     enable = true;
     settings = {
       general = {
-        disable_loading_bar = true;
-        grace = 2;
         hide_cursor = true;
-        no_fade_in = false;
-        ignore_emptry_input = true;
+        ignore_empty_input = true;
       };
 
       background = [
@@ -161,8 +158,13 @@
   services.hyprpaper = {
     enable = true;
     settings = {
-      preload = [ "~/.dotfiles/theme/wallpaper.png" ];
-      wallpaper = [ ",~/.dotfiles/theme/wallpaper.png" ];
+      wallpaper = [
+        {
+          monitor = ""; # empty = fallback for all monitors
+          path = "~/.dotfiles/theme/wallpaper.png";
+          fit_mode = "cover";
+        }
+      ];
     };
   };
 
@@ -173,7 +175,7 @@
         after_sleep_cmd = "hyprctl dispatch dpms on";
         ignore_dbus_inhibit = false;
         before_sleep_cmd = "loginctl lock-session";
-        lock_cmd = "pidof hyprlock || hyprlock";
+        lock_cmd = "pidof hyprlock || hyprlock --grace 2";
       };
 
       listener = [

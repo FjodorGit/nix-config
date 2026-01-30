@@ -445,7 +445,7 @@ in
 
   programs.opencode = {
     enable = true;
-    package = inputs.opencode-flake.packages.${pkgs.system}.default;
+    package = inputs.opencode-flake.packages.${pkgs.stdenv.hostPlatform.system}.default;
     settings = {
       plugin = [
         "opencode-anthropic-auth@0.0.13"

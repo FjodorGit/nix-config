@@ -99,8 +99,8 @@
   # Enable the X11 windowing system.
   services.xserver.enable = true;
   # Enable the GNOME Desktop Environment.
-  services.xserver.displayManager.gdm.enable = true;
-  services.xserver.desktopManager.gnome.enable = true;
+  services.displayManager.gdm.enable = true;
+  services.desktopManager.gnome.enable = true;
   services.power-profiles-daemon.enable = false;
 
   # Enable CUPS to print documents.
@@ -127,10 +127,10 @@
     '';
   };
 
-  services.logind = {
-    powerKey = "hybrid-sleep";
-    lidSwitch = "suspend";
-    lidSwitchDocked = "suspend";
+  services.logind.settings.Login = {
+    HandlePowerKey = "hybrid-sleep";
+    HandleLidSwitch = "suspend";
+    HandleLidSwitchDocked = "suspend";
   };
   services.tlp = {
     enable = true;
@@ -269,7 +269,7 @@
     users."fjk" = {
       imports = [
         ./home.nix
-        inputs.catppuccin.homeManagerModules.catppuccin
+        inputs.catppuccin.homeModules.catppuccin
       ];
     };
   };
@@ -302,7 +302,7 @@
     package = pkgs.wireshark;
   };
   programs.mosh.enable = true;
-  programs.hyprland.package = inputs.hyprland.packages."${pkgs.system}".hyprland;
+  programs.hyprland.package = inputs.hyprland.packages."${pkgs.stdenv.hostPlatform.system}".hyprland;
   programs.zsh.enable = true;
   users.defaultUserShell = pkgs.zsh;
 
