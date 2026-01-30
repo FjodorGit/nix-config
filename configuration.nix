@@ -20,6 +20,8 @@
   boot.loader.efi.canTouchEfiVariables = true;
   boot.kernelModules = [ "i2c-dev" ];
 
+  nixpkgs.config.allowUnfree = true;
+
   nix.settings.experimental-features = [
     "nix-command"
     "flakes"
@@ -166,6 +168,31 @@
     enable = true;
     powerOnBoot = true;
   };
+
+  # NVIDIA GPU support
+  hardware.graphics.enable = true;
+  services.xserver.videoDrivers = [ "nvidia" ];
+
+  hardware.nvidia = {
+    modesetting.enable = true;
+    powerManagement.enable = true;
+    open = true; # Required for RTX 50-series
+    nvidiaSettings = true;
+    package = config.boot.kernelPackages.nvidiaPackages.beta; # Latest drivers for RTX 5060
+
+    prime = {
+      offload = {
+        enable = true;
+        enableOffloadCmd = true; # Provides nvidia-offload command
+      };
+      intelBusId = "PCI:0:2:0";
+      nvidiaBusId = "PCI:2:0:0";
+    };
+  };
+
+  environment.sessionVariables = {
+    NIXOS_OZONE_WL = "1"; # Electron apps on Wayland
+  };
   security.rtkit.enable = true;
   services.pipewire = {
     enable = true;
@@ -190,28 +217,28 @@
   services.gvfs.enable = true;
   services.udisks2.enable = true;
 
-  systemd.services.immorporation = {
-    enable = true;
-    description = "innernet client daemon for immorporation";
-    serviceConfig = {
-      ExecStart = "${pkgs.innernet}/bin/innernet up immorporation --daemon --interval 45";
-      Restart = "always";
-      RestartSec = 10;
-    };
-    path = [
-      pkgs.innernet
-      pkgs.iproute2
-    ];
-    after = [
-      "network-online.target"
-      "nss-lookup.target"
-    ];
-    wants = [
-      "network-online.target"
-      "nss-lookup.target"
-    ];
-    wantedBy = [ "multi-user.target" ];
-  };
+  # systemd.services.immorporation = {
+  #   enable = true;
+  #   description = "innernet client daemon for immorporation";
+  #   serviceConfig = {
+  #     ExecStart = "${pkgs.innernet}/bin/innernet up immorporation --daemon --interval 45";
+  #     Restart = "always";
+  #     RestartSec = 10;
+  #   };
+  #   path = [
+  #     pkgs.innernet
+  #     pkgs.iproute2
+  #   ];
+  #   after = [
+  #     "network-online.target"
+  #     "nss-lookup.target"
+  #   ];
+  #   wants = [
+  #     "network-online.target"
+  #     "nss-lookup.target"
+  #   ];
+  #   wantedBy = [ "multi-user.target" ];
+  # };
 
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
@@ -257,6 +284,19 @@
   ];
 
   programs.hyprland.enable = true;
+
+  xdg.portal = {
+    enable = true;
+    extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+    config = {
+      hyprland = {
+        default = [ "gtk" "hyprland" ];
+        "org.freedesktop.impl.portal.Screenshot" = "hyprland";
+        "org.freedesktop.impl.portal.ScreenCast" = "hyprland";
+        "org.freedesktop.impl.portal.GlobalShortcuts" = "hyprland";
+      };
+    };
+  };
   programs.wireshark = {
     enable = true;
     package = pkgs.wireshark;

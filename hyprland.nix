@@ -19,7 +19,11 @@
         "sleep 2 && pkill -SIGUSR1 waybar"
       ];
       env = [
-        "HYPRCURSOR_THEME, XCursor-Pro-Dark-Hyprcursor"
+        "HYPRCURSOR_THEME,XCursor-Pro-Dark-Hyprcursor"
+        # NVIDIA Wayland support
+        "LIBVA_DRIVER_NAME,nvidia"
+        "__GLX_VENDOR_LIBRARY_NAME,nvidia"
+        "ELECTRON_OZONE_PLATFORM_HINT,auto"
       ];
       general = {
         gaps_out = 10;

@@ -112,6 +112,7 @@ in
 
     #
     qt6.qtwayland
+    xdg-desktop-portal-gtk
 
     # clis
     unzip
@@ -240,12 +241,15 @@ in
 
   programs.git = {
     enable = true;
-    userName = "FjodorGit";
-    userEmail = "f.kholodkov@gmail.com";
-    extraConfig.init.defaultBranch = "main";
-    extraConfig.core.editor = "nvim";
-    extraConfig.pull.rebase = false;
-    extraConfig.pull.merge = true;
+    settings = {
+      user.name = "FjodorGit";
+      user.email = "f.kholodkov@gmail.com";
+      init.defaultBranch = "main";
+      core.editor = "nvim";
+      pull.rebase = false;
+      pull.merge = true;
+      url."git@github.com:".insteadOf = "https://github.com/";
+    };
   };
 
   programs.neovim = {
@@ -470,6 +474,7 @@ in
   programs.gpg.enable = true;
   programs.ssh = {
     enable = true;
+    enableDefaultConfig = false;
     matchBlocks."*".addKeysToAgent = "yes";
   };
 
@@ -484,17 +489,6 @@ in
   services.kdeconnect.enable = true;
   services.kdeconnect.indicator = true;
 
-  systemd.user.services.ssh-agent = {
-    Unit = {
-      Description = "SSH Agent";
-    };
-    Service = {
-      Type = "forking";
-      ExecStartPre = "${pkgs.coreutils}/bin/rm -f /tmp/ssh-agent";
-      ExecStart = "${pkgs.openssh}/bin/ssh-agent -a /tmp/ssh-agent";
-    };
-  };
-
   services.xremap = {
     enable = true;
     withWlroots = true;
@@ -508,4 +502,14 @@ in
       }
     ];
   };
+
+  dconf = {
+    enable = true;
+    settings = {
+      "org/gnome/desktop/interface" = {
+        color-scheme = "prefer-dark";
+      };
+    };
+  };
+
 }
