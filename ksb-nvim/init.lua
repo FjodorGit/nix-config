@@ -15,6 +15,21 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 	pattern = "*",
 })
 
+vim.o.clipboard = "unnamedplus"
+--
+-- Add this to make it work over SSH:
+vim.g.clipboard = {
+	name = "OSC 52",
+	copy = {
+		["+"] = require("vim.ui.clipboard.osc52").copy("+"),
+		["*"] = require("vim.ui.clipboard.osc52").copy("*"),
+	},
+	paste = {
+		["+"] = require("vim.ui.clipboard.osc52").paste("+"),
+		["*"] = require("vim.ui.clipboard.osc52").paste("*"),
+	},
+}
+
 local pipe_data = vim.env.KITTY_PIPE_DATA
 
 local _, cursor_x, _, _, _ = pipe_data:match("(%d+):(%d+),(%d+):(%d+),(%d+)")
