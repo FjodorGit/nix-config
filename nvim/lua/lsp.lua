@@ -1,8 +1,8 @@
 -- [[ Global LSP Configuration ]]
 -- This file sets up shared LSP settings, server configs, and enables all language servers
 
--- Global capabilities with nvim-cmp integration
-local capabilities = require('cmp_nvim_lsp').default_capabilities()
+-- Global capabilities with blink.cmp integration
+local capabilities = require('blink.cmp').get_lsp_capabilities()
 
 -- Apply shared settings to all LSP servers using the wildcard config
 vim.lsp.config('*', {

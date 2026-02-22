@@ -6,6 +6,7 @@
 }:
 
 let
+  dotfilesDir = "${config.home.homeDirectory}/.dotfiles";
   neovimLanguageServers = with pkgs; [
     clang-tools
     basedpyright
@@ -15,7 +16,6 @@ let
     lua-language-server
     sqls
     yaml-language-server
-    zls
     texlab
     cargo
     rust-analyzer
@@ -34,6 +34,9 @@ let
     prettierd
     go
     lsof
+    # Treesitter parser compilation
+    tree-sitter
+    gcc
   ];
   # texSetup = (
   #   pkgs.texliveFull.withPackages (
@@ -111,6 +114,7 @@ in
     # garbage-collection collects old home-manager generations
 
     #
+    kitty
     qt6.qtwayland
     xdg-desktop-portal-gtk
 
@@ -175,7 +179,6 @@ in
     associations.removed = {
       "inode/directory" = [
         "kitty-open.desktop"
-        "org.gnome.baobab.desktop"
       ];
     };
   };
@@ -184,25 +187,33 @@ in
   # plain files is through 'home.file'.
   home.file = {
     ".config/kitty" = {
-      source = ./kitty;
-      recursive = true;
+      source = config.lib.file.mkOutOfStoreSymlink "${dotfilesDir}/kitty";
     };
     ".config/nvim" = {
-      source = config.lib.file.mkOutOfStoreSymlink ./nvim;
-      recursive = true;
+      source = config.lib.file.mkOutOfStoreSymlink "${dotfilesDir}/nvim";
     };
-    ".config/zsh/custom.zsh".source = ./zsh/.zshrc;
+    ".config/ksb-nvim" = {
+      source = config.lib.file.mkOutOfStoreSymlink "${dotfilesDir}/ksb-nvim";
+    };
+    ".config/zsh/custom.zsh" = {
+      source = config.lib.file.mkOutOfStoreSymlink "${dotfilesDir}/zsh/.zshrc";
+    };
     ".local/share/icons/XCursor-Pro-Dark-Hyprcursor" = {
-      source = ./theme/XCursor-Pro-Dark-Hyprcursor;
-      recursive = true;
+      source = config.lib.file.mkOutOfStoreSymlink "${dotfilesDir}/theme/XCursor-Pro-Dark-Hyprcursor";
     };
-    ".config/waybar/style.css".source = ./theme/waybar_style.css;
-    ".config/bluetuith/bluetuith.conf".source = ./bluetuith/bluetuith.conf;
+    ".config/waybar/style.css" = {
+      source = config.lib.file.mkOutOfStoreSymlink "${dotfilesDir}/theme/waybar_style.css";
+    };
+    ".config/bluetuith/bluetuith.conf" = {
+      source = config.lib.file.mkOutOfStoreSymlink "${dotfilesDir}/bluetuith/bluetuith.conf";
+    };
     ".config/rofi" = {
       source = ./theme/rofi;
       recursive = true;
     };
-    ".config/bacon/prefs.toml".source = ./bacon/prefs.toml;
+    ".config/bacon/prefs.toml" = {
+      source = config.lib.file.mkOutOfStoreSymlink "${dotfilesDir}/bacon/prefs.toml";
+    };
 
     # # Building this configuration will create a copy of 'dotfiles/screenrc' in
     # # the Nix store. Activating the configuration will then make '~/.screenrc' a
@@ -290,16 +301,12 @@ in
       XDG_STATE_HOME = "$HOME/.local/state";
       XDG_CACHE_HOME = "$HOME/.cache";
 
-      ZVM_KEYTIMEOUT = 0.1;
-
       MANPAGER = "nvim +Man!";
       SUDO_EDITOR = "nvim";
       VISUAL = "nvim";
       EDITOR = "nvim";
 
       HISTORY_IGNORE = "(f)";
-
-      ZVM_INIT_MODE = "sourcing";
     };
 
     shellAliases = {
@@ -332,17 +339,6 @@ in
       ];
       theme = "robbyrussell";
     };
-    plugins = [
-      {
-        name = "vi-mode";
-        src = pkgs.zsh-vi-mode;
-        file = "share/zsh-vi-mode/zsh-vi-mode.plugin.zsh";
-      }
-    ];
-  };
-
-  programs.kitty = {
-    enable = true;
   };
 
   programs.direnv = {
@@ -368,6 +364,7 @@ in
     enable = true;
     config = {
       "should_launch_new_window" = "1";
+      "default_dark_mode" = "1";
     };
     bindings = {
       "goto_bookmark" = "B";
@@ -446,11 +443,6 @@ in
   programs.opencode = {
     enable = true;
     package = inputs.opencode-flake.packages.${pkgs.stdenv.hostPlatform.system}.default;
-    settings = {
-      plugin = [
-        "opencode-anthropic-auth@0.0.13"
-      ];
-    };
   };
 
   programs.claude-code = {
@@ -485,6 +477,11 @@ in
     pinentry.package = pkgs.pinentry-gtk2;
   };
 
+  services.gnome-keyring = {
+    enable = true;
+    components = [ "secrets" ];
+  };
+
   services.syncthing.enable = true;
   services.kdeconnect.enable = true;
   services.kdeconnect.indicator = true;
@@ -501,15 +498,6 @@ in
         };
       }
     ];
-  };
-
-  dconf = {
-    enable = true;
-    settings = {
-      "org/gnome/desktop/interface" = {
-        color-scheme = "prefer-dark";
-      };
-    };
   };
 
 }

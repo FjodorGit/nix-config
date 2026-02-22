@@ -9,14 +9,13 @@
     enable = true;
     settings = {
       "$terminal" = "kitty";
-      "$browser" = "vivaldi";
+      "$browser" = "vivaldi-stable";
       "$mainMod" = "ALT";
       exec-once = [
+        "systemctl --user start hyprpolkitagent"
         "hyprpaper"
         "[workspace 1] $terminal"
-        "[workspace 2 silent] $browser"
-        "waybar"
-        "sleep 2 && pkill -SIGUSR1 waybar"
+        "[workspace 2] $browser"
       ];
       env = [
         "HYPRCURSOR_THEME,XCursor-Pro-Dark-Hyprcursor"
@@ -44,6 +43,7 @@
         "DP-4,1920x1080,0x0,1"
         "DP-3,1920x1080,0x0,1"
         "eDP-1,preferred,auto-center-down,1"
+        ",preferred,auto,1" # Catch-all for unrecognized displays (prevents safe mode on hotplug)
       ];
       windowrule = [
         "match:class $browser, workspace 2"
@@ -172,7 +172,7 @@
     enable = true;
     settings = {
       general = {
-        after_sleep_cmd = "hyprctl dispatch dpms on";
+        after_sleep_cmd = "hyprctl dispatch dpms on && sleep 1 && (pidof hyprlock || hyprlock)";
         ignore_dbus_inhibit = false;
         before_sleep_cmd = "loginctl lock-session";
         lock_cmd = "pidof hyprlock || hyprlock --grace 2";
@@ -185,7 +185,7 @@
         }
         {
           timeout = 1000;
-          on-timeout = "systemctl hybrid-sleep";
+          on-timeout = "systemctl suspend";
         }
       ];
     };

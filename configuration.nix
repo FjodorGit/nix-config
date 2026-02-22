@@ -16,9 +16,33 @@
   ];
 
   # Bootloader.
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
-  boot.kernelModules = [ "i2c-dev" ];
+  boot = {
+    kernelPackages = pkgs.linuxPackages_latest;
+    loader = {
+      systemd-boot = {
+        enable = true;
+        configurationLimit = 10; # Keeps /boot from filling up with old generations
+        editor = false; # Security: prevents editing kernel cmdline at boot
+      };
+      efi.canTouchEfiVariables = true;
+      timeout = 3; # Seconds to show boot menu (0 = skip unless holding key)
+    };
+
+    kernelModules = [
+      "i2c-dev"
+      "kvm-intel"
+    ];
+
+    initrd.systemd.enable = true;
+    kernelParams = [
+      "quiet"
+      "i915.enable_guc=3"
+    ];
+    consoleLogLevel = 0;
+
+    # Optional: mount /tmp as tmpfs (faster, cleared on reboot)
+    tmp.useTmpfs = true;
+  };
 
   nixpkgs.config.allowUnfree = true;
 
@@ -32,6 +56,7 @@
   ];
 
   networking.hostName = "nixos"; # Define your hostname.
+  networking.networkmanager.enable = true;
   networking.networkmanager.plugins = with pkgs; [ networkmanager-openvpn ];
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
@@ -96,39 +121,28 @@
     LC_TIME = "de_DE.UTF-8";
   };
 
-  # Enable the X11 windowing system.
-  services.xserver.enable = true;
-  # Enable the GNOME Desktop Environment.
-  services.displayManager.gdm.enable = true;
-  services.desktopManager.gnome.enable = true;
+  services.greetd = {
+    enable = true;
+    settings = {
+      default_session = {
+        command = "${pkgs.tuigreet}/bin/tuigreet --remember --cmd start-hyprland";
+        user = "greeter";
+      };
+    };
+  };
+
+  # required for the tuigreet to remember the user
+  systemd.tmpfiles.rules = [
+    "d /var/cache/tuigreet 0755 greeter greeter -"
+  ];
   services.power-profiles-daemon.enable = false;
 
   # Enable CUPS to print documents.
   services.printing.enable = true;
 
-  fileSystems."/export/kaggle-christmas" = {
-    device = "/home/fjk/Coding/kaggle-santa-challange-25/";
-    options = [ "bind" ];
-  };
-
-  # Configure NFS server
-  services.nfs.server = {
-    enable = true;
-    # Fixed ports for firewall
-    lockdPort = 4001;
-    mountdPort = 4002;
-    statdPort = 4000;
-
-    exports = ''
-      # Export root with fsid=0 (NFSv4 pseudoroot)
-      /export         192.168.178.0/24(rw,fsid=0,no_subtree_check)
-      # Export subdirectories with nohide
-      /export/kaggle-christmas 192.168.178.0/24(rw,nohide,insecure,no_subtree_check)
-    '';
-  };
 
   services.logind.settings.Login = {
-    HandlePowerKey = "hybrid-sleep";
+    HandlePowerKey = "suspend";
     HandleLidSwitch = "suspend";
     HandleLidSwitchDocked = "suspend";
   };
@@ -153,14 +167,8 @@
     };
   };
 
-  # Configure keymap in X11
-  services.xserver.xkb = {
-    layout = "us, de";
-    variant = "";
-    options = "grp:alt_space_toggle";
-  };
-
   security.pam.services.hyprlock = { };
+  security.pam.services.greetd.enableGnomeKeyring = true;
   security.pki.certificateFiles = [ ./ca-certificates/mitmproxy-ca-cert.pem ];
   # Enable sound with pipewire.
   services.pulseaudio.enable = false;
@@ -168,6 +176,22 @@
     enable = true;
     powerOnBoot = true;
   };
+
+  # MT7925 combo card comes up soft-blocked by rfkill despite powerOnBoot
+  systemd.services.bluetooth-rfkill-unblock = {
+    description = "Unblock Bluetooth soft-block after boot";
+    after = [ "bluetooth.service" ];
+    wantedBy = [ "multi-user.target" ];
+    serviceConfig = {
+      Type = "oneshot";
+      ExecStart = "${pkgs.util-linux}/bin/rfkill unblock bluetooth";
+    };
+  };
+
+  hardware.enableAllFirmware = true;
+  hardware.cpu.intel.updateMicrocode = true;
+
+  services.thermald.enable = true;
 
   # NVIDIA GPU support
   hardware.graphics.enable = true;
@@ -287,10 +311,15 @@
 
   xdg.portal = {
     enable = true;
-    extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+    extraPortals = [
+      pkgs.xdg-desktop-portal-gtk
+    ];
     config = {
       hyprland = {
-        default = [ "gtk" "hyprland" ];
+        default = [
+          "gtk"
+          "hyprland"
+        ];
         "org.freedesktop.impl.portal.Screenshot" = "hyprland";
         "org.freedesktop.impl.portal.ScreenCast" = "hyprland";
         "org.freedesktop.impl.portal.GlobalShortcuts" = "hyprland";
@@ -309,7 +338,7 @@
   fonts.packages = with pkgs; [
     nerd-fonts.jetbrains-mono
   ];
-
+  nix.settings.download-buffer-size = 524288000;
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
   # programs.mtr.enable = true;

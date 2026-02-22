@@ -108,8 +108,12 @@ dap.configurations.python = {
 }
 
 dap.adapters.codelldb = {
-  type = 'executable',
-  command = os.getenv 'CODELLDB_PATH',
+  type = 'server',
+  port = '${port}',
+  executable = {
+    command = vim.env.CODELLDB_PATH, -- nvim-dap spawns this
+    args = { '--port', '${port}' },
+  },
 }
 
 dap.configurations.cpp = {
@@ -122,5 +126,19 @@ dap.configurations.cpp = {
     end,
     cwd = '${workspaceFolder}',
     stopOnEntry = false,
+  },
+}
+
+dap.configurations.rust = {
+  {
+    name = 'Launch file',
+    type = 'codelldb',
+    request = 'launch',
+    program = function()
+      return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
+    end,
+    cwd = '${workspaceFolder}',
+    stopOnEntry = false,
+    sourceLanguages = { 'rust' },
   },
 }
