@@ -69,7 +69,7 @@ let
 in
 {
   imports = [
-    inputs.xremap-flake.homeManagerModules.default
+    inputs.xremap.homeManagerModules.default
     ./hyprland.nix
     ./waybar.nix
   ];
@@ -145,9 +145,8 @@ in
     # browsers
     tor-browser
     pdfpc
-    chromium
-    google-chrome
-    firefox
+    inputs.firefoxNightly.packages.${pkgs.stdenv.hostPlatform.system}.firefox-nightly-bin
+    inputs.chromeBeta.packages.${pkgs.stdenv.hostPlatform.system}.google-chrome-beta
     vivaldi
     mitmproxy
     eduvpn-client
@@ -442,7 +441,7 @@ in
 
   programs.opencode = {
     enable = true;
-    package = inputs.opencode-flake.packages.${pkgs.stdenv.hostPlatform.system}.default;
+    package = inputs.opencode.packages.${pkgs.stdenv.hostPlatform.system}.default;
   };
 
   programs.claude-code = {

@@ -54,6 +54,19 @@ vim.api.nvim_create_autocmd("VimEnter", {
 			line_text = vim.fn.strcharpart(line_text, 2)
 
 			if kitty_listen then
+				-- Clear the current command line first
+				vim.fn.system({
+					"kitty",
+					"@",
+					"--to",
+					vim.env.KITTY_LISTEN_ON,
+					"send-text",
+					"--match",
+					"id:" .. window_id,
+					"--",
+					"\x15",
+				})
+
 				vim.fn.system({
 					"kitty",
 					"@",

@@ -1,7 +1,6 @@
 {
   config,
   pkgs,
-  inputs,
   ...
 }:
 {
@@ -79,8 +78,8 @@
       binde = [
         ",code:122 , exec, pamixer -d 5"
         ",code:123 , exec, pamixer -i 5"
-        ",code:232 , exec, brightnessctl set 10%- && ddcutil setvcp 10 - 10"
-        ",code:233 , exec, brightnessctl set +10% && ddcutil setvcp 10 + 10"
+        ",code:232 , exec, brightnessctl -d intel_backlight set 10%- && ddcutil setvcp 10 - 10"
+        ",code:233 , exec, brightnessctl -d intel_backlight set +10% && ddcutil setvcp 10 + 10"
       ];
       animation = [
         "workspaces, 0"

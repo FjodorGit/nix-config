@@ -12,7 +12,6 @@
 {
   imports = [
     ./hardware-configuration.nix
-    inputs.home-manager.nixosModules.default
   ];
 
   # Bootloader.
@@ -284,19 +283,6 @@
     ];
   };
   virtualisation.docker.enable = true;
-
-  home-manager = {
-    # also pass inputs to home-manager modules
-    extraSpecialArgs = {
-      inherit inputs;
-    };
-    users."fjk" = {
-      imports = [
-        ./home.nix
-        inputs.catppuccin.homeModules.catppuccin
-      ];
-    };
-  };
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
