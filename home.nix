@@ -120,7 +120,7 @@ in
 
     # clis
     unzip
-    xdg-ninja
+    dissent
     git-crypt
     tlrc
     devenv
@@ -147,12 +147,15 @@ in
     pdfpc
     inputs.firefoxNightly.packages.${pkgs.stdenv.hostPlatform.system}.firefox-nightly-bin
     inputs.chromeBeta.packages.${pkgs.stdenv.hostPlatform.system}.google-chrome-beta
+    google-chrome
     vivaldi
-    mitmproxy
+    # mitmproxy
     eduvpn-client
 
     slack
     croc
+    sage
+    nvitop
 
     # brightness control
     ddcutil
@@ -213,6 +216,10 @@ in
     ".config/bacon/prefs.toml" = {
       source = config.lib.file.mkOutOfStoreSymlink "${dotfilesDir}/bacon/prefs.toml";
     };
+    ".local/bin/newproj" = {
+      source = ./templates/new-project.sh;
+      executable = true;
+    };
 
     # # Building this configuration will create a copy of 'dotfiles/screenrc' in
     # # the Nix store. Activating the configuration will then make '~/.screenrc' a
@@ -242,6 +249,8 @@ in
   #
   #  /etc/profiles/per-user/fjk/etc/profile.d/hm-session-vars.sh
   #
+  home.sessionPath = [ "$HOME/.local/bin" ];
+
   home.sessionVariables = {
 
   };

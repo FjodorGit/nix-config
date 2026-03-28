@@ -19,8 +19,10 @@
       env = [
         "HYPRCURSOR_THEME,XCursor-Pro-Dark-Hyprcursor"
         # NVIDIA Wayland support
-        "LIBVA_DRIVER_NAME,nvidia"
+        # "LIBVA_DRIVER_NAME,nvidia"
+        # "GBM_BACKEND,nvidia-drm"
         "__GLX_VENDOR_LIBRARY_NAME,nvidia"
+        "AQ_NO_MODIFIERS,1"
         "ELECTRON_OZONE_PLATFORM_HINT,auto"
       ];
       general = {
@@ -38,7 +40,7 @@
         "desc:LG Electronics LG ULTRAGEAR+ 411NTDV8F650, 3440x1440@100.00Hz, auto-center-up, 1"
         "desc:LG Electronics LG ULTRAWIDE 505NTMXDV643, 3440x1440@100.00Hz,auto-center-up,1"
         "desc:HP Inc. HP E243 CNK905038R,highres,auto-center-up,1"
-        # "HDMI-A-1,1920x1080,0x0,1"
+        "desc:Hisense Electric Co. Ltd. HISENSE 0x00000001,3840x2160@60,auto-center-up,2"
         "DP-4,1920x1080,0x0,1"
         "DP-3,1920x1080,0x0,1"
         "eDP-1,preferred,auto-center-down,1"

@@ -39,6 +39,12 @@
     ];
     consoleLogLevel = 0;
 
+    # for profiling big binaries
+    kernel.sysctl = {
+      "kernel.perf_event_paranoid" = 1;
+      "kernel.perf_event_mlock_kb" = 65536;
+    };
+
     # Optional: mount /tmp as tmpfs (faster, cleared on reboot)
     tmp.useTmpfs = true;
   };
@@ -139,7 +145,6 @@
   # Enable CUPS to print documents.
   services.printing.enable = true;
 
-
   services.logind.settings.Login = {
     HandlePowerKey = "suspend";
     HandleLidSwitch = "suspend";
@@ -193,7 +198,14 @@
   services.thermald.enable = true;
 
   # NVIDIA GPU support
-  hardware.graphics.enable = true;
+  hardware.graphics = {
+    enable = true;
+    enable32Bit = true; # needed for 32-bit Proton/Wine components
+  };
+
+  programs.steam = {
+    enable = true;
+  };
   services.xserver.videoDrivers = [ "nvidia" ];
 
   hardware.nvidia = {
@@ -229,6 +241,10 @@
     # use the example session manager (no others are packaged yet so this is enabled by default,
     # no need to redefine it in your config for now)
     #media-session.enable = true;
+  };
+
+  services.upower = {
+    enable = true;
   };
 
   services.udev = {

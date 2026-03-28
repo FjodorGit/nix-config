@@ -84,9 +84,15 @@ vim.lsp.config('rust_analyzer', {
       cargo = {
         targetDir = true,
         features = 'all',
+        buildScripts = {
+          enable = true,
+        },
+      },
+      procMacro = {
+        enable = true,
       },
       check = {
-        features = 'all',
+        command = 'clippy',
       },
     },
   },
@@ -263,6 +269,44 @@ vim.lsp.config('sqlls', {
   filetypes = { 'sql', 'mysql' },
   root_markers = { '.sqllsrc.json', '.git' },
 })
+
+vim.lsp.config('wgsl-analyzer', {
+  cmd = { 'wgsl-analyzer' },
+  filetypes = { 'wgsl' },
+  settings = {
+    ['wgsl-analyzer'] = {
+      -- Diagnostics
+      diagnostics = {
+        typeErrors = true,
+        nagaParsingErrors = false,
+        nagaValidationErrors = true,
+        nagaVersion = 'main', -- options: "0.14", "0.19", "0.22", "main"
+      },
+      -- Inlay hints
+      inlayHints = {
+        enabled = true,
+        typeHints = true,
+        parameterHints = true,
+        structLayoutHints = false,
+        typeVerbosity = 'compact', -- options: "full", "compact", "inner"
+      },
+      -- Custom imports (for Bevy-style #import directives)
+      -- Map import names to URLs or inline WGSL text
+      customImports = {
+        -- Example for Bevy:
+        -- ["bevy_pbr::mesh_bindings"] = "https://raw.githubusercontent.com/bevyengine/bevy/v0.14.0/crates/bevy_pbr/src/render/mesh_bindings.wgsl",
+      },
+      -- Shader preprocessor defines (for #ifdef directives)
+      preprocessor = {
+        shaderDefs = {
+          -- "VERTEX_TANGENTS",
+        },
+      },
+    },
+  },
+})
+
+vim.lsp.enable 'wgsl-analyzer'
 
 -- [[ Enable Language Servers ]]
 vim.lsp.enable 'lua_ls'
