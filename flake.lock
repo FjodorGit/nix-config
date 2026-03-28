@@ -88,6 +88,26 @@
         "type": "github"
       }
     },
+    "disko": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1773889306,
+        "narHash": "sha256-PAqwnsBSI9SVC2QugvQ3xeYCB0otOwCacB1ueQj2tgw=",
+        "owner": "nix-community",
+        "repo": "disko",
+        "rev": "5ad85c82cc52264f4beddc934ba57f3789f28347",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "repo": "disko",
+        "type": "github"
+      }
+    },
     "firefoxNightly": {
       "inputs": {
         "flake-compat": "flake-compat",
@@ -220,18 +240,18 @@
         "type": "github"
       }
     },
-    "homeManager": {
+    "home-manager": {
       "inputs": {
         "nixpkgs": [
           "nixpkgs"
         ]
       },
       "locked": {
-        "lastModified": 1771851181,
-        "narHash": "sha256-gFgE6mGUftwseV3DUENMb0k0EiHd739lZexPo5O/sdQ=",
+        "lastModified": 1774738535,
+        "narHash": "sha256-2jfBEZUC67IlnxO5KItFCAd7Oc+1TvyV/jQlR+2ykGQ=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "9a4b494b1aa1b93d8edf167f46dc8e0c0011280c",
+        "rev": "769e07ef8f4cf7b1ec3b96ef015abec9bc6b1e2a",
         "type": "github"
       },
       "original": {
@@ -734,8 +754,9 @@
       "inputs": {
         "catppuccin": "catppuccin",
         "chromeBeta": "chromeBeta",
+        "disko": "disko",
         "firefoxNightly": "firefoxNightly",
-        "homeManager": "homeManager",
+        "home-manager": "home-manager",
         "hyprland": "hyprland",
         "nixpkgs": "nixpkgs_3",
         "opencode": "opencode",

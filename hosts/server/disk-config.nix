@@ -8,7 +8,6 @@
         content = {
           type = "gpt";
           partitions = {
-            # BIOS boot partition (required for GRUB with GPT)
             bios = {
               size = "1M";
               type = "EF02";
