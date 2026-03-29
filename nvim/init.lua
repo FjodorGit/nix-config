@@ -96,7 +96,6 @@ vim.filetype.add {
 -- }
 
 require 'lsp'
-require 'debug-adapters'
 require 'options'
 require 'usercmds'
 require 'autocmds'
