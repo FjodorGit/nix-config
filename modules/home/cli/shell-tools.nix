@@ -8,6 +8,7 @@
     rclone
     croc
     wakeonlan
+    claude-code
   ];
 
   programs.direnv = {

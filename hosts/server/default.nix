@@ -17,6 +17,27 @@
       enable = true;
       allowedTCPPorts = [ 22 ];
     };
+    hosts = {
+      "2a01:4f8:c010:d56::2" = [ "github.com" ];
+      "2a01:4f8:c010:d56::3" = [ "api.github.com" ];
+      "2a01:4f8:c010:d56::4" = [ "codeload.github.com" ];
+      "2a01:4f8:c010:d56::6" = [ "ghcr.io" ];
+      "2a01:4f8:c010:d56::7" = [
+        "pkg.github.com"
+        "npm.pkg.github.com"
+        "maven.pkg.github.com"
+        "nuget.pkg.github.com"
+        "rubygems.pkg.github.com"
+      ];
+      "2a01:4f8:c010:d56::8" = [ "uploads.github.com" ];
+      "2606:50c0:8000::133" = [
+        "objects.githubusercontent.com"
+        "raw.githubusercontent.com"
+        "gist.githubusercontent.com"
+        "avatars.githubusercontent.com"
+      ];
+      "2606:50c0:8000::154" = [ "github.githubassets.com" ];
+    };
   };
 
   systemd.network = {
@@ -55,11 +76,6 @@
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEmu3RKLj4DK1EE1m+tOFC/JK4Lj+oALkXP3O2pg3qk1 fjk@nixos"
     ];
   };
-
-  environment.systemPackages = with pkgs; [
-    vim
-    curl
-  ];
 
   system.stateVersion = "24.11";
 }
