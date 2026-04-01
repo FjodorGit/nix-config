@@ -39,6 +39,7 @@
       homeModules = {
         core = import ./modules/home/cli/core.nix;
         zsh = import ./modules/home/cli/zsh.nix;
+        zellij = import ./modules/home/cli/zellij.nix;
         neovim = import ./modules/home/cli/neovim.nix;
         git = import ./modules/home/cli/git.nix;
         shell-tools = import ./modules/home/cli/shell-tools.nix;
@@ -64,6 +65,7 @@
           waybar
           apps
           services
+          zellij
         ])
         ++ [
           catppuccin.homeModules.catppuccin
