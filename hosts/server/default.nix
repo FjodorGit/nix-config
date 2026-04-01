@@ -1,4 +1,4 @@
-{ pkgs, config, ... }:
+{ pkgs, ... }:
 {
   imports = [
     ./hardware-configuration.nix
@@ -16,62 +16,6 @@
     firewall = {
       enable = true;
       allowedTCPPorts = [ 22 ];
-    };
-    hosts = {
-      "2a01:4f8:c010:d56::2" = [ "github.com" ];
-      "2a01:4f8:c010:d56::3" = [ "api.github.com" ];
-      "2a01:4f8:c010:d56::4" = [ "codeload.github.com" ];
-      "2a01:4f8:c010:d56::6" = [ "ghcr.io" ];
-      "2a01:4f8:c010:d56::7" = [
-        "pkg.github.com"
-        "npm.pkg.github.com"
-        "maven.pkg.github.com"
-        "nuget.pkg.github.com"
-        "rubygems.pkg.github.com"
-      ];
-      "2a01:4f8:c010:d56::8" = [ "uploads.github.com" ];
-      "2606:50c0:8000::133" = [
-        "objects.githubusercontent.com"
-        "raw.githubusercontent.com"
-        "gist.githubusercontent.com"
-        "avatars.githubusercontent.com"
-      ];
-      "2606:50c0:8000::154" = [ "github.githubassets.com" ];
-    };
-
-    firewall.checkReversePath = "loose";
-    wg-quick.interfaces.wgcf = {
-      privateKeyFile = config.age.secrets.wgcf-private.path;
-
-      address = [ "172.16.0.2/32" ];
-
-      dns = [
-        "1.1.1.1"
-        "1.0.0.1"
-        "2606:4700:4700::1001"
-        "2606:4700:4700::1111"
-      ];
-      mtu = 1420;
-
-      table = "off";
-      postUp = ''
-        ip route add default dev wgcf table 51820
-        ip rule add not fwmark 51820 table 51820
-        ip rule add table main suppress_prefixlength 0
-      '';
-      postDown = ''
-        ip rule del not fwmark 51820 table 51820
-        ip rule del table main suppress_prefixlength 0
-      '';
-
-      peers = [
-        {
-          publicKey = "bmXOC+F1FxEMF9dyiK2H5/1SUtzH0JuVo51h2wPfgyo=";
-          endpoint = "[2606:4700:d0::a29f:c001]:2408";
-          allowedIPs = [ "0.0.0.0/0" ];
-          persistentKeepalive = 25;
-        }
-      ];
     };
   };
 
