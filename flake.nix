@@ -58,6 +58,7 @@
         neovim
         git
         shell-tools
+        zellij
       ];
 
       desktopBundle =
@@ -67,7 +68,6 @@
           waybar
           apps
           services
-          zellij
         ])
         ++ [
           catppuccin.homeModules.catppuccin
