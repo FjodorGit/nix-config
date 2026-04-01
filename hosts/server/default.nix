@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, config, ... }:
 {
   imports = [
     ./hardware-configuration.nix
@@ -41,7 +41,7 @@
 
     firewall.checkReversePath = "loose";
     wg-quick.interfaces.wgcf = {
-      privateKeyFile = "/home/fjk/wgcf-private-key";
+      privateKeyFile = config.age.secrets.wgcf-private.path;
 
       address = [ "172.16.0.2/32" ];
 

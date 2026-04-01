@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, inputs, ... }:
 {
   home.packages = with pkgs; [
     unzip
@@ -9,6 +9,8 @@
     croc
     wakeonlan
     claude-code
+
+    inputs.agenix.packages.${pkgs.system}.default
   ];
 
   programs.direnv = {

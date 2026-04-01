@@ -23,6 +23,7 @@
       url = "github:nix-community/disko";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    agenix.url = "github:ryantm/agenix";
   };
 
   outputs =
@@ -32,6 +33,7 @@
       home-manager,
       catppuccin,
       disko,
+      agenix,
       ...
     }@inputs:
     let
@@ -113,6 +115,7 @@
           nixosModules = [
             ./hosts/desktop
             catppuccin.nixosModules.catppuccin
+            agenix.nixosModules.default
           ];
           homeImports = desktopBundle;
         };
@@ -121,6 +124,7 @@
           system = "x86_64-linux";
           nixosModules = [
             disko.nixosModules.disko
+            agenix.nixosModules.default
             ./hosts/server
           ];
           homeImports = cliBundle;
