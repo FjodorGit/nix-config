@@ -9,7 +9,7 @@
     };
     hyprland.url = "github:hyprwm/Hyprland";
     catppuccin.url = "github:catppuccin/nix";
-    opencode.url = "github:anomalyco/opencode/dev";
+    llm-agents.url = "github:numtide/llm-agents.nix";
     xremap.url = "github:xremap/nix-flake";
     chromeBeta = {
       url = "github:nix-community/browser-previews";

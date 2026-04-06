@@ -8,9 +8,9 @@
     rclone
     croc
     wakeonlan
-    claude-code
 
-    inputs.agenix.packages.${pkgs.system}.default
+    inputs.agenix.packages.${pkgs.stdenv.hostPlatform.system}.default
+    inputs.llm-agents.packages.${pkgs.stdenv.hostPlatform.system}.pi
   ];
 
   programs.direnv = {
