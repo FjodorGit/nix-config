@@ -1,0 +1,54 @@
+name: Update Helium
+
+on:
+  schedule:
+    - cron: "0 0 * * *"
+  workflow_dispatch:
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6.0.1
+        with:
+          token: ${{ secrets.GH_PAT }}
+
+      - name: Install Nix
+        uses: cachix/install-nix-action@v31.9.0
+        with:
+          nix_path: nixpkgs=channel:nixos-unstable
+
+      - name: Update helium
+        id: update
+        working-directory: helium-patches
+        run: |
+          set -euo pipefail
+          OLD_VERSION=$(grep 'version = ' flake.nix | head -1 | sed 's/.*"\(.*\)".*/\1/')
+          nix run nixpkgs#nix-update -- --flake helium
+          NEW_VERSION=$(grep 'version = ' flake.nix | head -1 | sed 's/.*"\(.*\)".*/\1/')
+
+          if [ "$OLD_VERSION" = "$NEW_VERSION" ]; then
+            echo "Already at latest version: $NEW_VERSION"
+            echo "update_needed=false" >> $GITHUB_OUTPUT
+          else
+            echo "Updated from $OLD_VERSION to $NEW_VERSION"
+            echo "update_needed=true" >> $GITHUB_OUTPUT
+            echo "version=$NEW_VERSION" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Verify flake
+        if: steps.update.outputs.update_needed == 'true'
+        working-directory: helium-patches
+        run: nix flake check
+
+      - name: Commit and push changes
+        if: steps.update.outputs.update_needed == 'true'
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add helium-patches/flake.nix helium-patches/flake.lock
+          git commit -m "chore: update helium to ${{ steps.update.outputs.version }}"
+          git push
