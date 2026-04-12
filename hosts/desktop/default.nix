@@ -104,7 +104,7 @@
     enable = true;
     settings = {
       default_session = {
-        command = "${pkgs.tuigreet}/bin/tuigreet --remember --cmd start-hyprland";
+        command = "${pkgs.tuigreet}/bin/tuigreet --remember --cmd niri-session";
         user = "greeter";
       };
     };
@@ -230,20 +230,22 @@
     innernet
   ];
 
-  programs.hyprland.enable = true;
+  programs.niri.enable = true;
 
   xdg.portal = {
     enable = true;
-    extraPortals = [ pkgs.xdg-desktop-portal-gtk ];
+    extraPortals = [
+      pkgs.xdg-desktop-portal-gtk
+      pkgs.xdg-desktop-portal-gnome
+    ];
     config = {
-      hyprland = {
+      niri = {
         default = [
+          "gnome"
           "gtk"
-          "hyprland"
         ];
-        "org.freedesktop.impl.portal.Screenshot" = "hyprland";
-        "org.freedesktop.impl.portal.ScreenCast" = "hyprland";
-        "org.freedesktop.impl.portal.GlobalShortcuts" = "hyprland";
+        "org.freedesktop.impl.portal.Screenshot" = "gnome";
+        "org.freedesktop.impl.portal.ScreenCast" = "gnome";
       };
     };
   };
@@ -252,7 +254,6 @@
     package = pkgs.wireshark;
   };
   programs.mosh.enable = true;
-  programs.hyprland.package = inputs.hyprland.packages."${pkgs.stdenv.hostPlatform.system}".hyprland;
 
   fonts.packages = with pkgs; [
     nerd-fonts.jetbrains-mono
