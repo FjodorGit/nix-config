@@ -121,6 +121,31 @@ vim.lsp.config('ruff', {
   root_markers = { 'pyproject.toml', 'ruff.toml', '.ruff.toml', '.git' },
 })
 
+local nixd_flake = '/home/fjk/.dotfiles'
+local nixd_host = vim.uv.os_gethostname()
+vim.lsp.config('nixd', {
+  cmd = { 'nixd' },
+  filetypes = { 'nix' },
+  root_markers = { 'flake.nix', '.git' },
+  settings = {
+    nixd = {
+      nixpkgs = { expr = 'import <nixpkgs> { }' },
+      options = {
+        nixos = {
+          expr = '(builtins.getFlake "' .. nixd_flake .. '").nixosConfigurations.' .. nixd_host .. '.options',
+        },
+        ['home-manager'] = {
+          expr = '(builtins.getFlake "'
+            .. nixd_flake
+            .. '").nixosConfigurations.'
+            .. nixd_host
+            .. '.options.home-manager.users.type.getSubOptions []',
+        },
+      },
+    },
+  },
+})
+
 -- TypeScript/JavaScript
 vim.lsp.config('ts_ls', {
   cmd = { 'typescript-language-server', '--stdio' },
@@ -313,6 +338,7 @@ vim.lsp.enable 'lua_ls'
 vim.lsp.enable 'rust_analyzer'
 vim.lsp.enable 'ruff'
 vim.lsp.enable 'basedpyright'
+vim.lsp.enable 'nixd'
 vim.lsp.enable 'ts_ls'
 vim.lsp.enable 'cssls'
 vim.lsp.enable 'html'

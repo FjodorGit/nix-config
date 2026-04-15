@@ -1,10 +1,12 @@
 {
   config,
   pkgs,
+  self,
   ...
 }:
 let
   dotfilesDir = "${config.home.homeDirectory}/.dotfiles";
+  cursorSize = 24;
   setCurrentWorkspace = pkgs.writeShellScript "set-current-workspace" ''
     niri msg action unset-workspace-name current
     niri msg action set-workspace-name current
@@ -15,6 +17,15 @@ in
     swaybg
     swayidle
   ];
+
+  home.pointerCursor = {
+    name = "Bibata-Modern-Ice";
+    package = pkgs.linkFarm "bibata-modern-ice" {
+      "share/icons/Bibata-Modern-Ice" = "${self}/theme/Bibata-Modern-Ice";
+    };
+    size = cursorSize;
+    gtk.enable = true;
+  };
 
   programs.swaylock = {
     enable = true;
@@ -65,6 +76,11 @@ in
     environment = {
       "__GLX_VENDOR_LIBRARY_NAME" = "nvidia";
       "ELECTRON_OZONE_PLATFORM_HINT" = "auto";
+    };
+
+    cursor = {
+      theme = "Bibata-Modern-Ice";
+      size = cursorSize;
     };
 
     input = {
@@ -170,6 +186,7 @@ in
       "Alt+J".action.focus-window-or-monitor-down = [ ];
       "Alt+K".action.focus-window-or-monitor-up = [ ];
       "Alt+L".action.focus-column-right-or-first = [ ];
+      "Alt+I".action.center-visible-columns = [ ];
 
       # Named workspaces
       "Alt+1".action.focus-workspace = "current";
@@ -188,14 +205,16 @@ in
 
       # Move workspaces
       "Alt+Ctrl+N".action.move-workspace-to-monitor-next = [ ];
+      "Alt+Shift+F".action.switch-focus-between-floating-and-tiling = [ ];
+      "Alt+Ctrl+F".action.toggle-window-floating = [ ];
 
       # Move columns
       "Alt+BracketLeft".action.move-column-left = [ ];
       "Alt+BracketRight".action.move-column-right = [ ];
 
       # Resize
-      "Alt+Ctrl+H".action.set-column-width = "-10%";
-      "Alt+Ctrl+L".action.set-column-width = "+10%";
+      "Alt+Ctrl+H".action.set-column-width = "-5%";
+      "Alt+Ctrl+L".action.set-column-width = "+5%";
 
       # Volume
       "XF86AudioRaiseVolume".action.spawn = [
