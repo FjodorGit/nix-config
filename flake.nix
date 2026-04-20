@@ -126,7 +126,6 @@
             disko.nixosModules.disko
             agenix.nixosModules.default
             ./hosts/server
-            ./modules/nixos/ipv6-warp.nix
           ];
           homeImports = cliBundle;
         };

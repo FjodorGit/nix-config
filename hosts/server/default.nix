@@ -15,7 +15,11 @@
     useDHCP = false;
     firewall = {
       enable = true;
-      allowedTCPPorts = [ 22 ];
+      allowedTCPPorts = [
+        22
+        4001
+        4002
+      ];
     };
   };
 
@@ -33,6 +37,7 @@
         "2a01:4ff:ff00::add:1"
         "2a01:4ff:ff00::add:2"
       ];
+      networkConfig.DHCP = "ipv4";
     };
   };
 

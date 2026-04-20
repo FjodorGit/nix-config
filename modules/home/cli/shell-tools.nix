@@ -1,4 +1,9 @@
-{ pkgs, inputs, ... }:
+{
+  pkgs,
+  inputs,
+  self,
+  ...
+}:
 {
   home.packages = with pkgs; [
     unzip
@@ -9,6 +14,9 @@
     croc
     wakeonlan
     claude-code
+
+    dua
+    jq
 
     inputs.agenix.packages.${pkgs.system}.default
   ];
@@ -47,7 +55,16 @@
 
   programs.pandoc.enable = true;
   programs.gh.enable = true;
-  programs.gpg.enable = true;
+
+  programs.gpg = {
+    enable = true;
+    publicKeys = [
+      {
+        source = "${self}/keys/hl-node.asc";
+        trust = "ultimate";
+      }
+    ];
+  };
 
   programs.ssh = {
     enable = true;
