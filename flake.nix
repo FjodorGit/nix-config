@@ -52,6 +52,7 @@
         niri-config = import ./modules/home/desktop/niri.nix;
         waybar = import ./modules/home/desktop/waybar.nix;
         apps = import ./modules/home/desktop/apps.nix;
+        kitty = import ./modules/home/desktop/kitty.nix;
         services = import ./modules/home/desktop/services.nix;
       };
 
@@ -70,6 +71,7 @@
         ++ (with homeModules; [
           niri-config
           apps
+          kitty
           services
         ])
         ++ [

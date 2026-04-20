@@ -1,12 +1,10 @@
-{ config, ... }:
-let
-  dotfilesDir = "${config.home.homeDirectory}/.dotfiles";
-in
+{ self, ... }:
 {
   programs.home-manager.enable = true;
   home.sessionPath = [ "$HOME/.local/bin" ];
 
   home.file.".local/bin/newproj" = {
-    source = config.lib.file.mkOutOfStoreSymlink "${dotfilesDir}/templates/new-project.sh";
+    source = "${self}/templates/new-project.sh";
+    executable = true;
   };
 }

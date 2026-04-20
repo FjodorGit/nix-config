@@ -13,9 +13,11 @@ let
   '';
 in
 {
+
   home.packages = with pkgs; [
     swaybg
     swayidle
+    xwayland-satellite
   ];
 
   home.pointerCursor = {

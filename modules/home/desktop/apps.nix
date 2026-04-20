@@ -10,7 +10,6 @@ let
 in
 {
   home.packages = with pkgs; [
-    kitty
     qt6.qtwayland
     xdg-desktop-portal-gtk
     wl-clipboard
@@ -51,9 +50,6 @@ in
   ];
 
   home.file = {
-    ".config/kitty" = {
-      source = config.lib.file.mkOutOfStoreSymlink "${dotfilesDir}/kitty";
-    };
     ".config/bluetuith/bluetuith.conf" = {
       source = config.lib.file.mkOutOfStoreSymlink "${dotfilesDir}/bluetuith/bluetuith.conf";
     };
@@ -64,7 +60,7 @@ in
   };
 
   home.shellAliases = {
-    kittyconfig = "nvim ~/.dotfiles/kitty/kitty.conf";
+    kittyconfig = "nvim ~/.dotfiles/modules/home/desktop/kitty.nix";
     hyprconfig = "nvim ~/.dotfiles/modules/home/desktop/hyprland.nix";
     niriconfig = "nvim ~/.dotfiles/modules/home/desktop/niri.nix";
     sups = "wakeonlan -p 51821 -i 77.24.121.5 3C:EC:EF:90:A4:42";
