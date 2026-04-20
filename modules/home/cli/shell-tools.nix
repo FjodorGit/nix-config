@@ -13,12 +13,13 @@
     rclone
     croc
     wakeonlan
-    claude-code
 
     dua
     jq
 
-    inputs.agenix.packages.${pkgs.system}.default
+    inputs.agenix.packages.${pkgs.stdenv.hostPlatform.system}.default
+    inputs.llm-agents.packages.${pkgs.stdenv.hostPlatform.system}.pi
+    inputs.llm-agents.packages.${pkgs.stdenv.hostPlatform.system}.claude-code
   ];
 
   programs.direnv = {

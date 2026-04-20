@@ -13,6 +13,7 @@ return {
       -- Install parsers
       require('nvim-treesitter').install {
         'regex',
+        'cairo',
         'markdown',
         'c',
         'cpp',

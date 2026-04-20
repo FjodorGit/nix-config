@@ -3,6 +3,7 @@
 
   inputs = {
     nixpkgs.url = "https://flakehub.com/f/NixOS/nixpkgs/0.1";
+    flake-parts.url = "github:hercules-ci/flake-parts";
     rust-overlay = {
       url = "github:oxalica/rust-overlay";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -10,31 +11,23 @@
   };
 
   outputs =
-    { self, ... }@inputs:
-    let
-      supportedSystems = [
+    inputs@{ flake-parts, ... }:
+    flake-parts.lib.mkFlake { inherit inputs; } {
+      systems = [
         "x86_64-linux"
         "aarch64-linux"
         "x86_64-darwin"
         "aarch64-darwin"
       ];
-      forEachSupportedSystem =
-        f:
-        inputs.nixpkgs.lib.genAttrs supportedSystems (
-          system:
-          f {
-            pkgs = import inputs.nixpkgs {
-              inherit system;
-              overlays = [ inputs.rust-overlay.overlays.default ];
-            };
-          }
-        );
-    in
-    {
-      devShells = forEachSupportedSystem (
-        { pkgs }:
+
+      perSystem =
+        { system, ... }:
         let
-          # Reads rust-toolchain.toml if present, otherwise latest stable
+          pkgs = import inputs.nixpkgs {
+            inherit system;
+            overlays = [ inputs.rust-overlay.overlays.default ];
+          };
+
           rustToolchain =
             if builtins.pathExists ./rust-toolchain.toml then
               pkgs.rust-bin.fromRustupToolchainFile ./rust-toolchain.toml
@@ -47,7 +40,7 @@
               };
         in
         {
-          default = pkgs.mkShell {
+          devShells.default = pkgs.mkShell {
             packages = with pkgs; [
               rustToolchain
               openssl
@@ -60,7 +53,6 @@
               LIBLLDB_PATH = "${pkgs.vscode-extensions.vadimcn.vscode-lldb}/share/vscode/extensions/vadimcn.vscode-lldb/lldb/lib/liblldb.so";
             };
           };
-        }
-      );
+        };
     };
 }

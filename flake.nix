@@ -8,8 +8,9 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     hyprland.url = "github:hyprwm/Hyprland";
+    niri.url = "github:sodiboo/niri-flake";
     catppuccin.url = "github:catppuccin/nix";
-    opencode.url = "github:anomalyco/opencode/dev";
+    llm-agents.url = "github:numtide/llm-agents.nix";
     xremap.url = "github:xremap/nix-flake";
     chromeBeta = {
       url = "github:nix-community/browser-previews";
@@ -24,6 +25,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     agenix.url = "github:ryantm/agenix";
+    helium.url = "path:./helium-patches";
   };
 
   outputs =
@@ -32,6 +34,7 @@
       nixpkgs,
       home-manager,
       catppuccin,
+      niri,
       disko,
       agenix,
       ...
@@ -46,8 +49,10 @@
         git = import ./modules/home/cli/git.nix;
         shell-tools = import ./modules/home/cli/shell-tools.nix;
         hyprland = import ./modules/home/desktop/hyprland.nix;
+        niri-config = import ./modules/home/desktop/niri.nix;
         waybar = import ./modules/home/desktop/waybar.nix;
         apps = import ./modules/home/desktop/apps.nix;
+        kitty = import ./modules/home/desktop/kitty.nix;
         services = import ./modules/home/desktop/services.nix;
       };
 
@@ -64,9 +69,9 @@
       desktopBundle =
         cliBundle
         ++ (with homeModules; [
-          hyprland
-          waybar
+          niri-config
           apps
+          kitty
           services
         ])
         ++ [
@@ -116,6 +121,8 @@
             ./hosts/desktop
             catppuccin.nixosModules.catppuccin
             agenix.nixosModules.default
+            niri.nixosModules.niri
+            { nixpkgs.overlays = [ niri.overlays.niri ]; }
           ];
           homeImports = desktopBundle;
         };

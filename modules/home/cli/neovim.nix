@@ -15,6 +15,7 @@ let
     rust-analyzer
     tinymist
     ruff
+    nixd
   ];
   neovimExtraPackages = with pkgs; [
     zig
