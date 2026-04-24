@@ -1,4 +1,9 @@
-{ pkgs, inputs, ... }:
+{
+  pkgs,
+  inputs,
+  self,
+  ...
+}:
 {
   home.packages = with pkgs; [
     unzip
@@ -8,6 +13,9 @@
     rclone
     croc
     wakeonlan
+
+    dua
+    jq
 
     inputs.agenix.packages.${pkgs.stdenv.hostPlatform.system}.default
     inputs.llm-agents.packages.${pkgs.stdenv.hostPlatform.system}.pi
@@ -48,7 +56,16 @@
 
   programs.pandoc.enable = true;
   programs.gh.enable = true;
-  programs.gpg.enable = true;
+
+  programs.gpg = {
+    enable = true;
+    publicKeys = [
+      {
+        source = "${self}/keys/hl-node.asc";
+        trust = "ultimate";
+      }
+    ];
+  };
 
   programs.ssh = {
     enable = true;
