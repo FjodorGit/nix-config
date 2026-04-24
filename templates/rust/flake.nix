@@ -49,10 +49,13 @@
               vscode-extensions.vadimcn.vscode-lldb
             ];
             env = {
+              RUST_SRC_PATH = "${rustToolchain}/lib/rustlib/src/rust/library";
               CODELLDB_PATH = "${pkgs.vscode-extensions.vadimcn.vscode-lldb}/share/vscode/extensions/vadimcn.vscode-lldb/adapter/codelldb";
               LIBLLDB_PATH = "${pkgs.vscode-extensions.vadimcn.vscode-lldb}/share/vscode/extensions/vadimcn.vscode-lldb/lldb/lib/liblldb.so";
             };
           };
+
+          formatter = pkgs.nixfmt;
         };
     };
 }
