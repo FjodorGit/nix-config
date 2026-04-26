@@ -16,6 +16,9 @@
 
     dua
     jq
+    lsof
+    man-pages
+    man-pages-posix
 
     inputs.agenix.packages.${pkgs.stdenv.hostPlatform.system}.default
     inputs.llm-agents.packages.${pkgs.stdenv.hostPlatform.system}.pi
