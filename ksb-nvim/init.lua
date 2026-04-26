@@ -51,7 +51,7 @@ vim.api.nvim_create_autocmd("VimEnter", {
 			local window_id = vim.env.KITTY_SOURCE_WID
 
 			local line_text = vim.fn.getline(last_line)
-			line_text = vim.fn.strcharpart(line_text, 2)
+			line_text = line_text:match("%S+%s+(.*)")
 
 			if kitty_listen then
 				-- Clear the current command line first
