@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 let
   dotfilesDir = "${config.home.homeDirectory}/.dotfiles";
   neovimLanguageServers = with pkgs; [
@@ -33,6 +33,8 @@ let
   ];
 in
 {
+  xdg.configFile."nvim/init.lua".enable = lib.mkForce false;
+
   home.file = {
     ".config/nvim" = {
       source = config.lib.file.mkOutOfStoreSymlink "${dotfilesDir}/nvim";
