@@ -61,7 +61,6 @@ in
 
   home.shellAliases = {
     kittyconfig = "nvim ~/.dotfiles/modules/home/desktop/kitty.nix";
-    hyprconfig = "nvim ~/.dotfiles/modules/home/desktop/hyprland.nix";
     niriconfig = "nvim ~/.dotfiles/modules/home/desktop/niri.nix";
     sups = "wakeonlan -p 51821 -i 77.24.121.5 3C:EC:EF:90:A4:42";
     tordownloads = "cd /home/fjk/.local/share/torbrowser/tbb/x86_64/tor-browser_en-US/Browser/Downloads/";
