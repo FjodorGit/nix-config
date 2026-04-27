@@ -1,6 +1,11 @@
 {
   ...
 }:
+let
+  scrollbackNvim =
+    vimArgs:
+    ''launch --env NVIM_APPNAME=ksb-nvim --type=overlay --stdin-source=@screen_scrollback env KITTY_SOURCE_WID=@active-kitty-window-id nvim ${vimArgs}'';
+in
 {
   programs.kitty = {
     enable = true;
@@ -61,7 +66,8 @@
       "ctrl+a>v" = "new_window_with_cwd";
 
       # Open scrollback buffer in nvim
-      "ctrl+a>[" = ''launch --env NVIM_APPNAME=ksb-nvim --type=overlay --stdin-source=@screen_scrollback sh -c 'KITTY_SOURCE_WID="$0" exec nvim' @active-kitty-window-id'';
+      "ctrl+a>[" = scrollbackNvim "";
+      "ctrl+a>/" = scrollbackNvim ''-c "call feedkeys('?')"'';
     };
   };
 }

@@ -1,4 +1,9 @@
-{ pkgs, inputs, ... }:
+{
+  pkgs,
+  inputs,
+  lib,
+  ...
+}:
 {
   imports = [ inputs.xremap.homeManagerModules.default ];
 
@@ -18,15 +23,35 @@
 
   services.xremap = {
     enable = true;
-    withWlroots = true;
-    config.modmap = [
-      {
-        name = "Global";
-        remap = {
-          "CapsLock" = "Ctrl_L";
-          "Ctrl_L" = "CapsLock";
-        };
-      }
-    ];
+    withNiri = true;
+    config = {
+      modmap = [
+        {
+          name = "Global";
+          remap = {
+            "CapsLock" = "Ctrl_L";
+            "Ctrl_L" = "CapsLock";
+          };
+        }
+      ];
+      keymap = [
+        {
+          name = "Launcher";
+          remap = {
+            "Alt-space" = {
+              remap = {
+                "c" = {
+                  launch = [
+                    "${lib.getExe pkgs.kitty}"
+                    "${lib.getExe pkgs.sage}"
+                  ];
+                };
+              };
+              timeout_millis = 500;
+            };
+          };
+        }
+      ];
+    };
   };
 }

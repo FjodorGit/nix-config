@@ -1,7 +1,7 @@
 return {
   {
     'lervag/vimtex',
-    config = function()
+    init = function()
       vim.g.vimtex_mappings_prefix = "9"
     end,
     ft = "tex",

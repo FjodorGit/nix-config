@@ -1,4 +1,9 @@
-{ config, pkgs, lib, ... }:
+{
+  config,
+  pkgs,
+  lib,
+  ...
+}:
 let
   dotfilesDir = "${config.home.homeDirectory}/.dotfiles";
   neovimLanguageServers = with pkgs; [
@@ -30,6 +35,11 @@ let
     lsof
     tree-sitter
     gcc
+    (texlive.combine {
+      inherit (texlive)
+        scheme-full
+        ;
+    })
   ];
 in
 {

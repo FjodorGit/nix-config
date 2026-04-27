@@ -88,7 +88,6 @@ in
     input = {
       keyboard.xkb = {
         layout = "us,de";
-        options = "grp:alt_space_toggle";
       };
     };
 
@@ -208,6 +207,7 @@ in
       # Move workspaces
       "Alt+Ctrl+N".action.move-workspace-to-monitor-next = [ ];
       "Alt+Shift+F".action.switch-focus-between-floating-and-tiling = [ ];
+      "Alt+Shift+L".action.switch-layout = "next";
       "Alt+Ctrl+F".action.toggle-window-floating = [ ];
 
       # Move columns
@@ -296,6 +296,15 @@ in
         open-on-output = "DP-1";
       };
     };
+
+    window-rules = [
+      {
+        matches = [
+          { app-id = "^sioyek$"; }
+        ];
+        open-on-workspace = "pdf";
+      }
+    ];
 
   };
 }
