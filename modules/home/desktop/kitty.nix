@@ -4,7 +4,7 @@
 let
   scrollbackNvim =
     vimArgs:
-    ''launch --env NVIM_APPNAME=ksb-nvim --type=overlay --stdin-source=@screen_scrollback env KITTY_SOURCE_WID=@active-kitty-window-id nvim ${vimArgs}'';
+    "launch --env NVIM_APPNAME=ksb-nvim --type=overlay --stdin-source=@screen_scrollback env KITTY_SOURCE_WID=@active-kitty-window-id nvim ${vimArgs}";
 in
 {
   programs.kitty = {
