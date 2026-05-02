@@ -32,23 +32,26 @@
         };
       };
 
-      # Data drive
-      data = {
+      # QuestDB ZFS pool drive
+      questdb = {
         device = "/dev/nvme1n1";
         type = "disk";
         content = {
-          type = "gpt";
-          partitions = {
-            data = {
-              size = "100%";
-              content = {
-                type = "filesystem";
-                format = "ext4";
-                mountpoint = "/data";
-              };
-            };
-          };
+          type = "zfs";
+          pool = "questdb";
         };
+      };
+    };
+
+    zpool = {
+      questdb = {
+        type = "zpool";
+        options.ashift = "12";
+        rootFsOptions = {
+          compression = "zstd";
+          atime = "off";
+        };
+        mountpoint = "/home/fjk/.questdb";
       };
     };
   };

@@ -12,6 +12,7 @@
 
   networking = {
     hostName = "server";
+    hostId = "b3eacd33";
     useDHCP = false;
     firewall = {
       enable = true;
