@@ -9,6 +9,8 @@
     ./hardware-configuration.nix
   ];
 
+  catppuccin.cache.enable = true;
+
   # Bootloader
   boot = {
     kernelPackages = pkgs.linuxPackages_latest;

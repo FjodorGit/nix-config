@@ -9,6 +9,15 @@ let
   dotfilesDir = "${config.home.homeDirectory}/.dotfiles";
 in
 {
+  catppuccin = {
+    enable = true;
+    flavor = "mocha";
+    accent = "blue";
+    rofi.enable = false; # keep custom rasi layout; colors handled in theme/rofi/colors.rasi
+    element-desktop.enable = false; # upstream port broken
+    nvim.enable = false; # lazy.nvim manages catppuccin in nvim/lua/plugins/theme.lua
+  };
+
   home.packages = with pkgs; [
     qt6.qtwayland
     xdg-desktop-portal-gtk

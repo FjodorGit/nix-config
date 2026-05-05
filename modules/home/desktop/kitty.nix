@@ -4,7 +4,7 @@
 let
   scrollbackNvim =
     vimArgs:
-    "launch --env NVIM_APPNAME=ksb-nvim --type=overlay --stdin-source=@screen_scrollback env KITTY_SOURCE_WID=@active-kitty-window-id nvim ${vimArgs}";
+    ''launch --env NVIM_APPNAME=ksb-nvim --type=overlay --stdin-source=@screen_scrollback sh -c 'KITTY_SOURCE_WID="$0" exec nvim "$@"' @active-kitty-window-id ${vimArgs}'';
 in
 {
   programs.kitty = {
@@ -14,8 +14,6 @@ in
       name = "JetBrainsMono Nerd Font";
       size = 14;
     };
-
-    themeFile = "Catppuccin-Mocha";
 
     shellIntegration.enableZshIntegration = true;
 

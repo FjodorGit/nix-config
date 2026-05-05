@@ -120,6 +120,12 @@
             agenix.nixosModules.default
             niri.nixosModules.niri
             { nixpkgs.overlays = [ niri.overlays.niri ]; }
+            (
+              { pkgs, ... }:
+              {
+                programs.niri.package = pkgs.niri-unstable;
+              }
+            )
           ];
           homeImports = desktopBundle;
         };

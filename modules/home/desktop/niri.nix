@@ -1,12 +1,16 @@
 {
   config,
   pkgs,
+  lib,
   self,
   ...
 }:
 let
   dotfilesDir = "${config.home.homeDirectory}/.dotfiles";
   cursorSize = 24;
+  palette =
+    (lib.importJSON "${config.catppuccin.sources.palette}/palette.json")
+    .${config.catppuccin.flavor}.colors;
   setCurrentWorkspace = pkgs.writeShellScript "set-current-workspace" ''
     niri msg action unset-workspace-name current
     niri msg action set-workspace-name current
@@ -37,12 +41,6 @@ in
       ignore-empty-password = true;
       font-size = 24;
       indicator-radius = 100;
-      ring-color = "cdd6f4";
-      key-hl-color = "89b4fa";
-      inside-color = "141414";
-      line-color = "00000000";
-      separator-color = "00000000";
-      text-color = "cdd6f4";
     };
   };
 
@@ -71,8 +69,6 @@ in
           "swaylock -f"
         ];
       }
-      { argv = [ "kitty" ]; }
-      { argv = [ "helium" ]; }
     ];
 
     environment = {
@@ -153,8 +149,8 @@ in
       border = {
         enable = true;
         width = 2;
-        active.color = "#89b4fa";
-        inactive.color = "#45475a";
+        active.color = palette.${config.catppuccin.accent}.hex;
+        inactive.color = palette.surface1.hex;
       };
       focus-ring.enable = false;
     };
