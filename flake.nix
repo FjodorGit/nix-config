@@ -24,6 +24,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     agenix.url = "github:ryantm/agenix";
+    elephant.url = "github:abenz1267/elephant";
+    walker = {
+      url = "github:abenz1267/walker";
+      inputs.elephant.follows = "elephant";
+    };
     helium.url = "path:./helium-patches";
   };
 
@@ -47,9 +52,11 @@
         neovim = import ./modules/home/cli/neovim.nix;
         git = import ./modules/home/cli/git.nix;
         shell-tools = import ./modules/home/cli/shell-tools.nix;
+        happy = import ./modules/home/cli/happy.nix;
         niri-config = import ./modules/home/desktop/niri.nix;
         apps = import ./modules/home/desktop/apps.nix;
         kitty = import ./modules/home/desktop/kitty.nix;
+        walker = import ./modules/home/desktop/walker.nix;
         services = import ./modules/home/desktop/services.nix;
       };
 
@@ -69,10 +76,12 @@
           niri-config
           apps
           kitty
+          walker
           services
         ])
         ++ [
           catppuccin.homeModules.catppuccin
+          inputs.walker.homeManagerModules.default
         ];
 
       # ── Host builder ────────────────────────────────────────
@@ -137,7 +146,7 @@
             agenix.nixosModules.default
             ./hosts/server
           ];
-          homeImports = cliBundle;
+          homeImports = cliBundle ++ [ homeModules.happy ];
         };
       };
     };
