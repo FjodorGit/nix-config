@@ -2,6 +2,11 @@
 {
   programs.git = {
     enable = true;
+    ignores = [
+      ".direnv"
+      ".envrc"
+      "**/.claude/settings.local.json"
+    ];
     settings = {
       user.name = "FjodorGit";
       user.email = "f.kholodkov@gmail.com";
