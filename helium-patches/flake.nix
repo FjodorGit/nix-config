@@ -14,7 +14,7 @@
         config.allowUnfree = true;
       };
 
-      version = "0.14.5.1";
+      version = "0.14.6.1";
 
       helium = pkgs.stdenv.mkDerivation {
         pname = "helium";
@@ -22,7 +22,7 @@
 
         src = pkgs.fetchurl {
           url = "https://github.com/imputnet/helium-linux/releases/download/${version}/helium-${version}-x86_64_linux.tar.xz";
-          hash = "sha256-xm/dlEYoysEc92iGfguMSciDDUSAa/Mtvtn/HWSBrLE=";
+          hash = "sha256-JxeluCe6x9eF1hp4PRII5S0dl4ScVW9oHJaoNbVxv7A=";
         };
 
         nativeBuildInputs = with pkgs; [
