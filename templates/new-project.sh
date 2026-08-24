@@ -1,11 +1,8 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-# ── Configuration ─────────────────────────────────────────────────
-# Point this at your templates directory.
 TEMPLATE_DIR="$HOME/.dotfiles/templates"
 
-# ── Argument parsing ─────────────────────────────────────────────
 usage() {
   echo "Usage: $(basename "$0") <template> [project-name] [target-dir]"
   echo ""
@@ -29,7 +26,6 @@ if [[ ! -d "$TEMPLATE_PATH" ]]; then
   usage
 fi
 
-# If no project name given, use current dir (for init-in-place)
 if [[ $# -ge 2 ]]; then
   PROJECT="$2"
   TARGET="${3:-$(pwd)/$PROJECT}"
@@ -38,7 +34,6 @@ else
   PROJECT="$(basename "$TARGET")"
 fi
 
-# ── Scaffold ─────────────────────────────────────────────────────
 mkdir -p "$TARGET"
 cd "$TARGET"
 
@@ -67,13 +62,11 @@ if [[ ${#skipped[@]} -gt 0 ]]; then
   echo "  skipped (already exist): ${skipped[*]}"
 fi
 
-# ── direnv ───────────────────────────────────────────────────────
 if [[ -f .envrc ]] && command -v direnv &>/dev/null; then
   echo "→ Allowing direnv..."
   direnv allow .
 fi
 
-# ── Language-specific init ───────────────────────────────────────
 case "$TEMPLATE" in
   rust)
     if [[ ! -f Cargo.toml ]]; then
