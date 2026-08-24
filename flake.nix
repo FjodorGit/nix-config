@@ -7,9 +7,10 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    niri.url = "github:sodiboo/niri-flake";
+    niri.url = "git+https://github.com/epireyn/niri-flake.git";
     catppuccin.url = "github:catppuccin/nix";
     llm-agents.url = "github:numtide/llm-agents.nix";
+    omp.url = "github:can1357/oh-my-pi";
     xremap.url = "github:xremap/nix-flake";
     chromeBeta = {
       url = "github:nix-community/browser-previews";
@@ -29,7 +30,15 @@
       url = "github:abenz1267/walker";
       inputs.elephant.follows = "elephant";
     };
+    gws = {
+      url = "github:googleworkspace/cli";
+      inputs.elephant.follows = "elephant";
+    };
     helium.url = "path:./helium-patches";
+    nmrs = {
+      url = "github:networkmanager-rs/nmrs-gui";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =

@@ -23,6 +23,7 @@
     inputs.agenix.packages.${pkgs.stdenv.hostPlatform.system}.default
     inputs.llm-agents.packages.${pkgs.stdenv.hostPlatform.system}.pi
     inputs.llm-agents.packages.${pkgs.stdenv.hostPlatform.system}.claude-code
+    inputs.gws.packages.${pkgs.stdenv.hostPlatform.system}.default
   ];
 
   programs.direnv = {

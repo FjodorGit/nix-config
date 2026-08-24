@@ -25,7 +25,7 @@ in
 
     # communication
     telegram-desktop
-    wasistlos
+    karere
     slack
     dissent
     zoom-us
@@ -47,6 +47,7 @@ in
     google-chrome
     vivaldi
     inputs.helium.packages.${pkgs.stdenv.hostPlatform.system}.helium
+    inputs.nmrs.packages.${pkgs.stdenv.hostPlatform.system}.default
     eduvpn-client
 
     # utilities

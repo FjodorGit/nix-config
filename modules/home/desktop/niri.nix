@@ -25,6 +25,7 @@ in
   ];
 
   home.pointerCursor = {
+    enable = true;
     name = "Bibata-Modern-Ice";
     package = pkgs.linkFarm "bibata-modern-ice" {
       "share/icons/Bibata-Modern-Ice" = "${self}/theme/Bibata-Modern-Ice";
@@ -131,6 +132,18 @@ in
         position = {
           x = 0;
           y = 1440;
+        };
+      };
+      "Lenovo Group Limited T27p-30 V5XBC344" = {
+        position = {
+          x = 0;
+          y = 0;
+        };
+      };
+      "Lenovo Group Limited T27p-30 V5WWT943" = {
+        position = {
+          x = 0;
+          y = 0;
         };
       };
       "HP Inc. HP E243 CNK905038R" = { };

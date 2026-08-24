@@ -9,6 +9,12 @@
     ./hardware-configuration.nix
   ];
 
+  nixpkgs.overlays = [
+    (_final: prev: {
+      sage = prev.sage.override { requireSageTests = false; };
+    })
+  ];
+
   catppuccin.cache.enable = true;
 
   # Bootloader
@@ -37,8 +43,9 @@
     consoleLogLevel = 0;
 
     kernel.sysctl = {
-      "kernel.perf_event_paranoid" = 1;
+      "kernel.perf_event_paranoid" = -1;
       "kernel.perf_event_mlock_kb" = 65536;
+      "kernel.kptr_restrict" = 0;
     };
 
     tmp.useTmpfs = true;
@@ -177,7 +184,7 @@
     powerManagement.enable = true;
     open = true;
     nvidiaSettings = true;
-    package = config.boot.kernelPackages.nvidiaPackages.beta;
+    package = config.boot.kernelPackages.nvidiaPackages.latest;
 
     prime = {
       offload = {
