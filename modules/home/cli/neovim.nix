@@ -21,6 +21,7 @@ let
     tinymist
     ruff
     nixd
+    zls
   ];
   neovimExtraPackages = with pkgs; [
     zig

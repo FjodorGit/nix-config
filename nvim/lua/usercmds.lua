@@ -62,6 +62,8 @@ function InsertPrintStatement(word)
     print_statement = string.format('print("%s: ", %s)', word, word)
   elseif filetype == 'typescriptreact' or filetype == 'typescript' then
     print_statement = string.format('console.log("%s: ", %s)', word, word)
+  elseif filetype == 'zig' then
+    print_statement = string.format('std.debug.print("%s: {}\\n", .{%s});', word, word)
   else
     return
   end
