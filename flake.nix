@@ -52,7 +52,8 @@
         neovim = import ./modules/home/cli/neovim.nix;
         git = import ./modules/home/cli/git.nix;
         shell-tools = import ./modules/home/cli/shell-tools.nix;
-        happy = import ./modules/home/cli/happy.nix;
+        agent-rules = import ./modules/home/cli/agent-rules.nix;
+        omp = import ./modules/home/cli/omp.nix;
         niri-config = import ./modules/home/desktop/niri.nix;
         apps = import ./modules/home/desktop/apps.nix;
         kitty = import ./modules/home/desktop/kitty.nix;
@@ -67,6 +68,8 @@
         neovim
         git
         shell-tools
+        agent-rules
+        omp
         zellij
       ];
 
@@ -146,7 +149,7 @@
             agenix.nixosModules.default
             ./hosts/server
           ];
-          homeImports = cliBundle ++ [ homeModules.happy ];
+          homeImports = cliBundle;
         };
       };
     };
