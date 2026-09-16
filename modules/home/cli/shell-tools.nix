@@ -23,6 +23,8 @@
     inputs.agenix.packages.${pkgs.stdenv.hostPlatform.system}.default
     inputs.llm-agents.packages.${pkgs.stdenv.hostPlatform.system}.pi
     inputs.llm-agents.packages.${pkgs.stdenv.hostPlatform.system}.claude-code
+    inputs.llm-agents.packages.${pkgs.stdenv.hostPlatform.system}.claude-desktop
+    inputs.llm-agents.packages.${pkgs.stdenv.hostPlatform.system}.chatgpt
     inputs.gws.packages.${pkgs.stdenv.hostPlatform.system}.default
   ];
 
@@ -100,6 +102,7 @@
         sort_dir_first = true;
       };
     };
+    shellWrapperName = "f";
     keymap = { };
   };
 }

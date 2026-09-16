@@ -49,6 +49,7 @@ in
       ssh = "kitten ssh";
       ls = "eza -1 -l --icons -a";
       f = "yy";
+      logout = ''loginctl terminate-user "$USER"'';
     };
 
     initContent = ''

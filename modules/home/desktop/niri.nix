@@ -216,7 +216,6 @@ in
       # Move workspaces
       "Alt+Ctrl+N".action.move-workspace-to-monitor-next = [ ];
       "Alt+Shift+F".action.switch-focus-between-floating-and-tiling = [ ];
-      "Alt+Shift+L".action.switch-layout = "next";
       "Alt+Ctrl+F".action.toggle-window-floating = [ ];
 
       # Move columns

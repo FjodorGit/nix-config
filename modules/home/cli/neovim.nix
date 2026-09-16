@@ -65,6 +65,7 @@ in
     defaultEditor = true;
     withNodeJs = true;
     withPython3 = true;
+    withRuby = false;
     extraPackages = neovimExtraPackages ++ neovimLanguageServers;
     extraPython3Packages =
       ps: with ps; [
