@@ -66,6 +66,7 @@
         niri-config = import ./modules/home/desktop/niri.nix;
         apps = import ./modules/home/desktop/apps.nix;
         kitty = import ./modules/home/desktop/kitty.nix;
+        foot = import ./modules/home/desktop/foot.nix;
         walker = import ./modules/home/desktop/walker.nix;
         services = import ./modules/home/desktop/services.nix;
       };
@@ -88,6 +89,7 @@
           niri-config
           apps
           kitty
+          foot
           walker
           services
         ])

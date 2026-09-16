@@ -53,6 +53,13 @@ in
     ".config/ksb-nvim" = {
       source = config.lib.file.mkOutOfStoreSymlink "${dotfilesDir}/ksb-nvim";
     };
+    ".config/term-nvim/init.lua" = {
+      source = config.lib.file.mkOutOfStoreSymlink "${dotfilesDir}/term-nvim/init.lua";
+    };
+    # No plugin manager here: nvim loads pack/*/start/* from its config dir.
+    ".config/term-nvim/pack/nix/start/catppuccin" = {
+      source = config.catppuccin.sources.nvim;
+    };
     ".config/bacon/prefs.toml" = {
       source = config.lib.file.mkOutOfStoreSymlink "${dotfilesDir}/bacon/prefs.toml";
     };

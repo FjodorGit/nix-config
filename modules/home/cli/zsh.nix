@@ -48,13 +48,30 @@ in
       nvimconfig = "cd ~/.dotfiles/nvim && nvim init.lua";
       ssh = "kitten ssh";
       ls = "eza -1 -l --icons -a";
-      f = "yy";
-      logout = ''loginctl terminate-user "$USER"'';
+      logoff = ''loginctl terminate-user "$USER"'';
     };
 
     initContent = ''
       # Source your custom file
       [[ -f ~/.config/zsh/custom.zsh ]] && source ~/.config/zsh/custom.zsh
+
+      # Edit the command line in nvim: q cancels, <CR> accepts and runs.
+      # nvim signals "accept" by creating $TERM_NVIM_ACCEPT.
+      autoload -Uz edit-command-line
+      zle -N edit-command-line
+
+      edit-command-line-run() {
+        local marker="''${XDG_RUNTIME_DIR:-/tmp}/zsh-edit-command-line.$$"
+        command rm -f "$marker"
+        local -x NVIM_APPNAME=term-nvim TERM_NVIM_MODE=cmdline TERM_NVIM_ACCEPT="$marker"
+        zle edit-command-line
+        if [[ -e "$marker" ]]; then
+          command rm -f "$marker"
+          zle accept-line
+        fi
+      }
+      zle -N edit-command-line-run
+      bindkey '^X^E' edit-command-line-run
     '';
     oh-my-zsh = {
       enable = true;
