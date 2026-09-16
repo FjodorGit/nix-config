@@ -174,7 +174,7 @@ in
 
     binds = {
       # App launchers
-      "Alt+T".action.spawn = "kitty";
+      "Alt+T".action.spawn = "foot";
       "Alt+B".action.spawn = "helium";
       "Alt+R".action.spawn = [
         "rofi"
@@ -255,17 +255,6 @@ in
       ];
 
       # Utilities
-      "Alt+Shift+B".action.spawn = [
-        "kitty"
-        "-e"
-        "bluetuith"
-      ];
-      "Alt+Shift+N".action.spawn = [
-        "kitty"
-        "-e"
-        "sudo"
-        "nmtui"
-      ];
       "Alt+Shift+C".action.spawn = [
         "rofi"
         "-show"

@@ -43,6 +43,7 @@ in
         pipe-command-output = [
           ''[sh -c "timeout 5 tee ${outputFifo} >/dev/null"] Control+Shift+y''
         ];
+        spawn-terminal = [ "Control+Shift+t" ];
       };
     };
   };

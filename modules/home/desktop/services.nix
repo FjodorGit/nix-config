@@ -6,6 +6,7 @@
   ...
 }:
 let
+  launchers = import ./launchers.nix { inherit lib pkgs inputs; };
   niriMsg = args: {
     launch = [
       "${config.programs.niri.package}/bin/niri"
@@ -51,14 +52,11 @@ in
           remap = {
             "Alt-space" = {
               remap = {
-                "c" = {
-                  launch = [
-                    "${lib.getExe pkgs.kitty}"
-                    "${lib.getExe pkgs.sage}"
-                  ];
-                };
+                "c".launch = launchers.calculator;
+                "b".launch = launchers.bluetooth;
+                "n".launch = launchers.network;
                 "l" = niriMsg [
-                  "switch-layout"
+                  "switch-layout" # language
                   "next"
                 ];
               };
@@ -75,6 +73,7 @@ in
               remap = {
                 # Dump the scrollback (foot), then drain it into nvim (zsh).
                 # No delay needed: the FIFO open is the synchronisation.
+                "t" = [ "Ctrl-Shift-t" ];
                 "u" = [
                   "Ctrl-Shift-b"
                   "Ctrl-x"

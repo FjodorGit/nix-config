@@ -108,10 +108,10 @@ in
 
   programs.rofi = {
     enable = true;
-    terminal = "kitty";
+    terminal = "foot";
     theme = "style.rasi";
     extraConfig = {
-      run-shell-command = "kitty --hold {cmd}";
+      run-shell-command = "foot --hold {cmd}";
     };
     plugins = [
       pkgs.rofi-calc

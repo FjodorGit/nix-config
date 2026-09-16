@@ -24,7 +24,7 @@
               pkgs.uv
             ];
 
-            env = lib.optionalAttrs pkgs.stdenv.isLinux {
+            env = lib.optionalAttrs pkgs.stdenv.hostPlatform.isLinux {
               LD_LIBRARY_PATH = lib.makeLibraryPath pkgs.pythonManylinuxPackages.manylinux1;
             };
 
