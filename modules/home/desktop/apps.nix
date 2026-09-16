@@ -18,46 +18,54 @@ in
     nvim.enable = false; # lazy.nvim manages catppuccin in nvim/lua/plugins/theme.lua
   };
 
-  home.packages = with pkgs; [
-    qt6.qtwayland
-    xdg-desktop-portal-gtk
-    wl-clipboard
+  home.packages =
+    with pkgs;
+    [
+      qt6.qtwayland
+      xdg-desktop-portal-gtk
+      wl-clipboard
 
-    # communication
-    telegram-desktop
-    karere
-    slack
-    dissent
-    zoom-us
-    teams-for-linux
+      # communication
+      telegram-desktop
+      karere
+      slack
+      dissent
+      zoom-us
+      teams-for-linux
 
-    # productivity
-    obsidian
-    bluetuith
-    pdfpc
+      # productivity
+      obsidian
+      bluetuith
+      pdfpc
 
-    # sound control
-    pavucontrol
-    pamixer
+      # sound control
+      pavucontrol
+      pamixer
 
-    # browsers
-    tor-browser
-    inputs.firefoxNightly.packages.${pkgs.stdenv.hostPlatform.system}.firefox-nightly-bin
-    inputs.chromeBeta.packages.${pkgs.stdenv.hostPlatform.system}.google-chrome-beta
-    google-chrome
-    vivaldi
-    inputs.helium.packages.${pkgs.stdenv.hostPlatform.system}.helium
-    inputs.nmrs.packages.${pkgs.stdenv.hostPlatform.system}.default
-    eduvpn-client
+      # browsers
+      tor-browser
+      inputs.firefoxNightly.packages.${pkgs.stdenv.hostPlatform.system}.firefox-nightly-bin
+      inputs.chromeBeta.packages.${pkgs.stdenv.hostPlatform.system}.google-chrome-beta
+      google-chrome
+      vivaldi
+      inputs.helium.packages.${pkgs.stdenv.hostPlatform.system}.helium
+      inputs.nmrs.packages.${pkgs.stdenv.hostPlatform.system}.default
+      eduvpn-client
 
-    # utilities
-    sage
-    nvitop
+      # utilities
+      sage
+      nvitop
 
-    # brightness control
-    ddcutil
-    brightnessctl
-  ];
+      # brightness control
+      ddcutil
+      brightnessctl
+    ]
+    # fonts
+    ++ (with nerd-fonts; [
+      jetbrains-mono
+      geist-mono
+      iosevka
+    ]);
 
   home.file = {
     ".config/bluetuith/bluetuith.conf" = {

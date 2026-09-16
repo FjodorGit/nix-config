@@ -263,12 +263,6 @@
   };
   programs.mosh.enable = true;
 
-  fonts.packages = with pkgs; [
-    nerd-fonts.jetbrains-mono
-    nerd-fonts.geist-mono
-    nerd-fonts.iosevka
-  ];
-
   hardware.uinput.enable = true;
   users.groups.uinput.members = [ "fjk" ];
   users.groups.input.members = [ "fjk" ];

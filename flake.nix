@@ -65,6 +65,7 @@
         omp = import ./modules/home/cli/omp.nix;
         niri-config = import ./modules/home/desktop/niri.nix;
         apps = import ./modules/home/desktop/apps.nix;
+        input-method = import ./modules/home/desktop/input-method.nix;
         kitty = import ./modules/home/desktop/kitty.nix;
         foot = import ./modules/home/desktop/foot.nix;
         walker = import ./modules/home/desktop/walker.nix;
@@ -88,6 +89,7 @@
         ++ (with homeModules; [
           niri-config
           apps
+          input-method
           kitty
           foot
           walker
