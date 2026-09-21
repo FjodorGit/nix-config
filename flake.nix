@@ -39,6 +39,11 @@
       url = "github:networkmanager-rs/nmrs-gui";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    termPicker = {
+      url = "github:Guekka/xdg-desktop-portal-termfilepickers";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs =
@@ -123,7 +128,7 @@
                 useUserPackages = true;
                 extraSpecialArgs = { inherit inputs self; };
                 users.${username} = {
-                  imports = homeImports;
+                  imports = homeImports ++ [ ./modules/home/common.nix ];
                   home = {
                     inherit username;
                     homeDirectory = "/home/${username}";
@@ -141,6 +146,7 @@
           system = "x86_64-linux";
           nixosModules = [
             ./hosts/desktop
+            inputs.termPicker.nixosModules.default
             catppuccin.nixosModules.catppuccin
             agenix.nixosModules.default
             niri.nixosModules.niri

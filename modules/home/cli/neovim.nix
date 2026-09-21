@@ -2,10 +2,10 @@
   config,
   pkgs,
   lib,
+  dotfilesDir,
   ...
 }:
 let
-  dotfilesDir = "${config.home.homeDirectory}/.dotfiles";
   neovimLanguageServers = with pkgs; [
     clang-tools
     basedpyright

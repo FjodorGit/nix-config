@@ -3,10 +3,10 @@
   pkgs,
   lib,
   self,
+  dotfilesDir,
   ...
 }:
 let
-  dotfilesDir = "${config.home.homeDirectory}/.dotfiles";
   cursorSize = 24;
   palette =
     (lib.importJSON "${config.catppuccin.sources.palette}/palette.json")

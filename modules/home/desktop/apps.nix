@@ -3,11 +3,9 @@
   pkgs,
   inputs,
   self,
+  dotfilesDir,
   ...
 }:
-let
-  dotfilesDir = "${config.home.homeDirectory}/.dotfiles";
-in
 {
   catppuccin = {
     enable = true;
@@ -64,7 +62,7 @@ in
     ++ (with nerd-fonts; [
       jetbrains-mono
       geist-mono
-      iosevka
+      iosevka-term
     ]);
 
   home.file = {

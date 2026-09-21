@@ -1,7 +1,4 @@
-{ config, ... }:
-let
-  dotfilesDir = "${config.home.homeDirectory}/.dotfiles";
-in
+{ ... }:
 {
   programs.zellij = {
     enable = true;

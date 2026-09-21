@@ -1,7 +1,8 @@
-{ config, ... }:
-let
-  dotfilesDir = "${config.home.homeDirectory}/.dotfiles";
-in
+{
+  config,
+  dotfilesDir,
+  ...
+}:
 {
   home.file.".config/zsh/custom.zsh" = {
     source = config.lib.file.mkOutOfStoreSymlink "${dotfilesDir}/zsh/.zshrc";
@@ -13,7 +14,7 @@ in
     enableCompletion = true;
     setOptions = [
       "INC_APPEND_HISTORY"
-      "HIST_IGNORE_DUPS"
+      "HIST_IGNORE_ALL_DUPS"
       "SHARE_HISTORY"
       "HIST_FCNTL_LOCK"
     ];

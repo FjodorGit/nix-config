@@ -89,13 +89,6 @@
     enable = true;
     enableZshIntegration = true;
     settings = {
-      opener.edit = [
-        {
-          run = "nvim \"$@\"";
-          block = true;
-          for = "unix";
-        }
-      ];
       mgr = {
         show_hidden = false;
         sort_by = "natural";

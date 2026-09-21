@@ -71,8 +71,6 @@ in
           remap = {
             "Ctrl-a" = {
               remap = {
-                # Dump the scrollback (foot), then drain it into nvim (zsh).
-                # No delay needed: the FIFO open is the synchronisation.
                 "t" = [ "Ctrl-Shift-t" ];
                 "u" = [
                   "Ctrl-Shift-b"
@@ -89,6 +87,10 @@ in
                   "Ctrl-x"
                   "Ctrl-y"
                 ]; # yank last command + its output
+                "v" = [
+                  "Ctrl-x"
+                  "Ctrl-v"
+                ];
                 "LEFTBRACE" = [
                   "Ctrl-x"
                   "Ctrl-e"

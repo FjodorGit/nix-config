@@ -1,6 +1,8 @@
 {
   config,
   pkgs,
+  inputs,
+  lib,
   ...
 }:
 
@@ -241,22 +243,24 @@
   programs.niri.enable = true;
 
   xdg.portal = {
-    enable = true;
     extraPortals = [
       pkgs.xdg-desktop-portal-gtk
-      pkgs.xdg-desktop-portal-gnome
     ];
-    config = {
-      niri = {
-        default = [
-          "gnome"
-          "gtk"
-        ];
-        "org.freedesktop.impl.portal.Screenshot" = "gnome";
-        "org.freedesktop.impl.portal.ScreenCast" = "gnome";
+  };
+
+  services.xdg-desktop-portal-termfilepickers =
+    let
+      termfilepickers = inputs.termPicker.packages.${pkgs.stdenv.hostPlatform.system}.default;
+    in
+    {
+      enable = true;
+      desktopEnvironments = [ "niri" ];
+      package = termfilepickers;
+      config = {
+        terminal_command = [ (lib.getExe pkgs.foot) ];
       };
     };
-  };
+
   programs.wireshark = {
     enable = true;
     package = pkgs.wireshark;
