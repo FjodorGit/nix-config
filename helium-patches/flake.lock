@@ -1,5 +1,21 @@
 {
   "nodes": {
+    "hextensions": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1791884993,
+        "narHash": "sha256-TFj+G51egM/c/xCYM0P2pEbJbee/VDMGBVeGg6cr+us=",
+        "owner": "FjodorGit",
+        "repo": "hextensions",
+        "rev": "bdc5b26e5013fb2db266e103264796886223bd55",
+        "type": "github"
+      },
+      "original": {
+        "owner": "FjodorGit",
+        "repo": "hextensions",
+        "type": "github"
+      }
+    },
     "nixpkgs": {
       "locked": {
         "lastModified": 1775710090,
@@ -18,6 +34,7 @@
     },
     "root": {
       "inputs": {
+        "hextensions": "hextensions",
         "nixpkgs": "nixpkgs"
       }
     }

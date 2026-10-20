@@ -60,6 +60,12 @@ in
     ".config/term-nvim/pack/nix/start/catppuccin" = {
       source = config.catppuccin.sources.nvim;
     };
+    ".clang-format".text = ''
+      BasedOnStyle: LLVM
+      DerivePointerAlignment: false
+      PointerAlignment: Left
+      ReferenceAlignment: Left
+    '';
     ".config/bacon/prefs.toml" = {
       source = config.lib.file.mkOutOfStoreSymlink "${dotfilesDir}/bacon/prefs.toml";
     };

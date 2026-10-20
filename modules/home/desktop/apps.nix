@@ -30,6 +30,9 @@
       dissent
       zoom-us
       teams-for-linux
+      nchat
+      bitwarden-desktop
+      bitwarden-cli
 
       # productivity
       obsidian

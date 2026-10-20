@@ -3,10 +3,15 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    hextensions.url = "github:FjodorGit/hextensions";
   };
 
   outputs =
-    { self, nixpkgs }:
+    {
+      self,
+      nixpkgs,
+      hextensions,
+    }:
     let
       system = "x86_64-linux";
       pkgs = import nixpkgs {
@@ -109,6 +114,7 @@
                 ]
               )
             }" \
+            --add-flags "--load-extension=${hextensions.packages.${system}.cf-gettags}" \
             --add-flags "--ozone-platform-hint=auto" \
             --add-flags "--enable-features=WaylandWindowDecorations" \
             --add-flags "--disable-component-update" \

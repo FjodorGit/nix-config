@@ -2,6 +2,7 @@
 let
   # Single source of truth for all terminal coding agents.
   rules = "${self}/modules/home/cli/agent-rules.md";
+  effort = "medium";
 in
 {
   home.file = {
@@ -10,9 +11,11 @@ in
     ".pi/agent/AGENTS.md".source = rules; # pi
 
     ".claude/settings.json".text = builtins.toJSON {
-      effortLevel = "xhigh";
+      effortLevel = effort;
+      env.CLAUDE_CODE_EFFORT_LEVEL = effort;
       tui = "fullscreen";
       editorMode = "vim";
+      model = "sonnet";
       skipAutoPermissionPrompt = true;
       permissions = {
         allow = [ "Bash" ];

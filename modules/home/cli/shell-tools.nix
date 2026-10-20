@@ -96,6 +96,26 @@
       };
     };
     shellWrapperName = "f";
-    keymap = { };
+    initLua = ''
+      require("zoxide"):setup { update_db = true }
+    '';
+    keymap.mgr.prepend_keymap = [
+      {
+        on = [
+          "z"
+          "a"
+        ];
+        run = "plugin zoxide";
+        desc = "Jump via zoxide";
+      }
+      {
+        on = [
+          "z"
+          "r"
+        ];
+        run = ''shell 'f=$(fd -t f --changed-within 3d -E node_modules -E result -E target . ~ -X ls -t | fzf) && [ -n "$f" ] && ya emit reveal "$f"' --block'';
+        desc = "Jump to recently modified file";
+      }
+    ];
   };
 }

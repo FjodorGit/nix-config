@@ -47,7 +47,6 @@
       qn = "cd ~/Documents/notes && nvim Dump.md && -";
       notes = "cd ~/Documents/notes && nvim Dump.md";
       nvimconfig = "cd ~/.dotfiles/nvim && nvim init.lua";
-      ssh = "kitten ssh";
       ls = "eza -1 -l --icons -a";
       logoff = ''loginctl terminate-user "$USER"'';
     };

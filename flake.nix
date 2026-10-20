@@ -34,7 +34,14 @@
       url = "github:googleworkspace/cli";
       inputs.elephant.follows = "elephant";
     };
-    helium.url = "path:./helium-patches";
+    hextensions = {
+      url = "github:FjodorGit/hextensions";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    helium = {
+      url = "path:./helium-patches";
+      inputs.hextensions.follows = "hextensions";
+    };
     nmrs = {
       url = "github:networkmanager-rs/nmrs-gui";
       inputs.nixpkgs.follows = "nixpkgs";

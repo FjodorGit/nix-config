@@ -65,6 +65,7 @@
 
   networking.firewall = {
     enable = true;
+    trustedInterfaces = [ "waydroid0" ];
     allowedTCPPorts = [
       111
       2049
@@ -234,6 +235,11 @@
     ];
   };
   virtualisation.docker.enable = true;
+  virtualisation.waydroid = {
+    enable = true;
+    # linuxPackages_latest lacks legacy xtables
+    package = pkgs.waydroid-nftables;
+  };
 
   environment.systemPackages = with pkgs; [
     home-manager
